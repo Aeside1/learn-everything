@@ -110,8 +110,8 @@ def main() -> int:
     )
     processes = [api]
     threading.Thread(target=_forward_output, args=(api, "api", LOG_DIR / "frontend-dev-api.log"), daemon=True).start()
-    if not _wait_for_port(api, API_PORT, timeout=45):
-        print("[错误] FastAPI 未能在 45 秒内启动。")
+    if not _wait_for_port(api, API_PORT, timeout=120):
+        print("[错误] FastAPI 未能在 120 秒内启动。")
         _stop(processes)
         return 1
 
