@@ -66,7 +66,7 @@ export function ProjectRail({
 
   return (
     <aside
-      className="relative flex flex-col min-h-screen w-72 shrink-0 bg-[#f0f4f1] dark:bg-gradient-to-b dark:from-[#0b0f19] dark:via-[#0d1424] dark:to-[#080d16] p-5 text-zinc-900 dark:text-zinc-100 border-r border-zinc-200/90 dark:border-white/[0.08] select-none shadow-md dark:shadow-2xl overflow-hidden transition-colors duration-200"
+      className="relative flex flex-col h-screen w-72 shrink-0 bg-[#f0f4f1] dark:bg-gradient-to-b dark:from-[#0b0f19] dark:via-[#0d1424] dark:to-[#080d16] p-5 text-zinc-900 dark:text-zinc-100 border-r border-zinc-200/90 dark:border-white/[0.08] select-none shadow-md dark:shadow-2xl overflow-hidden transition-colors duration-200"
       aria-label="项目列表"
     >
       {/* 氛围微光 */}
@@ -115,7 +115,7 @@ export function ProjectRail({
         </div>
       </div>
 
-      <div className="relative z-10 flex-1 overflow-y-auto py-4 space-y-2.5">
+      <div className="relative z-10 flex-1 min-h-0 overflow-y-auto py-4 space-y-2.5">
         {state === "loading" && (
           <div className="flex items-center gap-2.5 py-4 text-sm text-zinc-400">
             <LoaderCircle className="animate-spin text-emerald-400" size={18} />

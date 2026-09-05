@@ -29,7 +29,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="app-shell flex min-h-screen w-full bg-[#f4f7f5] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="app-shell flex h-screen w-full overflow-hidden bg-[#f4f7f5] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <ProjectRail
         projects={catalog.projects}
         selectedId={view === "workspace" ? selectedProjectId : null}
@@ -41,20 +41,25 @@ export default function HomePage() {
         onEdit={(projectId) => void catalog.openEditor(projectId)}
         onDelete={catalog.beginDelete}
       />
-      {view === "create" ? (
-        <RoadmapCreation onCreated={showCreatedProject} />
-      ) : (
-        <Workspace
-          key={selectedProjectId ?? "empty"}
-          workspace={projectWorkspace.workspace}
-          roadmap={projectWorkspace.roadmap}
-          state={projectWorkspace.state}
-          error={projectWorkspace.error}
-          statusPendingId={projectWorkspace.statusPendingId}
-          onRetry={() => void projectWorkspace.reload()}
-          onUpdateStatus={projectWorkspace.changeNodeStatus}
-        />
-      )}
+      <div
+        id="workspace-scroll-container"
+        className="flex-1 h-screen overflow-y-auto min-w-0"
+      >
+        {view === "create" ? (
+          <RoadmapCreation onCreated={showCreatedProject} />
+        ) : (
+          <Workspace
+            key={selectedProjectId ?? "empty"}
+            workspace={projectWorkspace.workspace}
+            roadmap={projectWorkspace.roadmap}
+            state={projectWorkspace.state}
+            error={projectWorkspace.error}
+            statusPendingId={projectWorkspace.statusPendingId}
+            onRetry={() => void projectWorkspace.reload()}
+            onUpdateStatus={projectWorkspace.changeNodeStatus}
+          />
+        )}
+      </div>
       {catalog.editingProject && (
         <ProjectEditDialog
           key={`edit-${catalog.editingProject.id}`}
