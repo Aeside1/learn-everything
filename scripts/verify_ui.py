@@ -24,13 +24,17 @@ EDGE_PATHS = [
     Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"),
     Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
 ]
-API_PORT = 8000
+API_PORT = 8088
 CDP_PORT = 9222
 
 
 def _is_port_free(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        return sock.connect_ex(("127.0.0.1", port)) != 0
+        try:
+            sock.bind(("127.0.0.1", port))
+            return True
+        except OSError:
+            return False
 
 
 def _find_edge() -> Path | None:
@@ -79,13 +83,17 @@ async def run_cdp_test():
                 pass
         threading.Thread(target=_drain_stdout, daemon=True).start()
 
-        # 等待服务就绪
+        # 等待服务真实响应 HTTP 200
         deadline = time.time() + 60
         ready = False
         while time.time() < deadline:
-            if not _is_port_free(API_PORT):
-                ready = True
-                break
+            try:
+                with urlopen(f"http://127.0.0.1:{API_PORT}/", timeout=1) as r:
+                    if r.status in (200, 304):
+                        ready = True
+                        break
+            except Exception:
+                pass
             time.sleep(0.5)
         if not ready:
             print("[错误] FastAPI 启动超时")
@@ -310,11 +318,83 @@ async def run_cdp_test():
             await eval_js("document.querySelector('button[aria-label*=\"主题\"]')?.click()")
             await asyncio.sleep(0.3)
 
-            if all_passed and toggle_res and toggle_res.get("isDark"):
-                print("\n=== 全部标签页与浅色/深色主题切换在真实浏览器中 100% 验证通过！ ===")
+            print("[7/7] 核心验证：左右两栏独立滚动条与防拉伸隔离...")
+            scroll_test_res = await eval_js("""
+                (async () => {
+                    const aside = document.querySelector('aside');
+                    const workspaceScroll = document.getElementById('workspace-scroll-container');
+                    const initialWindowHeight = window.innerHeight;
+                    const initialAsideHeight = aside ? aside.getBoundingClientRect().height : 0;
+                    
+                    // 1. 验证左侧栏高度等于视口高度
+                    const heightMatchesViewport = Math.abs(initialAsideHeight - initialWindowHeight) <= 1.0;
+                    
+                    // 2. 模拟右侧工作台内容非常多（增加 2500px 高度的测试块）
+                    const dummyContent = document.createElement('div');
+                    dummyContent.id = '__scroll_test_dummy__';
+                    dummyContent.style.height = '2500px';
+                    dummyContent.style.background = 'linear-gradient(to bottom, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.2))';
+                    dummyContent.style.borderRadius = '16px';
+                    dummyContent.style.margin = '20px';
+                    dummyContent.innerHTML = '<div style="padding:24px;color:#047857;font-weight:bold;font-size:18px;">[端到端测试] 超长工作台内容注水块：测试右侧独立滚动与左侧侧边栏防拉伸</div>';
+                    workspaceScroll.appendChild(dummyContent);
+                    
+                    // 3. 检查注水后，左侧栏是否依然固定为视口高度，绝无被拉伸
+                    const asideHeightAfterContent = aside.getBoundingClientRect().height;
+                    const asideNotStretched = Math.abs(asideHeightAfterContent - initialWindowHeight) <= 1.0;
+                    
+                    // 4. 滚动右侧工作台容器
+                    workspaceScroll.scrollTop = 450;
+                    await new Promise(r => setTimeout(r, 200));
+                    const workspaceScrolled = workspaceScroll.scrollTop > 350;
+                    const windowScrollY = window.scrollY;
+                    
+                    return {
+                        initialWindowHeight,
+                        initialAsideHeight,
+                        heightMatchesViewport,
+                        asideHeightAfterContent,
+                        asideNotStretched,
+                        windowScrollY,
+                        workspaceScrolled,
+                        bodyOverflow: window.getComputedStyle(document.body).overflow
+                    };
+                })()
+            """)
+            print(f"  滚动隔离测试结果: {json.dumps(scroll_test_res, ensure_ascii=False, indent=2)}")
+
+            # 截取滚动状态下的截图
+            screenshot_scroll = await send_cmd("Page.captureScreenshot", {"format": "png"})
+            if screenshot_scroll and screenshot_scroll.get("data"):
+                img_bytes = base64.b64decode(screenshot_scroll["data"])
+                out_img_scroll = ROOT / "docs" / "scroll_isolation_verified.png"
+                out_img_scroll.parent.mkdir(exist_ok=True)
+                out_img_scroll.write_bytes(img_bytes)
+                print(f"  [OK] 滚动隔离验证截图已保存: {out_img_scroll}")
+
+            # 清理注水块
+            await eval_js("""
+                (() => {
+                    const dummy = document.getElementById('__scroll_test_dummy__');
+                    if (dummy) dummy.remove();
+                    const ws = document.getElementById('workspace-scroll-container');
+                    if (ws) ws.scrollTop = 0;
+                })()
+            """)
+
+            scroll_passed = (
+                scroll_test_res
+                and scroll_test_res.get("heightMatchesViewport")
+                and scroll_test_res.get("asideNotStretched")
+                and scroll_test_res.get("workspaceScrolled")
+                and scroll_test_res.get("windowScrollY") == 0
+            )
+
+            if all_passed and toggle_res and toggle_res.get("isDark") and scroll_passed:
+                print("\n=== 全部测试项（标签页切换、主题切换、双栏独立滚动与防拉伸）在真实浏览器中 100% 验证通过！ ===")
                 return 0
             else:
-                print("\n=== 部分验证未通过，请检查！ ===")
+                print(f"\n=== 验证未完全通过: all_passed={all_passed}, isDark={bool(toggle_res and toggle_res.get('isDark'))}, scroll_passed={scroll_passed} ===")
                 return 1
 
     finally:
@@ -330,10 +410,10 @@ async def run_cdp_test():
                 api_process.wait(timeout=5)
             except Exception:
                 api_process.kill()
-        # 兜底清理可能残留在 8000 的子进程
+        # 兜底清理可能残留在 API_PORT 的子进程
         try:
             subprocess.run(
-                ["powershell", "-Command", "$c = Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue; if ($c) { Stop-Process -Id ($c.OwningProcess | Select -Unique) -Force -ErrorAction SilentlyContinue }"],
+                ["powershell", "-Command", f"$c = Get-NetTCPConnection -LocalPort {API_PORT} -ErrorAction SilentlyContinue; if ($c) {{ Stop-Process -Id ($c.OwningProcess | Select -Unique) -Force -ErrorAction SilentlyContinue }}"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 timeout=5,
