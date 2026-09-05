@@ -410,16 +410,6 @@ async def run_cdp_test():
                 api_process.wait(timeout=5)
             except Exception:
                 api_process.kill()
-        # 兜底清理可能残留在 API_PORT 的子进程
-        try:
-            subprocess.run(
-                ["powershell", "-Command", f"$c = Get-NetTCPConnection -LocalPort {API_PORT} -ErrorAction SilentlyContinue; if ($c) {{ Stop-Process -Id ($c.OwningProcess | Select -Unique) -Force -ErrorAction SilentlyContinue }}"],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                timeout=5,
-            )
-        except Exception:
-            pass
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
