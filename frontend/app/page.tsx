@@ -28,10 +28,53 @@ export default function HomePage() {
     void catalog.refresh(projectId);
   };
 
-  return <div className="app-shell">
-    <ProjectRail projects={catalog.projects} selectedId={view === "workspace" ? selectedProjectId : null} state={catalog.state} error={catalog.error} onSelect={chooseProject} onRetry={() => void catalog.refresh()} onCreate={() => setView("create")} onEdit={(projectId) => void catalog.openEditor(projectId)} onDelete={catalog.beginDelete} />
-    {view === "create" ? <RoadmapCreation onCreated={showCreatedProject} /> : <Workspace key={selectedProjectId ?? "empty"} workspace={projectWorkspace.workspace} roadmap={projectWorkspace.roadmap} state={projectWorkspace.state} error={projectWorkspace.error} statusPendingId={projectWorkspace.statusPendingId} onRetry={() => void projectWorkspace.reload()} onUpdateStatus={projectWorkspace.changeNodeStatus} />}
-    {catalog.editingProject && <ProjectEditDialog key={`edit-${catalog.editingProject.id}`} project={catalog.editingProject} saving={catalog.action === "saving"} error={catalog.actionError} onClose={catalog.closeEditor} onSave={(payload) => void catalog.save(payload)} />}
-    {catalog.deletingProject && <ProjectDeletionDialog key={`delete-${catalog.deletingProject.id}`} project={catalog.deletingProject} deleting={catalog.action === "deleting"} error={catalog.actionError} onClose={catalog.closeDelete} onConfirm={() => void catalog.confirmDelete()} />}
-  </div>;
+  return (
+    <div className="app-shell flex min-h-screen w-full bg-[#f4f7f5] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <ProjectRail
+        projects={catalog.projects}
+        selectedId={view === "workspace" ? selectedProjectId : null}
+        state={catalog.state}
+        error={catalog.error}
+        onSelect={chooseProject}
+        onRetry={() => void catalog.refresh()}
+        onCreate={() => setView("create")}
+        onEdit={(projectId) => void catalog.openEditor(projectId)}
+        onDelete={catalog.beginDelete}
+      />
+      {view === "create" ? (
+        <RoadmapCreation onCreated={showCreatedProject} />
+      ) : (
+        <Workspace
+          key={selectedProjectId ?? "empty"}
+          workspace={projectWorkspace.workspace}
+          roadmap={projectWorkspace.roadmap}
+          state={projectWorkspace.state}
+          error={projectWorkspace.error}
+          statusPendingId={projectWorkspace.statusPendingId}
+          onRetry={() => void projectWorkspace.reload()}
+          onUpdateStatus={projectWorkspace.changeNodeStatus}
+        />
+      )}
+      {catalog.editingProject && (
+        <ProjectEditDialog
+          key={`edit-${catalog.editingProject.id}`}
+          project={catalog.editingProject}
+          saving={catalog.action === "saving"}
+          error={catalog.actionError}
+          onClose={catalog.closeEditor}
+          onSave={(payload) => void catalog.save(payload)}
+        />
+      )}
+      {catalog.deletingProject && (
+        <ProjectDeletionDialog
+          key={`delete-${catalog.deletingProject.id}`}
+          project={catalog.deletingProject}
+          deleting={catalog.action === "deleting"}
+          error={catalog.actionError}
+          onClose={catalog.closeDelete}
+          onConfirm={() => void catalog.confirmDelete()}
+        />
+      )}
+    </div>
+  );
 }
