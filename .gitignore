@@ -26,3 +26,5 @@ page_check.html
 build/
 dist/
 nul
+.spec-workflow/
+.vscode/
