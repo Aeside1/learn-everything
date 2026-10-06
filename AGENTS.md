@@ -59,3 +59,17 @@ pack_portable.bat  # 组装完整便携版
 - 首次启动慢 (~30-60s)，因加载 chromadb/langchain 等重库
 - 国内网络需设 HF_HUB_OFFLINE=1（FastAPI 启动脚本已默认设置）
 - 学习路线等功能需配 LLM key 后在 Resources 页或 .env 配置
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues at `Aeside1/learn-everything`; use the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the default labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This is a single-context repository with root `CONTEXT.md` and ADRs under `docs/adr/`. See `docs/agents/domain.md`.
