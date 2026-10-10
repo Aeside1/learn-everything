@@ -120,7 +120,8 @@
         { "setApiError": "GET /api/v1/projects/\\d+/roadmap" },
         { "reload": true },
         { "expectVisible": { "role": "button", "name": "重新加载" } },
-        { "expectVisible": { "role": "alert" } },
+        { "expectText": "项目数据暂时不可用" },
+        { "expectText": "验收模拟的服务端错误" },
         {
           "screenshot": {
             "name": "workspace-error-state",

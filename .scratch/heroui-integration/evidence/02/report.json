@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://127.0.0.1:8123",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T21:35:43",
+  "ranAt": "2026-10-10T21:38:41",
   "scenarios": [
     {
       "name": "workspace-tabs-progress-detail",
@@ -664,13 +664,16 @@
         },
         {
           "index": 9,
-          "step": "expectVisible",
-          "target": {
-            "role": "alert"
-          }
+          "step": "expectText",
+          "target": "项目数据暂时不可用"
         },
         {
           "index": 10,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 11,
           "step": "screenshot",
           "target": {
             "name": "workspace-error-state",
@@ -683,12 +686,12 @@
           }
         },
         {
-          "index": 11,
+          "index": 12,
           "step": "setApiError",
           "target": true
         },
         {
-          "index": 12,
+          "index": 13,
           "step": "click",
           "target": {
             "role": "button",
@@ -696,7 +699,7 @@
           }
         },
         {
-          "index": 13,
+          "index": 14,
           "step": "screenshot",
           "target": {
             "name": "workspace-error-recovered",

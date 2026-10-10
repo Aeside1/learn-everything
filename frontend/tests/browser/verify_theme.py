@@ -273,9 +273,23 @@ class Runner:
             self.report["probes"].append({"label": f"selected:{spec.get('name')}", "state": {"aria-selected": "true"}})
         elif "expectFocus" in step:
             target = step["expectFocus"]
-            focused = page.evaluate("() => { const el = document.activeElement; return el ? (el.getAttribute('aria-label') || el.textContent || '').trim() : ''; }")
+            focused = page.evaluate(
+                """() => {
+                    const el = document.activeElement;
+                    if (!el) return '';
+                    const label = el.labels && el.labels[0] ? el.labels[0].textContent : '';
+                    return [el.getAttribute('aria-label'), label, el.getAttribute('placeholder'), el.textContent]
+                        .filter(Boolean).join(' | ').trim();
+                }"""
+            )
             if target["name"] not in focused:
                 raise StepFailure(f"期望焦点在 {target['name']!r}，实际 {focused!r}")
+        elif "expectNoText" in step:
+            text = step["expectNoText"]
+            matches = page.get_by_text(text, exact=False)
+            for index in range(matches.count()):
+                if matches.nth(index).is_visible():
+                    raise StepFailure(f"不应出现文本 {text!r}")
         elif "screenshot" in step:
             spec = step["screenshot"]
             if isinstance(spec, dict):
