@@ -242,6 +242,24 @@ class Runner:
             locator.wait_for(state="visible", timeout=DEFAULT_TIMEOUT_MS)
             if locator.is_disabled():
                 raise StepFailure(f"{describe(step['expectEnabled'])} 期望可用，实际禁用")
+        elif "scrollTo" in step:
+            spec = step["scrollTo"]
+            locator = locator_for(page, spec).first
+            locator.wait_for(state="attached", timeout=DEFAULT_TIMEOUT_MS)
+            locator.scroll_into_view_if_needed(timeout=DEFAULT_TIMEOUT_MS)
+            page.wait_for_timeout(120)
+        elif "expectInViewport" in step:
+            spec = step["expectInViewport"]
+            locator = locator_for(page, spec).first
+            locator.wait_for(state="attached", timeout=DEFAULT_TIMEOUT_MS)
+            box = locator.bounding_box()
+            viewport = page.viewport_size or {"width": 0, "height": 0}
+            if not box:
+                raise StepFailure(f"{describe(spec)} 无布局尺寸，无法判断是否在视口内")
+            if box["x"] < -1 or box["y"] < -1 or box["x"] + box["width"] > viewport["width"] + 1 or box["y"] + box["height"] > viewport["height"] + 1:
+                raise StepFailure(
+                    f"{describe(spec)} 超出视口：{box} 视口 {viewport}"
+                )
         elif "expectChecked" in step:
             spec = step["expectChecked"]
             locator = locator_for(page, spec).first

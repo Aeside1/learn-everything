@@ -52,7 +52,7 @@ python tests/browser/verify_theme.py --scenarios tests/browser/scenarios/02-work
 | 场景 | 覆盖 | 截图 |
 | --- | --- | --- |
 | `workspace-tabs-progress-detail` | 默认选中与进度、标签悬停、标签键盘焦点、切到路线、进入节点详情、切走再切回保持详情、返回列表 | 6 组 |
-| `workspace-keyboard-narrow-long-title` | 方向键/Home/End 切换与选中态、窄屏 420×860 标签可滚动、切换到长标题项目 | 3 组 |
+| `workspace-keyboard-narrow-long-title` | 方向键/Home/End 切换与选中态、窄屏 420×860 标签可滚动（`scrollTo` + `expectInViewport` 实际断言工作区可达）、切换到长标题项目 | 3 组 |
 | `workspace-loading-and-error` | 读取中（延迟 1200ms）、加载失败 + 错误文案、`重新加载` 恢复 | 3 组 |
 
 每个截图点仍执行 浅色 → 深色 → 浅色 往返并复验「必须保留」元素；本任务场景额外验证了 `aria-selected` 在主题切换后不变化。
@@ -70,3 +70,4 @@ python tests/browser/verify_theme.py --scenarios tests/browser/scenarios/02-work
 
 - 窄屏下标签通过 `Tabs.ListContainer` 的横向滚动 + 滚动按钮访问，未做标签换行；这是 HeroUI 的默认行为，浏览器截图可确认无裁切。
 - 未验证超长标签文本（当前 6 个标签均为短词），长文本风险由任务 03–06 的选择器/长标题场景覆盖。
+- 本任务同时修复了一个预存窄屏缺陷（≤760px 时工作区被 `h-screen` 侧栏挤出视口且无法滚动）：外壳/侧栏/工作区滚容器已改为响应式，验收工具新增 `scrollTo` 与 `expectInViewport`，旧写法只断言侧栏元素才会漏报。

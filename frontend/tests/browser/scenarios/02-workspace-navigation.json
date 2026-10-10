@@ -80,6 +80,8 @@
         { "screenshot": { "name": "workspace-keyboard-tabs" } },
         { "click": { "role": "tab", "name": "学习路线" } },
         { "viewport": { "width": 420, "height": 860 } },
+        { "scrollTo": { "role": "tab", "name": "学习路线" } },
+        { "expectInViewport": { "role": "tab", "name": "学习路线" } },
         {
           "screenshot": {
             "name": "workspace-narrow-tabs",
@@ -95,6 +97,8 @@
             "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成"
           }
         },
+        { "scrollTo": { "role": "tab", "name": "学习概览" } },
+        { "expectInViewport": { "role": "tab", "name": "学习概览" } },
         {
           "screenshot": {
             "name": "workspace-narrow-long-title",

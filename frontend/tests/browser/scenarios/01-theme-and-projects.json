@@ -57,6 +57,9 @@
             "verify": [{ "role": "button", "name": "新建学习路线" }]
           }
         },
+        { "scrollTo": { "role": "heading", "name": "学习 Rust" } },
+        { "expectInViewport": { "role": "heading", "name": "学习 Rust" } },
+        { "screenshot": { "name": "narrow-workspace-reachable" } },
         { "click": { "role": "button", "name": "编辑 学习 Rust" } },
         { "expectVisible": { "role": "dialog", "name": "编辑学习项目" } },
         {

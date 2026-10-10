@@ -70,7 +70,7 @@ python tests/browser/verify_theme.py --scenarios tests/browser/scenarios/01-them
 
 | 场景 | 覆盖 | 截图 |
 | --- | --- | --- |
-| `projects-workspace-and-dialogs` | 侧栏默认态、悬停、键盘焦点、项目长标题、弹窗、Escape 关闭、窄屏 420×860、窄屏弹窗 | 7 组 |
+| `projects-workspace-and-dialogs` | 侧栏默认态、悬停、键盘焦点、项目长标题、弹窗、Escape 关闭、窄屏 420×860（含工作区可达性断言）、窄屏弹窗 | 8 组 |
 | `project-edit-save` | 编辑草稿保留、保存后侧栏刷新、弹窗关闭 | 2 组 |
 | `project-delete-confirmation` | 未输入确认词时禁用、输入 `DELETE` 后可用、删除成功后回退到剩余项目 | 3 组 |
 | `workspace-loading-error-retry` | 读取中、服务端错误 + 重试、恢复 | 3 组 |
@@ -83,6 +83,7 @@ python tests/browser/verify_theme.py --scenarios tests/browser/scenarios/01-them
 1. **主题挂载竞态**：`ThemeProvider` 原先在挂载副作用里先按初始 `light` 应用主题、再读取存储，重载时偶发把已保存的深色偏好覆盖回浅色（DOM 与 HeroUI 标签都会回退）。改为“布局副作用先读取偏好（存储 → 当前 DOM 状态兜底），读取完成后才应用”，并在 `theme.ts` 中提供 `readAppliedTheme`。
 2. **可访问名称与浏览器不一致**：项目卡片按钮依赖子元素文本拼接，Chromium 会因块级子元素插入空格（`学习 Rust Rust 1/4 已完成`），与 jsdom 计算不同。改为显式 `aria-label`，测试与浏览器契约统一。
 3. **`title` 属性不被 HeroUI `Button` 接受**：图标按钮改用 `aria-label` + Tooltip。
+4. **窄屏（<760px）工作区不可达（预存缺陷）**：`@media (max-width:760px)` 已将外壳改为纵向排列，但侧栏仍是 `h-screen w-72`，把工作区挤到视口之外，而外壳 `overflow-hidden` 又没有滚动。修复：侧栏改为 `w-full` + `lg:h-screen lg:w-72`，项目列表窄屏上限 `max-h-[50vh]`，工作区滚容器去掉 `h-screen` 改为 `flex-1 min-h-0`。验收工具新增 `scrollTo` 与 `expectInViewport` 步骤，在 420×860 下真实断言工作区可滚动到视口内（旧写法只断言侧栏元素，因而漏报了这个缺陷）。
 
 ## 5. 命令结果
 

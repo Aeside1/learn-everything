@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://127.0.0.1:8123",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T21:21:35",
+  "ranAt": "2026-10-10T21:35:28",
   "scenarios": [
     {
       "name": "projects-workspace-and-dialogs",
@@ -182,6 +182,29 @@
         },
         {
           "index": 17,
+          "step": "scrollTo",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 18,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 19,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-workspace-reachable"
+          }
+        },
+        {
+          "index": 20,
           "step": "click",
           "target": {
             "role": "button",
@@ -189,7 +212,7 @@
           }
         },
         {
-          "index": 18,
+          "index": 21,
           "step": "expectVisible",
           "target": {
             "role": "dialog",
@@ -197,7 +220,7 @@
           }
         },
         {
-          "index": 19,
+          "index": 22,
           "step": "screenshot",
           "target": {
             "name": "narrow-edit-dialog",
@@ -214,12 +237,12 @@
           }
         },
         {
-          "index": 20,
+          "index": 23,
           "step": "press",
           "target": "Escape"
         },
         {
-          "index": 21,
+          "index": 24,
           "step": "viewport",
           "target": {
             "width": 1280,
@@ -320,6 +343,20 @@
           "name": "narrow-projects",
           "light": "narrow-projects-light.png",
           "dark": "narrow-projects-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-workspace-reachable",
+          "light": "narrow-workspace-reachable-light.png",
+          "dark": "narrow-workspace-reachable-dark.png",
           "switchMode": {
             "normalize": "already",
             "toDark": "real-button",
@@ -1003,9 +1040,7 @@
       ],
       "probes": [],
       "consoleErrors": [],
-      "failedRequests": [
-        "GET http://127.0.0.1:8123/api/v1/projects/1/dashboard -> net::ERR_ABORTED"
-      ]
+      "failedRequests": []
     }
   ]
 }

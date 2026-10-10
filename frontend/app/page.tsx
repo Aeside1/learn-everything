@@ -43,7 +43,7 @@ export default function HomePage() {
       />
       <div
         id="workspace-scroll-container"
-        className="flex-1 h-screen overflow-y-auto min-w-0"
+        className="flex-1 min-h-0 min-w-0 overflow-y-auto"
       >
         {view === "create" ? (
           <RoadmapCreation onCreated={showCreatedProject} />

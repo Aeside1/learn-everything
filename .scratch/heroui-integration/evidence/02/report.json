@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://127.0.0.1:8123",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T21:19:56",
+  "ranAt": "2026-10-10T21:35:43",
   "scenarios": [
     {
       "name": "workspace-tabs-progress-detail",
@@ -451,6 +451,22 @@
         },
         {
           "index": 15,
+          "step": "scrollTo",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 16,
+          "step": "expectInViewport",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 17,
           "step": "screenshot",
           "target": {
             "name": "workspace-narrow-tabs",
@@ -467,7 +483,7 @@
           }
         },
         {
-          "index": 16,
+          "index": 18,
           "step": "click",
           "target": {
             "role": "button",
@@ -475,7 +491,23 @@
           }
         },
         {
-          "index": 17,
+          "index": 19,
+          "step": "scrollTo",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 20,
+          "step": "expectInViewport",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 21,
           "step": "screenshot",
           "target": {
             "name": "workspace-narrow-long-title",
@@ -488,7 +520,7 @@
           }
         },
         {
-          "index": 18,
+          "index": 22,
           "step": "viewport",
           "target": {
             "width": 1280,
