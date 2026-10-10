@@ -12,6 +12,18 @@
 - 本地配置: `kotaemon/.env`
 - 架构文档: `docs/ARCHITECTURE.md`
 
+## Git 与远端（长期在 fork 上开发）
+
+| Remote | 仓库 | 用途 |
+| --- | --- | --- |
+| `origin` | `Aeside1/learn-everything`（我们的 fork） | 所有分支、所有推送、所有 issue/PR |
+| `upstream` | `redmaplewww/learn-everything`（上游） | 只 fetch；push URL 已设为 `DISABLED`，误推会直接失败 |
+
+- `main` 跟踪 `origin/main`；一个 issue 一个分支：`feat/<issue>-<slug>` 或 `fix/<issue>-<slug>`。
+- PR 默认目标是我们 fork 的 `main`；回贡上游是单独的显式步骤（届时需从 PR 里剔除 fork 专属文件，如 `.github/ISSUE_TEMPLATE`、`.github/pull_request_template.md`、`docs/agents/*`）。
+- 同步上游：`git fetch upstream` 后 `git merge upstream/main`（不要改写已推送的 `main` 历史）。
+- 除非明确要求，不要 `git push` / 发布 / 部署。
+
 ## 开发命令
 ```bash
 # 首次初始化 (联网装依赖，5-15分钟)
@@ -64,11 +76,13 @@ pack_portable.bat  # 组装完整便携版
 
 ### Issue tracker
 
-Issues live in GitHub Issues at `Aeside1/learn-everything`; use the `gh` CLI. See `docs/agents/issue-tracker.md`.
+Issues live in GitHub Issues on **our fork** `Aeside1/learn-everything`; use the `gh` CLI. Issues were enabled in repository settings (they used to be off, which made `gh issue create` fail). `gh repo set-default Aeside1/learn-everything` is already set for this checkout, but scripts and agents should still pass `--repo Aeside1/learn-everything` explicitly. Upstream `redmaplewww/learn-everything` is read-only for us — do not open or triage issues there.
+
+Work files for a task live in `.scratch/<任务名>/`（`specs/`、`issues/`、`records/`、`evidence/`、`tools/`）alongside the code. See `docs/agents/issue-tracker.md` for the lifecycle, remotes, branch/PR default and upstream sync steps.
 
 ### Triage labels
 
-Use the default labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
+Use the default labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. They exist on the fork; `needs-info` is for issues that cannot be started until the reporter answers. See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 

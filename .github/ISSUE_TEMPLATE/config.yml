@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 开发约定
+    url: https://github.com/Aeside1/learn-everything/blob/main/AGENTS.md
+    about: 提交前先看 AGENTS.md（开发命令、代码约定、模块边界）
