@@ -3,6 +3,26 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* 把项目业务色注册成 Tailwind 工具类，组件里用 bg-brand-soft / text-ink 即可，
+   不必写 text-[color:var(--...)] 这类任意值，也无需逐页面加 dark: 覆写。 */
+@theme inline {
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-soft-ink: var(--brand-soft-ink);
+  --color-brand-soft-line: var(--brand-soft-line);
+  --color-brand: var(--forest);
+  --color-alert-ink: var(--alert-ink);
+  --color-alert-soft: var(--alert-soft);
+  --color-notice-ink: var(--notice-ink);
+  --color-notice-soft: var(--notice-soft);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-panel-soft: var(--panel-soft);
+  --color-line: var(--line);
+}
+
 /* 品牌色只在两种主题间保持一致的实心填充场景使用；
    文字与柔和底色走主题变量，避免逐页面覆写深色。 */
 :root {
@@ -11,6 +31,12 @@
   --lime: #b9d86b;
   --coral: #d7553f;
   --amber: #c28a28;
+
+  /* 用品牌色集中驱动 HeroUI 的 accent 系列（按钮、选中态、焦点环、柔色底），
+     而不是逐页面覆写控件配色。 */
+  --accent: var(--forest);
+  --accent-foreground: var(--snow);
+  --focus: var(--forest);
 
   --ink: var(--foreground);
   --ink-soft: var(--muted);
@@ -87,8 +113,6 @@ h1 { margin-bottom: 0; font-size: 30px; line-height: 1.1; }
 .section-heading h3 { margin: 0; font-size: 28px; }
 .section-heading > span { color: var(--ink-soft); font-size: 13px; font-weight: 700; }
 
-.workspace-tab-panel { min-width: 0; }
-.workspace-tab-panel > .section-heading:first-child, .workspace-tab-panel > .roadmap-pane > .section-heading:first-child { margin-top: 36px; }
 .detail-navigation { display: flex; justify-content: flex-start; margin-top: 32px; }
 .detail-navigation .secondary-button { margin: 0; }
 .node-list { display: grid; gap: 10px; }

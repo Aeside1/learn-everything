@@ -181,6 +181,9 @@ class Runner:
             locator_for(page, spec).first.fill(spec["value"])
         elif "press" in step:
             page.keyboard.press(step["press"])
+        elif "key" in step:
+            page.keyboard.press(step["key"])
+            page.wait_for_timeout(80)
         elif "focus" in step:
             locator_for(page, step["focus"]).first.focus()
         elif "setFiles" in step:
@@ -244,6 +247,12 @@ class Runner:
             locator = locator_for(page, spec).first
             if locator.is_checked() != spec.get("checked", True):
                 raise StepFailure(f"{describe(spec)} 勾选状态不符合期望")
+        elif "expectSelected" in step:
+            spec = step["expectSelected"]
+            locator = locator_for(page, spec).first
+            if locator.get_attribute("aria-selected") != "true":
+                raise StepFailure(f"{describe(spec)} 期望选中，实际 aria-selected={locator.get_attribute('aria-selected')!r}")
+            self.report["probes"].append({"label": f"selected:{spec.get('name')}", "state": {"aria-selected": "true"}})
         elif "expectFocus" in step:
             target = step["expectFocus"]
             focused = page.evaluate("() => { const el = document.activeElement; return el ? (el.getAttribute('aria-label') || el.textContent || '').trim() : ''; }")
