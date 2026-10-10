@@ -1,0 +1,2042 @@
+{
+  "baseUrl": "http://127.0.0.1:8132",
+  "static": "G:\\Github\\le-wt\\heroui-04\\frontend\\out",
+  "ranAt": "2026-10-10T21:39:22",
+  "scenarios": [
+    {
+      "name": "dashboard-metrics-heatmap-report",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectText",
+          "target": "185"
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "今天完成了所有权章节的复习"
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "格子内数字是当天学习的分钟数"
+        },
+        {
+          "index": 5,
+          "step": "expectVisible",
+          "target": {
+            "role": "list",
+            "name": "近 14 天学习热力"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectVisible",
+          "target": {
+            "role": "img",
+            "name": "2026-09-02 学习 14 分钟"
+          }
+        },
+        {
+          "index": 7,
+          "step": "expectVisible",
+          "target": {
+            "role": "img",
+            "name": "2026-09-01 学习 7 分钟"
+          }
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-default",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "heading",
+                "name": "学习概览"
+              },
+              {
+                "role": "button",
+                "name": "刷新学习看板"
+              },
+              {
+                "role": "button",
+                "name": "路线 JSON"
+              },
+              {
+                "role": "img",
+                "name": "2026-09-02 学习 14 分钟"
+              }
+            ]
+          }
+        },
+        {
+          "index": 9,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "刷新学习看板"
+          }
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-refresh-focus",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "hover",
+          "target": {
+            "role": "button",
+            "name": "进度报告 HTML"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-export-hover",
+            "verify": [
+              {
+                "role": "button",
+                "name": "进度报告 HTML"
+              }
+            ]
+          }
+        },
+        {
+          "index": 13,
+          "step": "viewport",
+          "target": {
+            "width": 820,
+            "height": 900
+          }
+        },
+        {
+          "index": 14,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-narrow",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "button",
+                "name": "Anki ZIP"
+              },
+              {
+                "role": "img",
+                "name": "2026-09-02 学习 14 分钟"
+              }
+            ]
+          }
+        },
+        {
+          "index": 15,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 900
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "dashboard-default",
+          "light": "dashboard-default-light.png",
+          "dark": "dashboard-default-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "dashboard-refresh-focus",
+          "light": "dashboard-refresh-focus-light.png",
+          "dark": "dashboard-refresh-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "dashboard-export-hover",
+          "light": "dashboard-export-hover-light.png",
+          "dark": "dashboard-export-hover-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "dashboard-narrow",
+          "light": "dashboard-narrow-light.png",
+          "dark": "dashboard-narrow-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "dashboard-export-targets",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "路线 JSON"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "路线 JSON"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "export roadmap"
+        },
+        {
+          "index": 4,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 5,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectText",
+          "target": "export markdown"
+        },
+        {
+          "index": 7,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 8,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "进度报告 HTML"
+          }
+        },
+        {
+          "index": 9,
+          "step": "expectText",
+          "target": "export report"
+        },
+        {
+          "index": 10,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 11,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "Anki ZIP"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectText",
+          "target": "export anki"
+        },
+        {
+          "index": 13,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 14,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-export-return",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "button",
+                "name": "路线 JSON"
+              },
+              {
+                "role": "button",
+                "name": "Anki ZIP"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "dashboard-export-return",
+          "light": "dashboard-export-return-light.png",
+          "dark": "dashboard-export-return-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "dashboard-loading-error-retry",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectText",
+          "target": "185"
+        },
+        {
+          "index": 2,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 3,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "刷新学习看板"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "刷新学习看板"
+          }
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-loading",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "heading",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 7,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 8,
+          "step": "setApiError",
+          "target": "GET /api/v1/projects/\\d+/dashboard"
+        },
+        {
+          "index": 9,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "刷新学习看板"
+          }
+        },
+        {
+          "index": 10,
+          "step": "expectVisible",
+          "target": {
+            "role": "alert"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-error",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "button",
+                "name": "重试"
+              }
+            ]
+          }
+        },
+        {
+          "index": 13,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 14,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重试"
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectText",
+          "target": "185"
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-error-recovered",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "button",
+                "name": "刷新学习看板"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "dashboard-loading",
+          "light": "dashboard-loading-light.png",
+          "dark": "dashboard-loading-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "dashboard-error",
+          "light": "dashboard-error-light.png",
+          "dark": "dashboard-error-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=tooltip]",
+                "background": "oklch(1 0 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              }
+            ],
+            "dark": []
+          }
+        },
+        {
+          "name": "dashboard-error-recovered",
+          "light": "dashboard-error-recovered-light.png",
+          "dark": "dashboard-error-recovered-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": []
+    },
+    {
+      "name": "review-front-back-rating-empty-queue",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "到期复习"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "查看答案"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "为什么 Rust 的所有权规则"
+        },
+        {
+          "index": 4,
+          "step": "screenshot",
+          "target": {
+            "name": "review-front",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "heading",
+                "name": "到期复习"
+              },
+              {
+                "role": "button",
+                "name": "查看答案"
+              },
+              {
+                "role": "button",
+                "name": "重来"
+              },
+              {
+                "role": "button",
+                "name": "简单"
+              }
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看答案"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectText",
+          "target": "因为每个值只有一个所有者"
+        },
+        {
+          "index": 7,
+          "step": "screenshot",
+          "target": {
+            "name": "review-back",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "button",
+                "name": "隐藏答案"
+              },
+              {
+                "role": "button",
+                "name": "良好"
+              }
+            ]
+          }
+        },
+        {
+          "index": 8,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 9,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "良好"
+          }
+        },
+        {
+          "index": 10,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "良好"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "简单"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectText",
+          "target": "正在提交评分"
+        },
+        {
+          "index": 13,
+          "step": "screenshot",
+          "target": {
+            "name": "review-submitting",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "button",
+                "name": "隐藏答案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 14,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 15,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 16,
+          "step": "expectText",
+          "target": "运算符在返回 Result"
+        },
+        {
+          "index": 17,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "良好"
+          }
+        },
+        {
+          "index": 18,
+          "step": "screenshot",
+          "target": {
+            "name": "review-next-card",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "button",
+                "name": "重来"
+              },
+              {
+                "role": "button",
+                "name": "查看答案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 19,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看答案"
+          }
+        },
+        {
+          "index": 20,
+          "step": "expectText",
+          "target": "遇到 Err 时提前返回该错误"
+        },
+        {
+          "index": 21,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "简单"
+          }
+        },
+        {
+          "index": 22,
+          "step": "expectText",
+          "target": "当前没有到期卡片。"
+        },
+        {
+          "index": 23,
+          "step": "screenshot",
+          "target": {
+            "name": "review-empty-queue",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "heading",
+                "name": "到期复习"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "review-front",
+          "light": "review-front-light.png",
+          "dark": "review-front-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "review-back",
+          "light": "review-back-light.png",
+          "dark": "review-back-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "review-submitting",
+          "light": "review-submitting-light.png",
+          "dark": "review-submitting-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "review-next-card",
+          "light": "review-next-card-light.png",
+          "dark": "review-next-card-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "review-empty-queue",
+          "light": "review-empty-queue-light.png",
+          "dark": "review-empty-queue-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "review-loading-error-retry",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "setApiError",
+          "target": "GET /api/v1/reviews/due"
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "到期复习"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "alert"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "review-error",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "button",
+                "name": "重试"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 7,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重试"
+          }
+        },
+        {
+          "index": 8,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "重来"
+          }
+        },
+        {
+          "index": 9,
+          "step": "screenshot",
+          "target": {
+            "name": "review-error-recovered",
+            "verify": [
+              {
+                "role": "button",
+                "name": "查看答案"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "review-error",
+          "light": "review-error-light.png",
+          "dark": "review-error-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "review-error-recovered",
+          "light": "review-error-recovered-light.png",
+          "dark": "review-error-recovered-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": []
+    },
+    {
+      "name": "quiz-selection-popover-and-answer-flow",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "查漏测验"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "生成测验"
+          }
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-form-default",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "heading",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "生成测验"
+              },
+              {
+                "role": "textbox",
+                "name": "题目数量"
+              }
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "知识点"
+          }
+        },
+        {
+          "index": 5,
+          "step": "expectVisible",
+          "target": {
+            "role": "option",
+            "name": "异步运行时与并发任务调度"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-knowledge-popover-long-option",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 8,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 9,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "知识点"
+          }
+        },
+        {
+          "index": 10,
+          "step": "press",
+          "target": "ArrowDown"
+        },
+        {
+          "index": 11,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 12,
+          "step": "expectVisible",
+          "target": {
+            "role": "option",
+            "name": "1.1 所有权与借用"
+          }
+        },
+        {
+          "index": 13,
+          "step": "press",
+          "target": "Enter"
+        },
+        {
+          "index": 14,
+          "step": "expectText",
+          "target": "已选：1.1 所有权与借用"
+        },
+        {
+          "index": 15,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 16,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 17,
+          "step": "selectOption",
+          "target": {
+            "label": "知识点",
+            "option": "异步运行时与并发任务调度"
+          }
+        },
+        {
+          "index": 18,
+          "step": "expectText",
+          "target": "已选：2.1 异步运行时"
+        },
+        {
+          "index": 19,
+          "step": "selectOption",
+          "target": {
+            "label": "题型",
+            "option": "选择"
+          }
+        },
+        {
+          "index": 20,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "题目数量",
+            "value": "4"
+          }
+        },
+        {
+          "index": 21,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-selection-long-title",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "生成测验"
+              },
+              {
+                "role": "button",
+                "name": "知识点"
+              }
+            ]
+          }
+        },
+        {
+          "index": 22,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "生成测验"
+          }
+        },
+        {
+          "index": 23,
+          "step": "expectText",
+          "target": "以下哪种写法"
+        },
+        {
+          "index": 24,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-question",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "提交答案"
+              },
+              {
+                "role": "button",
+                "name": "let n = s.len();"
+              }
+            ]
+          }
+        },
+        {
+          "index": 25,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "let n = s.len();"
+          }
+        },
+        {
+          "index": 26,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-option-selected",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              }
+            ]
+          }
+        },
+        {
+          "index": 27,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 28,
+          "step": "expectText",
+          "target": "回答正确"
+        },
+        {
+          "index": 29,
+          "step": "expectText",
+          "target": "当前掌握度 75%"
+        },
+        {
+          "index": 30,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 31,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "let n = s.len();"
+          }
+        },
+        {
+          "index": 32,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-feedback-correct",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "status",
+                "name": "回答正确"
+              },
+              {
+                "role": "button",
+                "name": "下一题"
+              }
+            ]
+          }
+        },
+        {
+          "index": 33,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "下一题"
+          }
+        },
+        {
+          "index": 34,
+          "step": "expectText",
+          "target": "生命周期标注"
+        },
+        {
+          "index": 35,
+          "step": "expectHidden",
+          "target": {
+            "role": "button",
+            "name": "下一题"
+          }
+        },
+        {
+          "index": 36,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-second-question",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "提交答案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 37,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "你的答案",
+            "value": "不确定，需要复习"
+          }
+        },
+        {
+          "index": 38,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 39,
+          "step": "expectText",
+          "target": "需要巩固"
+        },
+        {
+          "index": 40,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 41,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-feedback-incorrect",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "status",
+                "name": "需要巩固"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "quiz-form-default",
+          "light": "quiz-form-default-light.png",
+          "dark": "quiz-form-default-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-knowledge-popover-long-option",
+          "light": "quiz-knowledge-popover-long-option-light.png",
+          "dark": "quiz-knowledge-popover-long-option-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "oklch(1 0 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "oklch(0.2103 0.0059 285.89)",
+                "color": "oklch(0.9911 0 0)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "oklch(0.9911 0 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "quiz-selection-long-title",
+          "light": "quiz-selection-long-title-light.png",
+          "dark": "quiz-selection-long-title-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-question",
+          "light": "quiz-question-light.png",
+          "dark": "quiz-question-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-option-selected",
+          "light": "quiz-option-selected-light.png",
+          "dark": "quiz-option-selected-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-feedback-correct",
+          "light": "quiz-feedback-correct-light.png",
+          "dark": "quiz-feedback-correct-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-second-question",
+          "light": "quiz-second-question-light.png",
+          "dark": "quiz-second-question-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-feedback-incorrect",
+          "light": "quiz-feedback-incorrect-light.png",
+          "dark": "quiz-feedback-incorrect-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "quiz-validation-and-failures",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "查漏测验"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "生成测验"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "请选择一个知识点"
+        },
+        {
+          "index": 4,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-missing-knowledge-point",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "生成测验"
+              }
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "step": "selectOption",
+          "target": {
+            "label": "知识点",
+            "option": "1.1 所有权与借用"
+          }
+        },
+        {
+          "index": 6,
+          "step": "setApiError",
+          "target": "POST /api/v1/projects/\\d+/quizzes$"
+        },
+        {
+          "index": 7,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "生成测验"
+          }
+        },
+        {
+          "index": 8,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 9,
+          "step": "expectText",
+          "target": "已选：1.1"
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-generate-failed",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "生成测验"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 12,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "生成测验"
+          }
+        },
+        {
+          "index": 13,
+          "step": "expectText",
+          "target": "以下哪种写法"
+        },
+        {
+          "index": 14,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "你的答案",
+            "value": "不确定"
+          }
+        },
+        {
+          "index": 15,
+          "step": "setApiError",
+          "target": "POST /api/v1/projects/\\d+/quizzes/questions/\\d+/answer"
+        },
+        {
+          "index": 16,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 17,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 18,
+          "step": "expectText",
+          "target": "以下哪种写法"
+        },
+        {
+          "index": 19,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-submit-failed",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "button",
+                "name": "提交答案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 20,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 21,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 22,
+          "step": "expectText",
+          "target": "需要巩固"
+        },
+        {
+          "index": 23,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-submit-retried",
+            "verify": [
+              {
+                "role": "status",
+                "name": "需要巩固"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "quiz-missing-knowledge-point",
+          "light": "quiz-missing-knowledge-point-light.png",
+          "dark": "quiz-missing-knowledge-point-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-generate-failed",
+          "light": "quiz-generate-failed-light.png",
+          "dark": "quiz-generate-failed-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-submit-failed",
+          "light": "quiz-submit-failed-light.png",
+          "dark": "quiz-submit-failed-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-submit-retried",
+          "light": "quiz-submit-retried-light.png",
+          "dark": "quiz-submit-retried-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": []
+    },
+    {
+      "name": "theme-switch-retention-review-and-quiz",
+      "baseUrl": "http://127.0.0.1:8132",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "到期复习"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看答案"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "因为每个值只有一个所有者"
+        },
+        {
+          "index": 4,
+          "step": "toggleTheme",
+          "target": "dark"
+        },
+        {
+          "index": 5,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "review-dark-retained",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "到期复习"
+              },
+              {
+                "role": "heading",
+                "name": "到期复习"
+              },
+              {
+                "role": "button",
+                "name": "隐藏答案"
+              },
+              {
+                "role": "button",
+                "name": "重来"
+              },
+              {
+                "role": "button",
+                "name": "简单"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "查漏测验"
+          }
+        },
+        {
+          "index": 8,
+          "step": "selectOption",
+          "target": {
+            "label": "知识点",
+            "option": "1.1 所有权与借用"
+          }
+        },
+        {
+          "index": 9,
+          "step": "selectOption",
+          "target": {
+            "label": "题型",
+            "option": "选择"
+          }
+        },
+        {
+          "index": 10,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "生成测验"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectText",
+          "target": "以下哪种写法"
+        },
+        {
+          "index": 12,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "let n = s.len();"
+          }
+        },
+        {
+          "index": 13,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "你的答案",
+            "value": "借用检查器保证不可变借用：let n = s.len();"
+          }
+        },
+        {
+          "index": 14,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提交答案"
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectText",
+          "target": "回答正确"
+        },
+        {
+          "index": 16,
+          "step": "toggleTheme",
+          "target": "dark"
+        },
+        {
+          "index": 17,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 18,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-dark-retained",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "查漏测验"
+              },
+              {
+                "role": "status",
+                "name": "回答正确"
+              },
+              {
+                "role": "button",
+                "name": "提交答案"
+              },
+              {
+                "role": "button",
+                "name": "知识点"
+              },
+              {
+                "role": "button",
+                "name": "let n = s.len();"
+              }
+            ]
+          }
+        },
+        {
+          "index": 19,
+          "step": "expectText",
+          "target": "当前掌握度 75%"
+        },
+        {
+          "index": 20,
+          "step": "toggleTheme",
+          "target": "light"
+        },
+        {
+          "index": 21,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 22,
+          "step": "expectText",
+          "target": "回答正确"
+        },
+        {
+          "index": 23,
+          "step": "expectText",
+          "target": "借用检查器保证不可变借用"
+        },
+        {
+          "index": 24,
+          "step": "screenshot",
+          "target": {
+            "name": "quiz-light-restored",
+            "verify": [
+              {
+                "role": "status",
+                "name": "回答正确"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "review-dark-retained",
+          "light": "review-dark-retained-light.png",
+          "dark": "review-dark-retained-dark.png",
+          "switchMode": {
+            "normalize": "real-button",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-dark-retained",
+          "light": "quiz-dark-retained-light.png",
+          "dark": "quiz-dark-retained-dark.png",
+          "switchMode": {
+            "normalize": "real-button",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "quiz-light-restored",
+          "light": "quiz-light-restored-light.png",
+          "dark": "quiz-light-restored-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}
