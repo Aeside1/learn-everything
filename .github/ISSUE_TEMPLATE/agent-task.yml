@@ -1,0 +1,61 @@
+name: Agent 任务
+description: 交给 agent 实施的开发任务，含期望结果、范围、验收标准与证据要求
+title: "[任务] "
+labels: ["needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        先写清楚「要做到什么」和「怎么算做完」，再分诊到 `ready-for-agent` 或 `ready-for-human`。
+        不在本模板里的业务背景请放到「背景与现有行为」。
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题与现状
+      description: 现在是什么行为、为什么需要改（可附文件路径、复现步骤、截图链接）
+      placeholder: 例如：窄屏下工作区被侧栏挤出视口，外壳 overflow-hidden 导致无法滚动；复现：窗口拖到 420px 宽。
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 期望结果
+      description: 完成后用户能看到/做到什么（用可观察的行为描述，不要写成实现步骤）
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      description: 逐条可勾选的检查项；每条都要能被命令、测试或截图证明
+      value: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 证据要求
+      description: 交付时必须附上的东西（命令结果、测试、双主题截图、日志路径等）
+      value: |
+        - 命令结果：`npm run typecheck`、`npm run test`、`npm run build` 的实际输出结论
+        - 界面改动：浅色/深色双主题截图与路径
+        - 未执行的检查必须如实列为限制，不得标记为通过
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 范围外
+      description: 明确不做的事，防止连坐改动（例如「不改 kotaemon/ 底座」「不做白板」）
+    validations:
+      required: false
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 约束与依赖
+      description: 依赖的 issue、必须先完成的 PR、契约不能变的部分（API/SSE/数据库）
+    validations:
+      required: false

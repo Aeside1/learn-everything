@@ -143,6 +143,6 @@
 3. 按业务模块迁移：路线与详情、看板、复习、测验、资料、问答、配置逐项完成控件接入和双主题验收。
 4. 清理与交付：清理重复控件样式，更新开发约定，完成测试、类型检查、静态导出和浏览器验收记录。
 
-该 spec 按 Matt 的 to-spec 模板整理。项目约定的 GitHub Issues 当前被仓库设置关闭，创建 issue 失败；本规格保存为本地可审阅文档，**未**发布到 issue tracker，也**未**应用 ready-for-agent 标签；任务拆分与逐条验收以 `.scratch/heroui-integration/issues/01…07` 为准（均已标记 done）。
+该 spec 按 Matt 的 to-spec 模板整理。编写时项目约定的 GitHub Issues 被仓库设置关闭（`gh issue create` 直接报错），因此本规格当时只作为本地可审阅文档存在，**未**发布到 issue tracker。该设置已修正：fork `Aeside1/learn-everything` 的 Issues 已通过 `gh repo edit --enable-issues` 启用，并建好了 `needs-triage`/`needs-info`/`ready-for-agent`/`ready-for-human` 标签与 issue 模板，后续任务按 `docs/agents/issue-tracker.md` 的流程在 fork 上建 issue。本规格对应的实施已完成，不再回填为 issue；其任务拆分与逐条验收以 `.scratch/heroui-integration/issues/01…07` 为准（均已标记 done）。
 
 本 spec 使用“基础界面控件”表示由 HeroUI 提供的通用交互模块，使用“业务模块”表示路线、复习、测验、资料、问答和模型配置等学习领域模块。两者的区分用于保持基础界面实现的集中维护，同时保留业务状态的清晰所有权。
