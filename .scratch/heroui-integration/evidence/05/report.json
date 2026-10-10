@@ -1,11 +1,14 @@
 {
-  "baseUrl": "http://127.0.0.1:8133",
-  "static": "G:\\Github\\le-wt\\heroui-05\\frontend\\out",
-  "ranAt": "2026-10-10T21:36:39",
+  "baseUrl": "http://127.0.0.1:8145",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T22:29:05",
+  "domSwapScreenshots": [
+    "resources-select-upload-and-delete/resources-knowledge-selector-popover"
+  ],
   "scenarios": [
     {
       "name": "resources-select-upload-and-delete",
-      "baseUrl": "http://127.0.0.1:8133",
+      "baseUrl": "http://127.0.0.1:8145",
       "status": "passed",
       "steps": [
         {
@@ -493,25 +496,25 @@
             "light": [
               {
                 "selector": "[role=dialog]",
-                "background": "oklch(1 0 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
               },
               {
                 "selector": "[role=listbox]",
                 "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "color": "lab(8.34178 0.607349 -2.12998)"
               }
             ],
             "dark": [
               {
                 "selector": "[role=dialog]",
-                "background": "oklch(0.2103 0.0059 285.89)",
-                "color": "oklch(0.9911 0 0)"
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
               },
               {
                 "selector": "[role=listbox]",
                 "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.9911 0 0)"
+                "color": "lab(98.9676 -0.0000596046 0)"
               }
             ]
           }
@@ -590,13 +593,13 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8133/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED",
-        "POST http://127.0.0.1:8133/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8145/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED",
+        "POST http://127.0.0.1:8145/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "rag-scope-ask-stream-and-citation",
-      "baseUrl": "http://127.0.0.1:8133",
+      "baseUrl": "http://127.0.0.1:8145",
       "status": "passed",
       "steps": [
         {
@@ -899,12 +902,12 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8133/api/v1/rag/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "rag-stop-and-retry",
-      "baseUrl": "http://127.0.0.1:8133",
+      "baseUrl": "http://127.0.0.1:8145",
       "status": "passed",
       "steps": [
         {
@@ -1091,13 +1094,13 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8133/api/v1/rag/stream -> net::ERR_ABORTED",
-        "POST http://127.0.0.1:8133/api/v1/rag/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED",
+        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "resources-rag-narrow-and-theme-retention",
-      "baseUrl": "http://127.0.0.1:8133",
+      "baseUrl": "http://127.0.0.1:8145",
       "status": "passed",
       "steps": [
         {
@@ -1421,7 +1424,7 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8133/api/v1/rag/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED"
       ]
     }
   ]

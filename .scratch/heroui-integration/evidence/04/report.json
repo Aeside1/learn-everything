@@ -1,11 +1,14 @@
 {
-  "baseUrl": "http://127.0.0.1:8132",
-  "static": "G:\\Github\\le-wt\\heroui-04\\frontend\\out",
-  "ranAt": "2026-10-10T21:39:22",
+  "baseUrl": "http://127.0.0.1:8144",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T22:29:08",
+  "domSwapScreenshots": [
+    "quiz-selection-popover-and-answer-flow/quiz-knowledge-popover-long-option"
+  ],
   "scenarios": [
     {
       "name": "dashboard-metrics-heatmap-report",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -233,7 +236,7 @@
     },
     {
       "name": "dashboard-export-targets",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -365,7 +368,7 @@
     },
     {
       "name": "dashboard-loading-error-retry",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -532,8 +535,8 @@
             "light": [
               {
                 "selector": "[role=tooltip]",
-                "background": "oklch(1 0 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
               }
             ],
             "dark": []
@@ -562,7 +565,7 @@
     },
     {
       "name": "review-front-back-rating-empty-queue",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -871,7 +874,7 @@
     },
     {
       "name": "review-loading-error-retry",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -994,7 +997,7 @@
     },
     {
       "name": "quiz-selection-popover-and-answer-flow",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -1403,25 +1406,25 @@
             "light": [
               {
                 "selector": "[role=dialog]",
-                "background": "oklch(1 0 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
               },
               {
                 "selector": "[role=listbox]",
                 "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "color": "lab(8.34178 0.607349 -2.12998)"
               }
             ],
             "dark": [
               {
                 "selector": "[role=dialog]",
-                "background": "oklch(0.2103 0.0059 285.89)",
-                "color": "oklch(0.9911 0 0)"
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
               },
               {
                 "selector": "[role=listbox]",
                 "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.9911 0 0)"
+                "color": "lab(98.9676 -0.0000596046 0)"
               }
             ]
           }
@@ -1517,7 +1520,7 @@
     },
     {
       "name": "quiz-validation-and-failures",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
@@ -1777,7 +1780,7 @@
     },
     {
       "name": "theme-switch-retention-review-and-quiz",
-      "baseUrl": "http://127.0.0.1:8132",
+      "baseUrl": "http://127.0.0.1:8144",
       "status": "passed",
       "steps": [
         {
