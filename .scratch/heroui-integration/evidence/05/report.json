@@ -1,0 +1,1454 @@
+{
+  "baseUrl": "http://127.0.0.1:8201",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T23:29:27",
+  "domSwapScreenshots": [
+    "resources-select-upload-and-delete/resources-knowledge-selector-popover"
+  ],
+  "withoutOverlayProbe": [],
+  "scenarios": [
+    {
+      "name": "resources-select-upload-and-delete",
+      "baseUrl": "http://127.0.0.1:8201",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "RAG 问答"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "资料库"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "一份名称非常长的参考资料"
+        },
+        {
+          "index": 4,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-library-long-title",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "资料库"
+              },
+              {
+                "role": "button",
+                "name": "上传并索引"
+              },
+              {
+                "role": "button",
+                "name": "刷新资料"
+              },
+              {
+                "role": "button",
+                "name": "本地文件"
+              },
+              {
+                "role": "button",
+                "name": "删除 Rust 官方文档：所有权章节"
+              },
+              {
+                "role": "button",
+                "name": "删除 一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+              }
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "本地文件"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-native-file-input-focus",
+            "verify": [
+              {
+                "role": "button",
+                "name": "上传并索引"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "selectOption",
+          "target": {
+            "label": "知识点",
+            "option": "1.2 生命周期与借用检查器"
+          }
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-knowledge-point-changed",
+            "verify": [
+              {
+                "role": "button",
+                "name": "1.2 生命周期与借用检查器 知识点"
+              },
+              {
+                "role": "button",
+                "name": "删除 Rust 官方文档：所有权章节"
+              }
+            ]
+          }
+        },
+        {
+          "index": 9,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "知识点"
+          }
+        },
+        {
+          "index": 10,
+          "step": "expectVisible",
+          "target": {
+            "role": "listbox",
+            "name": "知识点"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectVisible",
+          "target": {
+            "role": "option",
+            "name": "1.1 所有权与借用"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectVisible",
+          "target": {
+            "role": "option",
+            "name": "2.1 异步运行时与并发任务调度：一个足够长的知识点标题用于验证窄屏换行与截断行为"
+          }
+        },
+        {
+          "index": 13,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-knowledge-selector-popover",
+            "verify": [
+              {
+                "role": "listbox",
+                "name": "知识点"
+              },
+              {
+                "role": "button",
+                "name": "知识点"
+              }
+            ]
+          }
+        },
+        {
+          "index": 14,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 15,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "RAG 问答"
+          }
+        },
+        {
+          "index": 16,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "上传并索引"
+          }
+        },
+        {
+          "index": 17,
+          "step": "expectHidden",
+          "target": {
+            "role": "listbox",
+            "name": "知识点"
+          }
+        },
+        {
+          "index": 18,
+          "step": "setFiles",
+          "target": {
+            "label": "本地文件",
+            "fileName": "验收资料.md",
+            "content": "# 验收资料\n\n用于浏览器双主题验收的虚构资料。"
+          }
+        },
+        {
+          "index": 19,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 20,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "上传并索引"
+          }
+        },
+        {
+          "index": 21,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "上传并索引"
+          }
+        },
+        {
+          "index": 22,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "本地文件"
+          }
+        },
+        {
+          "index": 23,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "知识点"
+          }
+        },
+        {
+          "index": 24,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-upload-in-flight",
+            "verify": [
+              {
+                "role": "button",
+                "name": "上传并索引"
+              },
+              {
+                "role": "button",
+                "name": "本地文件"
+              }
+            ]
+          }
+        },
+        {
+          "index": 25,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 26,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 27,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "上传并索引"
+          }
+        },
+        {
+          "index": 28,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "本地文件"
+          }
+        },
+        {
+          "index": 29,
+          "step": "setFiles",
+          "target": {
+            "label": "本地文件",
+            "fileName": "验收资料2.md",
+            "content": "# 第二次上传\n"
+          }
+        },
+        {
+          "index": 30,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "上传并索引"
+          }
+        },
+        {
+          "index": 31,
+          "step": "expectText",
+          "target": "正在解析文档"
+        },
+        {
+          "index": 32,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-upload-progress",
+            "verify": [
+              {
+                "role": "button",
+                "name": "上传并索引"
+              }
+            ]
+          }
+        },
+        {
+          "index": 33,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 34,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "删除 Rust 官方文档：所有权章节"
+          }
+        },
+        {
+          "index": 35,
+          "step": "expectVisible",
+          "target": {
+            "role": "textbox",
+            "name": "删除确认词"
+          }
+        },
+        {
+          "index": 36,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "确认删除"
+          }
+        },
+        {
+          "index": 37,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "取消"
+          }
+        },
+        {
+          "index": 38,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-delete-confirmation",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "删除确认词"
+              },
+              {
+                "role": "button",
+                "name": "取消"
+              },
+              {
+                "role": "button",
+                "name": "确认删除"
+              }
+            ]
+          }
+        },
+        {
+          "index": 39,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "删除确认词",
+            "value": "DELETE"
+          }
+        },
+        {
+          "index": 40,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "确认删除"
+          }
+        },
+        {
+          "index": 41,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-delete-ready",
+            "verify": [
+              {
+                "role": "button",
+                "name": "确认删除"
+              }
+            ]
+          }
+        },
+        {
+          "index": 42,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "确认删除"
+          }
+        },
+        {
+          "index": 43,
+          "step": "expectHidden",
+          "target": {
+            "role": "button",
+            "name": "确认删除"
+          }
+        },
+        {
+          "index": 44,
+          "step": "screenshot",
+          "target": {
+            "name": "resources-delete-completed",
+            "verify": [
+              {
+                "role": "button",
+                "name": "上传并索引"
+              },
+              {
+                "role": "button",
+                "name": "删除 Rust 官方文档：所有权章节"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "resources-library-long-title",
+          "light": "resources-library-long-title-light.png",
+          "dark": "resources-library-long-title-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-native-file-input-focus",
+          "light": "resources-native-file-input-focus-light.png",
+          "dark": "resources-native-file-input-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-knowledge-point-changed",
+          "light": "resources-knowledge-point-changed-light.png",
+          "dark": "resources-knowledge-point-changed-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-knowledge-selector-popover",
+          "light": "resources-knowledge-selector-popover-light.png",
+          "dark": "resources-knowledge-selector-popover-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "resources-upload-in-flight",
+          "light": "resources-upload-in-flight-light.png",
+          "dark": "resources-upload-in-flight-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-upload-progress",
+          "light": "resources-upload-progress-light.png",
+          "dark": "resources-upload-progress-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-delete-confirmation",
+          "light": "resources-delete-confirmation-light.png",
+          "dark": "resources-delete-confirmation-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-delete-ready",
+          "light": "resources-delete-ready-light.png",
+          "dark": "resources-delete-ready-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "resources-delete-completed",
+          "light": "resources-delete-completed-light.png",
+          "dark": "resources-delete-completed-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": [
+        "POST http://127.0.0.1:8201/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED",
+        "POST http://127.0.0.1:8201/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED"
+      ]
+    },
+    {
+      "name": "rag-scope-ask-stream-and-citation",
+      "baseUrl": "http://127.0.0.1:8201",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "RAG 问答"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "checkbox",
+            "name": "Rust 官方文档：所有权章节"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectChecked",
+          "target": {
+            "role": "checkbox",
+            "name": "Rust 官方文档：所有权章节"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectChecked",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+          }
+        },
+        {
+          "index": 5,
+          "step": "focus",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-checkbox-keyboard-focus",
+            "verify": [
+              {
+                "role": "checkbox",
+                "name": "Rust 官方文档：所有权章节"
+              },
+              {
+                "role": "checkbox",
+                "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+              },
+              {
+                "role": "textbox",
+                "name": "问题"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "focus",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+          }
+        },
+        {
+          "index": 8,
+          "step": "press",
+          "target": "Space"
+        },
+        {
+          "index": 9,
+          "step": "expectChecked",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读",
+            "checked": false
+          }
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-scope-checkbox-long-title",
+            "verify": [
+              {
+                "role": "checkbox",
+                "name": "Rust 官方文档：所有权章节"
+              },
+              {
+                "role": "checkbox",
+                "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+              },
+              {
+                "role": "button",
+                "name": "提问"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "问题",
+            "value": "所有权规则是什么"
+          }
+        },
+        {
+          "index": 12,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提问"
+          }
+        },
+        {
+          "index": 14,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "停止"
+          }
+        },
+        {
+          "index": 15,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-answer-in-flight",
+            "verify": [
+              {
+                "role": "button",
+                "name": "停止"
+              }
+            ]
+          }
+        },
+        {
+          "index": 16,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 17,
+          "step": "expectText",
+          "target": "Rust 通过"
+        },
+        {
+          "index": 18,
+          "step": "expectText",
+          "target": "Rust 通过所有权与借用在编译期排除悬垂引用。"
+        },
+        {
+          "index": 19,
+          "step": "expectText",
+          "target": "在编译期排除悬垂引用。"
+        },
+        {
+          "index": 20,
+          "step": "expectText",
+          "target": "ownership.md"
+        },
+        {
+          "index": 21,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-answer-and-citation",
+            "verify": [
+              {
+                "role": "button",
+                "name": "提问"
+              },
+              {
+                "role": "button",
+                "name": "重试上一问题"
+              }
+            ]
+          }
+        },
+        {
+          "index": 22,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "ownership.md"
+          }
+        },
+        {
+          "index": 23,
+          "step": "expectText",
+          "target": "所有权规则在编译期检查。"
+        },
+        {
+          "index": 24,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-citation-expanded",
+            "verify": [
+              {
+                "role": "button",
+                "name": "ownership.md"
+              },
+              {
+                "role": "textbox",
+                "name": "问题"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "rag-checkbox-keyboard-focus",
+          "light": "rag-checkbox-keyboard-focus-light.png",
+          "dark": "rag-checkbox-keyboard-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "rag-scope-checkbox-long-title",
+          "light": "rag-scope-checkbox-long-title-light.png",
+          "dark": "rag-scope-checkbox-long-title-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "rag-answer-in-flight",
+          "light": "rag-answer-in-flight-light.png",
+          "dark": "rag-answer-in-flight-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "rag-answer-and-citation",
+          "light": "rag-answer-and-citation-light.png",
+          "dark": "rag-answer-and-citation-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "rag-citation-expanded",
+          "light": "rag-citation-expanded-light.png",
+          "dark": "rag-citation-expanded-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": [
+        "POST http://127.0.0.1:8201/api/v1/rag/stream -> net::ERR_ABORTED"
+      ]
+    },
+    {
+      "name": "rag-stop-and-retry",
+      "baseUrl": "http://127.0.0.1:8201",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "RAG 问答"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "checkbox",
+            "name": "Rust 官方文档：所有权章节"
+          }
+        },
+        {
+          "index": 3,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "问题",
+            "value": "生命周期如何影响借用？"
+          }
+        },
+        {
+          "index": 4,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 5,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提问"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "停止"
+          }
+        },
+        {
+          "index": 7,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 8,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "停止"
+          }
+        },
+        {
+          "index": 9,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "提问"
+          }
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-stopped",
+            "verify": [
+              {
+                "role": "button",
+                "name": "提问"
+              },
+              {
+                "role": "button",
+                "name": "重试上一问题"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 12,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重试上一问题"
+          }
+        },
+        {
+          "index": 14,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "停止"
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectText",
+          "target": "Rust 通过所有权与借用在编译期排除悬垂引用。"
+        },
+        {
+          "index": 16,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 17,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "提问"
+          }
+        },
+        {
+          "index": 18,
+          "step": "screenshot",
+          "target": {
+            "name": "rag-retried-with-last-question",
+            "verify": [
+              {
+                "role": "button",
+                "name": "提问"
+              },
+              {
+                "role": "textbox",
+                "name": "问题"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "rag-stopped",
+          "light": "rag-stopped-light.png",
+          "dark": "rag-stopped-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "rag-retried-with-last-question",
+          "light": "rag-retried-with-last-question-light.png",
+          "dark": "rag-retried-with-last-question-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": [
+        "POST http://127.0.0.1:8201/api/v1/rag/stream -> net::ERR_ABORTED",
+        "POST http://127.0.0.1:8201/api/v1/rag/stream -> net::ERR_ABORTED"
+      ]
+    },
+    {
+      "name": "resources-rag-narrow-and-theme-retention",
+      "baseUrl": "http://127.0.0.1:8201",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "RAG 问答"
+          }
+        },
+        {
+          "index": 2,
+          "step": "selectOption",
+          "target": {
+            "label": "知识点",
+            "option": "1.2 生命周期与借用检查器"
+          }
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-resources-library",
+            "verify": [
+              {
+                "role": "button",
+                "name": "1.2 生命周期与借用检查器 知识点"
+              },
+              {
+                "role": "button",
+                "name": "上传并索引"
+              },
+              {
+                "role": "button",
+                "name": "本地文件"
+              }
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "step": "focus",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+          }
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-long-title-checkbox-focus",
+            "verify": [
+              {
+                "role": "checkbox",
+                "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+              },
+              {
+                "role": "textbox",
+                "name": "问题"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "focus",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+          }
+        },
+        {
+          "index": 7,
+          "step": "press",
+          "target": "Space"
+        },
+        {
+          "index": 8,
+          "step": "expectChecked",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读",
+            "checked": false
+          }
+        },
+        {
+          "index": 9,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "问题",
+            "value": "窄屏下的问题草稿"
+          }
+        },
+        {
+          "index": 10,
+          "step": "toggleTheme",
+          "target": "dark"
+        },
+        {
+          "index": 11,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 12,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "1.2 生命周期与借用检查器 知识点"
+          }
+        },
+        {
+          "index": 13,
+          "step": "expectChecked",
+          "target": {
+            "role": "checkbox",
+            "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读",
+            "checked": false
+          }
+        },
+        {
+          "index": 14,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-theme-switch-retains-state",
+            "verify": [
+              {
+                "role": "button",
+                "name": "1.2 生命周期与借用检查器 知识点"
+              },
+              {
+                "role": "checkbox",
+                "name": "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的截断与换行表现是否仍然可读"
+              }
+            ]
+          }
+        },
+        {
+          "index": 15,
+          "step": "toggleTheme",
+          "target": "light"
+        },
+        {
+          "index": 16,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 17,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-theme-roundtrip",
+            "verify": [
+              {
+                "role": "button",
+                "name": "1.2 生命周期与借用检查器 知识点"
+              },
+              {
+                "role": "textbox",
+                "name": "问题"
+              }
+            ]
+          }
+        },
+        {
+          "index": 18,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "提问"
+          }
+        },
+        {
+          "index": 19,
+          "step": "expectText",
+          "target": "Rust 通过所有权与借用在编译期排除悬垂引用。"
+        },
+        {
+          "index": 20,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-answer",
+            "verify": [
+              {
+                "role": "button",
+                "name": "提问"
+              }
+            ]
+          }
+        },
+        {
+          "index": 21,
+          "step": "viewport",
+          "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 22,
+          "step": "toggleTheme",
+          "target": "dark"
+        },
+        {
+          "index": 23,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 24,
+          "step": "screenshot",
+          "target": {
+            "name": "ultra-narrow-shell",
+            "verify": [
+              {
+                "role": "button",
+                "name": "刷新项目"
+              }
+            ]
+          }
+        },
+        {
+          "index": 25,
+          "step": "toggleTheme",
+          "target": "light"
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "narrow-resources-library",
+          "light": "narrow-resources-library-light.png",
+          "dark": "narrow-resources-library-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-long-title-checkbox-focus",
+          "light": "narrow-long-title-checkbox-focus-light.png",
+          "dark": "narrow-long-title-checkbox-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-theme-switch-retains-state",
+          "light": "narrow-theme-switch-retains-state-light.png",
+          "dark": "narrow-theme-switch-retains-state-dark.png",
+          "switchMode": {
+            "normalize": "real-button",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-theme-roundtrip",
+          "light": "narrow-theme-roundtrip-light.png",
+          "dark": "narrow-theme-roundtrip-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-answer",
+          "light": "narrow-answer-light.png",
+          "dark": "narrow-answer-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "ultra-narrow-shell",
+          "light": "ultra-narrow-shell-light.png",
+          "dark": "ultra-narrow-shell-dark.png",
+          "switchMode": {
+            "normalize": "real-button",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": [
+        "POST http://127.0.0.1:8201/api/v1/rag/stream -> net::ERR_ABORTED"
+      ]
+    }
+  ]
+}

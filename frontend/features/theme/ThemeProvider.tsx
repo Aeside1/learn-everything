@@ -1,89 +1,84 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { useIsomorphicLayoutEffect } from "@heroui/react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 
-export type Theme = "light" | "dark" | "system";
+import {
+  applyTheme,
+  readAppliedTheme,
+  readStoredTheme,
+  resolveTheme,
+  storeTheme,
+  type ResolvedTheme,
+  type Theme,
+} from "./theme";
 
 interface ThemeContextType {
   theme: Theme;
-  resolvedTheme: "light" | "dark";
+  resolvedTheme: ResolvedTheme;
+  toggleThemeLabel: string;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = "learn_everything_theme";
+const SYSTEM_DARK_QUERY = "(prefers-color-scheme: dark)";
+
+function prefersDark(): boolean {
+  return typeof window !== "undefined" && window.matchMedia?.(SYSTEM_DARK_QUERY).matches === true;
+}
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
+  const [preferenceLoaded, setPreferenceLoaded] = useState(false);
 
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-      if (stored === "dark" || stored === "light" || stored === "system") {
-        setThemeState(stored);
-      }
-    } catch {
-      // 忽略存储异常
-    }
+  useIsomorphicLayoutEffect(() => {
+    const root = document.documentElement;
+    setThemeState(readStoredTheme(window.localStorage) ?? readAppliedTheme(root));
+    setPreferenceLoaded(true);
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    const systemDarkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const applyTheme = () => {
-      const isDark =
-        theme === "dark" || (theme === "system" && systemDarkQuery.matches);
-      if (isDark) {
-        root.classList.add("dark");
-        setResolvedTheme("dark");
-      } else {
-        root.classList.remove("dark");
-        setResolvedTheme("light");
-      }
+    if (!preferenceLoaded) return;
+    const query = window.matchMedia?.(SYSTEM_DARK_QUERY);
+    const sync = () => {
+      const resolved = resolveTheme(theme, prefersDark());
+      applyTheme(document.documentElement, resolved);
+      setResolvedTheme(resolved);
     };
+    sync();
+    if (!query || theme !== "system") return;
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, [preferenceLoaded, theme]);
 
-    applyTheme();
-
-    const listener = () => {
-      if (theme === "system") {
-        applyTheme();
-      }
-    };
-
-    systemDarkQuery.addEventListener("change", listener);
-    return () => systemDarkQuery.removeEventListener("change", listener);
-  }, [theme]);
-
-  const setTheme = (nextTheme: Theme) => {
+  const setTheme = useCallback((nextTheme: Theme) => {
     setThemeState(nextTheme);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-    } catch {
-      // 忽略存储异常
-    }
-  };
+    storeTheme(typeof window === "undefined" ? null : window.localStorage, nextTheme);
+  }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
+  }, [resolvedTheme, setTheme]);
+
+  const toggleThemeLabel = resolvedTheme === "dark" ? "切换为浅色主题" : "切换为深色主题";
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, toggleThemeLabel, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
-export function useTheme() {
+export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
   if (!context) {
     return {
-      theme: "light" as Theme,
-      resolvedTheme: "light" as const,
+      theme: "light",
+      resolvedTheme: "light",
+      toggleThemeLabel: "切换为深色主题",
       setTheme: () => {},
       toggleTheme: () => {},
     };

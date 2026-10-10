@@ -1,0 +1,1593 @@
+{
+  "baseUrl": "http://127.0.0.1:8197",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T23:24:57",
+  "domSwapScreenshots": [
+    "projects-workspace-and-dialogs/project-edit-dialog",
+    "projects-workspace-and-dialogs/narrow-edit-dialog",
+    "project-edit-save/edit-dialog-draft",
+    "project-delete-confirmation/delete-dialog-disabled",
+    "project-delete-confirmation/delete-dialog-enabled"
+  ],
+  "withoutOverlayProbe": [
+    "projects-workspace-and-dialogs/after-dialog-close",
+    "layout-breakpoint-768-band/band-768-row-layout",
+    "rail-empty-and-error-states/rail-error-state",
+    "rail-empty-and-error-states/rail-empty-state"
+  ],
+  "scenarios": [
+    {
+      "name": "projects-workspace-and-dialogs",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "新建学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "progressbar",
+            "name": "学习 Rust 学习进度"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 4,
+          "step": "screenshot",
+          "target": {
+            "name": "projects-workspace",
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              },
+              {
+                "role": "button",
+                "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成"
+              },
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "step": "hover",
+          "target": {
+            "role": "button",
+            "name": "学习 Rust Rust 1/4 已完成"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "projects-workspace-hover",
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "学习 Rust Rust 1/4 已完成"
+          }
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "projects-workspace-focus",
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        },
+        {
+          "index": 9,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 10,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 11,
+          "step": "screenshot",
+          "target": {
+            "name": "project-edit-dialog",
+            "verify": [
+              {
+                "role": "dialog",
+                "name": "编辑学习项目"
+              },
+              {
+                "role": "textbox",
+                "name": "项目名称"
+              }
+            ]
+          }
+        },
+        {
+          "index": 12,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 13,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 14,
+          "step": "screenshot",
+          "target": {
+            "name": "after-dialog-close",
+            "probeOverlays": false,
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 16,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 17,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 18,
+          "step": "screenshotHere",
+          "target": {
+            "name": "dialog-light-user-path",
+            "verify": [
+              {
+                "role": "dialog",
+                "name": "编辑学习项目"
+              },
+              {
+                "role": "textbox",
+                "name": "项目名称"
+              }
+            ]
+          }
+        },
+        {
+          "index": 19,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 20,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 21,
+          "step": "toggleTheme",
+          "target": "dark"
+        },
+        {
+          "index": 22,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 23,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 24,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 25,
+          "step": "screenshotHere",
+          "target": {
+            "name": "dialog-dark-user-path",
+            "verify": [
+              {
+                "role": "dialog",
+                "name": "编辑学习项目"
+              },
+              {
+                "role": "textbox",
+                "name": "项目名称"
+              }
+            ]
+          }
+        },
+        {
+          "index": 26,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 27,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 28,
+          "step": "toggleTheme",
+          "target": "light"
+        },
+        {
+          "index": 29,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 30,
+          "step": "viewport",
+          "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 31,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-projects",
+            "verify": [
+              {
+                "role": "button",
+                "name": "新建学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 32,
+          "step": "wheelTo",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 33,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 34,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-workspace-reachable"
+          }
+        },
+        {
+          "index": 35,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 36,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 37,
+          "step": "screenshot",
+          "target": {
+            "name": "narrow-edit-dialog",
+            "verify": [
+              {
+                "role": "dialog",
+                "name": "编辑学习项目"
+              },
+              {
+                "role": "textbox",
+                "name": "项目名称"
+              }
+            ]
+          }
+        },
+        {
+          "index": 38,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 39,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 900
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "projects-workspace",
+          "light": "projects-workspace-light.png",
+          "dark": "projects-workspace-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "projects-workspace-hover",
+          "light": "projects-workspace-hover-light.png",
+          "dark": "projects-workspace-hover-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "projects-workspace-focus",
+          "light": "projects-workspace-focus-light.png",
+          "dark": "projects-workspace-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "project-edit-dialog",
+          "light": "project-edit-dialog-light.png",
+          "dark": "project-edit-dialog-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "after-dialog-close",
+          "light": "after-dialog-close-light.png",
+          "dark": "after-dialog-close-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": false,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "dialog-light-user-path",
+          "theme": "light",
+          "light": "dialog-light-user-path-light.png",
+          "dark": null,
+          "switchMode": "user-path（本步不切换，主题由之前的真实控件设定）",
+          "overlays": [
+            {
+              "selector": "[role=dialog]",
+              "background": "lab(100 0 0)",
+              "color": "lab(8.34178 0.607349 -2.12998)"
+            }
+          ]
+        },
+        {
+          "name": "dialog-dark-user-path",
+          "theme": "dark",
+          "light": null,
+          "dark": "dialog-dark-user-path-dark.png",
+          "switchMode": "user-path（本步不切换，主题由之前的真实控件设定）",
+          "overlays": [
+            {
+              "selector": "[role=dialog]",
+              "background": "lab(8.34178 0.607349 -2.12998)",
+              "color": "lab(98.9676 -0.0000596046 0)"
+            }
+          ]
+        },
+        {
+          "name": "narrow-projects",
+          "light": "narrow-projects-light.png",
+          "dark": "narrow-projects-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-workspace-reachable",
+          "light": "narrow-workspace-reachable-light.png",
+          "dark": "narrow-workspace-reachable-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "narrow-edit-dialog",
+          "light": "narrow-edit-dialog-light.png",
+          "dark": "narrow-edit-dialog-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "project-edit-save",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 2,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "项目名称",
+            "value": "Rust 并发实战"
+          }
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": {
+            "name": "edit-dialog-draft",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "项目名称"
+              }
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "保存修改"
+          }
+        },
+        {
+          "index": 5,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "after-save",
+            "verify": [
+              {
+                "role": "button",
+                "name": "Rust 并发实战 Rust 1/4 已完成"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "edit-dialog-draft",
+          "light": "edit-dialog-draft-light.png",
+          "dark": "edit-dialog-draft-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "after-save",
+          "light": "after-save-light.png",
+          "dark": "after-save-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "project-delete-confirmation",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "删除 学习 Rust"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "删除“学习 Rust”"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "永久删除"
+          }
+        },
+        {
+          "index": 4,
+          "step": "screenshot",
+          "target": {
+            "name": "delete-dialog-disabled",
+            "verify": [
+              {
+                "role": "dialog",
+                "name": "删除“学习 Rust”"
+              },
+              {
+                "role": "textbox",
+                "name": "DELETE 确认"
+              }
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "DELETE 确认",
+            "value": "DELETE"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "永久删除"
+          }
+        },
+        {
+          "index": 7,
+          "step": "screenshot",
+          "target": {
+            "name": "delete-dialog-enabled",
+            "verify": [
+              {
+                "role": "dialog",
+                "name": "删除“学习 Rust”"
+              },
+              {
+                "role": "textbox",
+                "name": "DELETE 确认"
+              }
+            ]
+          }
+        },
+        {
+          "index": 8,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "永久删除"
+          }
+        },
+        {
+          "index": 9,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "删除“学习 Rust”"
+          }
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "after-delete-fallback",
+            "verify": [
+              {
+                "role": "button",
+                "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "delete-dialog-disabled",
+          "light": "delete-dialog-disabled-light.png",
+          "dark": "delete-dialog-disabled-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "delete-dialog-enabled",
+          "light": "delete-dialog-enabled-light.png",
+          "dark": "delete-dialog-enabled-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "after-delete-fallback",
+          "light": "after-delete-fallback-light.png",
+          "dark": "after-delete-fallback-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "workspace-loading-error-retry",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 2,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": "workspace-loading"
+        },
+        {
+          "index": 4,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 5,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 6,
+          "step": "setApiError",
+          "target": "GET /api/v1/projects/\\d+/workspace"
+        },
+        {
+          "index": 7,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 8,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "重新加载"
+          }
+        },
+        {
+          "index": 9,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-error",
+            "verify": [
+              {
+                "role": "button",
+                "name": "重新加载"
+              }
+            ]
+          }
+        },
+        {
+          "index": 10,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 11,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重新加载"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectVisible",
+          "target": {
+            "role": "progressbar",
+            "name": "学习进度"
+          }
+        },
+        {
+          "index": 13,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-recovered",
+            "verify": [
+              {
+                "role": "progressbar",
+                "name": "学习进度"
+              },
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "workspace-loading",
+          "light": "workspace-loading-light.png",
+          "dark": "workspace-loading-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-error",
+          "light": "workspace-error-light.png",
+          "dark": "workspace-error-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-recovered",
+          "light": "workspace-recovered-light.png",
+          "dark": "workspace-recovered-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": [
+        "GET http://127.0.0.1:8197/api/v1/projects -> net::ERR_ABORTED"
+      ]
+    },
+    {
+      "name": "theme-preference-roundtrip",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 2,
+          "step": "storageTheme",
+          "target": "dark"
+        },
+        {
+          "index": 3,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 4,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 5,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "切换为浅色主题"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "restored-dark-preference",
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "切换为深色主题"
+          }
+        },
+        {
+          "index": 8,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 9,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 10,
+          "step": "expectTheme",
+          "target": "dark"
+        },
+        {
+          "index": 11,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "切换为浅色主题"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "toggle-persisted-dark",
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        },
+        {
+          "index": 13,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 14,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 15,
+          "step": "expectTheme",
+          "target": "light"
+        },
+        {
+          "index": 16,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "切换为深色主题"
+          }
+        },
+        {
+          "index": 17,
+          "step": "screenshot",
+          "target": {
+            "name": "toggle-persisted-light",
+            "verify": [
+              {
+                "role": "button",
+                "name": "学习 Rust Rust 1/4 已完成"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "restored-dark-preference",
+          "light": "restored-dark-preference-light.png",
+          "dark": "restored-dark-preference-dark.png",
+          "switchMode": {
+            "normalize": "real-button",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "toggle-persisted-dark",
+          "light": "toggle-persisted-dark-light.png",
+          "dark": "toggle-persisted-dark-dark.png",
+          "switchMode": {
+            "normalize": "real-button",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "toggle-persisted-light",
+          "light": "toggle-persisted-light-light.png",
+          "dark": "toggle-persisted-light-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": [
+        "GET http://127.0.0.1:8197/api/v1/projects/1/roadmap -> net::ERR_ABORTED",
+        "GET http://127.0.0.1:8197/api/v1/projects/1/workspace -> net::ERR_ABORTED"
+      ]
+    },
+    {
+      "name": "layout-breakpoint-768-band",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "新建学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 4,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 5,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 6,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 7,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "band-768-row-layout",
+            "probeOverlays": false,
+            "verify": [
+              {
+                "role": "heading",
+                "name": "学习 Rust"
+              },
+              {
+                "role": "tab",
+                "name": "学习路线"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "band-768-row-layout",
+          "light": "band-768-row-layout-light.png",
+          "dark": "band-768-row-layout-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": false,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "layout-breakpoint-900-band",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": {
+            "name": "band-900-row-layout",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "学习 Rust"
+              },
+              {
+                "role": "button",
+                "name": "编辑 学习 Rust"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "band-900-row-layout",
+          "light": "band-900-row-layout-light.png",
+          "dark": "band-900-row-layout-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "tooltip-theme-consistency",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "刷新项目"
+          }
+        },
+        {
+          "index": 2,
+          "step": "screenshotPair",
+          "target": {
+            "name": "rail-tooltip-theme",
+            "hover": {
+              "role": "button",
+              "name": "刷新项目"
+            },
+            "verify": [
+              {
+                "role": "button",
+                "name": "新建学习路线"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "rail-tooltip-theme",
+          "light": "rail-tooltip-theme-light.png",
+          "dark": "rail-tooltip-theme-dark.png",
+          "switchMode": {
+            "toDark": "real-button",
+            "toLight": "real-button",
+            "hover": "每次截图前重新悬停"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=tooltip]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=tooltip]",
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
+              }
+            ]
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "rail-empty-and-error-states",
+      "baseUrl": "http://127.0.0.1:8197",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "setApiError",
+          "target": "GET ^/api/v1/projects$"
+        },
+        {
+          "index": 2,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 3,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 4,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "重试"
+          }
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "rail-error-state",
+            "probeOverlays": false,
+            "verify": [
+              {
+                "role": "button",
+                "name": "重试"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 7,
+          "step": "setEmptyProjects",
+          "target": true
+        },
+        {
+          "index": 8,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 9,
+          "step": "expectText",
+          "target": "还没有学习项目"
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "rail-empty-state",
+            "probeOverlays": false,
+            "verify": [
+              {
+                "role": "button",
+                "name": "新建学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "setEmptyProjects",
+          "target": true
+        },
+        {
+          "index": 12,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 13,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "学习 Rust Rust 1/4 已完成"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "rail-error-state",
+          "light": "rail-error-state-light.png",
+          "dark": "rail-error-state-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": false,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "rail-empty-state",
+          "light": "rail-empty-state-light.png",
+          "dark": "rail-empty-state-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": false,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": []
+    }
+  ]
+}

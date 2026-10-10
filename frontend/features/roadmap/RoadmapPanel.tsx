@@ -15,6 +15,9 @@ function nodePreview(description: string) {
   return plainText.length > 260 ? `${plainText.slice(0, 260)}...` : plainText || "尚未准备学习内容。";
 }
 
+const nodeEntryClassName =
+  "h-auto w-full items-start justify-start gap-[18px] rounded-none p-[19px] text-left whitespace-normal hover:bg-transparent max-[1100px]:gap-[13px] max-[1100px]:px-[15px] max-[1100px]:pt-[15px] max-[1100px]:pb-[10px]";
+
 export function RoadmapPanel({ roadmap, nodes, statusPendingId, onUpdateStatus }: { roadmap: ProjectRoadmap | null; nodes: WorkspaceNode[]; statusPendingId: number | null; onUpdateStatus: (node: Pick<WorkspaceNode, "id" | "title" | "status">, status: string) => Promise<boolean> }) {
   const [view, setView] = useState<"list" | "detail">("list");
   const detail = useNodeDetail();
@@ -30,7 +33,7 @@ export function RoadmapPanel({ roadmap, nodes, statusPendingId, onUpdateStatus }
   };
 
   if (view === "detail") return <>
-    <div className="detail-navigation"><Button variant="secondary" type="button"  onClick={returnToRoadmap}><ArrowLeft size={16} />返回学习路线</Button></div>
+    <div className="detail-navigation"><Button variant="secondary" type="button" onClick={returnToRoadmap}><ArrowLeft size={16} aria-hidden="true" />返回学习路线</Button></div>
     <NodeDetailPanel detail={detail.detail} state={detail.state} error={detail.error} action={detail.action} actionError={detail.actionError} noteContent={detail.noteContent} onNoteChange={detail.setNoteContent} onUpdateStatus={(status) => void updateDetailStatus(status)} onGenerateContent={() => detail.detail && void detail.generateContent(detail.detail.id, detail.detail.has_content)} onGeneratePractice={() => detail.detail && void detail.generatePractice(detail.detail.id)} onGenerateResources={() => detail.detail && void detail.generateResources(detail.detail.id)} onSaveNote={() => detail.detail && void detail.saveNote(detail.detail.id, detail.noteContent)} statusPending={detail.detail ? statusPendingId === detail.detail.id : false} />
   </>;
 
@@ -41,7 +44,7 @@ export function RoadmapPanel({ roadmap, nodes, statusPendingId, onUpdateStatus }
       {nodes.map((node) => {
         const roadmapNode = roadmapNodes.get(node.id);
         return <article className={`node-row node-${node.status}`} key={node.id}>
-          <Button variant="ghost" type="button" className="node-open-button" onClick={() => void openDetail(node.id)} aria-label={`查看 ${node.title} 的详细内容`}>
+          <Button variant="ghost" type="button" className={nodeEntryClassName} onClick={() => void openDetail(node.id)} aria-label={`查看 ${node.title} 的详细内容`}>
             <div className="node-marker" aria-hidden="true">{node.status === "mastered" ? <CheckCircle2 size={20} /> : node.code}</div>
             <div className="node-content"><div className="node-title-row"><h4>{node.title}</h4><span>{roadmapNode?.stage || node.stage}</span></div><p>{nodePreview(node.description)}</p><div className="node-meta"><span>{node.est_hours} 小时</span><span>难度 {node.difficulty}/5</span><span>{statusLabels[node.status] ?? node.status}</span></div><p className="node-prerequisites">{roadmapNode?.prerequisites?.length ? `前置节点：${roadmapNode.prerequisites.join("、")}` : "可直接开始"}</p>{node.resources.length > 0 && <p className="resource-count">已关联 {node.resources.length} 项学习资料</p>}</div>
           </Button>

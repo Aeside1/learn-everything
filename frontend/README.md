@@ -14,9 +14,11 @@
 | 页面模式 | 单页工作台，业务区域使用 Client Component |
 | 图标 | Lucide React |
 | 内容渲染 | `react-markdown`、`remark-gfm` |
-| 样式 | `app/styles.css` 中的原生全局 CSS |
+| 基础界面控件 | HeroUI 3（`@heroui/react`、`@heroui/styles`） |
+| 样式 | Tailwind 4 + `app/styles.css`（主题变量与业务排版） |
 | HTTP 通信 | 浏览器 Fetch API |
 | 流式通信 | 基于 Fetch `ReadableStream` 的 SSE |
+| 测试 | Vitest + Testing Library + jsdom；浏览器验收用 Playwright 脚本 |
 | 构建交付 | Next.js 静态导出，由 FastAPI 同源托管 |
 
 架构的核心做法是：让每个业务模块拥有自己的状态和异步流程，通过小而明确的接口与组合根协作；页面只组合模块，不重复实现模块内部逻辑。
@@ -40,9 +42,12 @@ PyWebView 只作为桌面窗口容器，不参与 React 渲染、前端状态管
 ```text
 frontend/
 ├── app/                              # Next.js 页面入口和全局页面资源
-│   ├── layout.tsx                    # 根布局、HTML 外壳和页面元数据
+│   ├── layout.tsx                    # 根布局、HTML 外壳、首屏主题初始化
 │   ├── page.tsx                      # 单页工作台组合根
-│   └── styles.css                    # 全局样式、设计变量和响应式规则
+│   └── styles.css                    # 主题变量、业务色令牌、布局与领域排版
+├── components/ui/                    # 跨业务复用的少量 HeroUI 组合控件
+│   ├── IconButton.tsx                # 带 Tooltip 的图标按钮
+│   └── SelectField.tsx               # 带标签、长文本与键盘选择的选择器
 ├── features/                         # 按业务领域组织的前端模块
 │   ├── projects/                     # 项目列表、切换和项目 CRUD
 │   ├── workspace/                    # 工作台布局和项目工作台数据
@@ -58,6 +63,7 @@ frontend/
 │   ├── api.ts                        # DTO、REST 请求和 SSE 流封装
 │   └── errors.ts                     # 统一错误格式化
 └── tests/                            # 前端模块行为测试
+    └── browser/                      # 双主题浏览器验收（本地替身服务 + Playwright 场景）
 ```
 
 各 feature 目录内部优先放置三类文件：负责展示的模块、负责状态和副作用的 hook，以及只在该业务域复用的辅助实现。跨 feature 复用的请求类型和通信逻辑放在 `lib/`，不放入某一个业务目录。
@@ -192,6 +198,64 @@ flowchart LR
     State --> UI[流式内容、进度或错误]
 ```
 
+## 界面控件与主题约定
+
+**基础控件一律直接使用 HeroUI 3，不引入第二套组件库，也不为库控件建立转发包装层。**
+
+| 规则 | 说明 |
+| --- | --- |
+| 直接使用库控件 | 按钮、输入框、文本域、选择器、Tabs、弹窗、进度、加载等一律用 `@heroui/react` 的原生 API（复合组件写法，如 `Select.Trigger`、`Modal.Dialog`、`Tabs.Panel`） |
+| 只在重复语义时抽取组合 | 仅在多个业务模块共享同一语义与行为时才新增 `components/ui/*`（当前只有 `IconButton`、`SelectField`）；不要为每个库控件建一个只转发 props 的模块 |
+| 不写控件皮肤 | 迁移后的控件不要再叠加手写按钮/输入框/选择器样式；状态用 HeroUI 的 `variant`/`color`/`size` 与 `isDisabled`/`isLoading` 等表达 |
+| 图标按钮要有名称 | HeroUI `Button` 不接受 `title`；图标按钮必须给 `aria-label`，需要悬停提示时用共享 `IconButton`（内含 `Tooltip`） |
+| 原生元素例外需登记 | 只有具备明确浏览器语义且无合适库替代（如 `<input type="file">`）时才保留原生元素，并在 `.scratch/heroui-integration/records/control-inventory.md` 登记用途与理由，且与周围控件保持一致的布局、焦点与主题表现 |
+| 业务内容可用 CSS | 课程 Markdown、卡片内容、统计排版、页面布局继续使用 Tailwind/`styles.css`，但**必须走主题变量**，不得硬编码浅色值 |
+
+### 主题
+
+- 主题状态的唯一来源是 `features/theme/theme.ts` + `features/theme/ThemeProvider.tsx`：存储键 `learn_everything_theme`，支持 `light`/`dark`/`system`，同时把 `.dark` 类和 `data-theme` 写到 `<html>`，HeroUI 与业务内容因此使用同一主题状态。
+- 首屏由 `app/layout.tsx` 的内联脚本（`themeInitScript()`）在 JS 包加载前应用主题，`ThemeProvider` 挂载时先读取已保存偏好再写 DOM，避免挂载后覆盖用户选择造成闪烁。
+- HeroUI 设计令牌（`--surface`/`--foreground`/`--muted`/`--border`/`--overlay`/`--accent`…）就是业务内容的配色来源。`app/styles.css` 把业务令牌映射到这些变量，并在 `@theme inline` 里注册成 Tailwind 工具类，可直接使用：`bg-surface`、`bg-panel-soft`、`text-muted`、`border-border`、`text-brand-ink`、`bg-brand-soft`、`bg-alert-soft`、`text-alert-ink`、`bg-notice-soft`、`text-notice-ink` 等。
+- 品牌色集中在 `:root` 的 `--accent`/`--focus` 指向，HeroUI 的主按钮、选中态、焦点环、柔和底色会自动跟随；**不要**为浅色/深色分别覆写控件配色，也不要新增 `dark:` 控件配色。
+
+### 新增页面的双主题验收规范
+
+任何新增或迁移的界面，合入前必须完成：
+
+1. **行为测试**：在 API 客户端处模拟数据（`vi.mock("../lib/api", ...)`），真实渲染 HeroUI，不断言库内部 DOM/CSS 类名。
+2. **双主题浏览器验收**：写一个场景文件并用脚本跑通浅色 → 深色 → 浅色往返：
+
+   ```powershell
+   cd frontend
+   npm run build
+   python tests/browser/verify_theme.py --scenarios tests/browser/scenarios/<你的场景>.json --out ..\.scratch\heroui-integration\evidence\<编号>
+   ```
+
+   脚本会为每个 `screenshot` 步骤自动采集浅色与深色截图、在切换后复验该点声明的 `verify` 目标（用于证明“切主题不丢状态”），并比较 `role=dialog/listbox/tooltip` 浮层在两种主题下的计算颜色（颜色完全相同即判定失败，用于抓出“只有库控件变暗、浮层没变”的问题）。
+
+   每个截图在 `report.json` 里都带 `switchMode`，标明主题是怎么切的：`real-button`（点真实主题控件）、`dom-swap`（弹窗打开时的受控 DOM 切换）、`user-path`（本步不切换）。**弹窗打开时主题控件在遮罩后面，`dom-swap` 截图只能证明浮层随主题变色，不能作为“用户可在弹窗内切换主题”的证据**；这类截图会在 `summary.md` 末尾集中列出。弹窗的合法双主题证据要用两步真实路径：先开弹窗 → `screenshotHere`，再关闭 → 用真实控件切主题 → 重开弹窗 → `screenshotHere`（参考 `scenarios/01-theme-and-projects.json` 的 `dialog-light-user-path` / `dialog-dark-user-path`）。
+3. **状态覆盖**：默认/hover/键盘焦点/禁用/加载/错误/选中态，以及窄屏、长文本、滚动。
+4. **记录**：在 `.scratch/heroui-integration/records/` 下更新对应记录（控件来源、原生例外、命令结果、证据路径）；未实际执行的检查不得标记为通过。
+5. **静态检查**：`npm run typecheck`、`npm run test`、`npm run build` 全部通过。
+
+> 主题验收以用户可见行为为准，不能以“页面变暗”或“导入了 HeroUI”作为完成依据。
+
+### 窄屏可达性断言与自检控制
+
+窄屏场景不得只用 `expectVisible`（Playwright 会认为被挤出视口但存在于布局中的元素“可见”），也不得只用 `scrollTo` + `expectInViewport`（外层 `overflow:hidden` 时程序化滚动仍能让断言通过）。用户路径的断言用 `wheelTo`：它把鼠标移到视口内多个高度、用真实滚轮步进滚动，直到目标进入视口，否则报失败。
+
+验收脚本自身的判别力用一对控制页面验证（一个可滚动、一个不可滚动），预期结果是“一通过一失败”：
+
+```powershell
+cd frontend
+npm run build
+Copy-Item tests\browser\controls\wheel-reachable.html out\wheel-reachable.html
+Copy-Item tests\browser\controls\wheel-unreachable.html out\wheel-unreachable.html
+python tests\browser\verify_theme.py --scenarios tests\browser\controls\wheel-reachability.json --out ..\.scratch\heroui-integration\tmp-wheel-control
+```
+
+修改 `verify_theme.py` 的任何可达性断言后必须重跑这对控制，否则无法排除“断言本身永远通过”。
+
 ## 错误处理
 
 普通 JSON 请求失败时，`lib/api.ts` 抛出 `ApiError`，其中包含 HTTP 状态、后端消息和可选的 `requestId`。各模块通过 `lib/errors.ts` 将异常转换为用户可读的中文提示，并在自己的状态区域展示。
@@ -221,4 +285,6 @@ Next.js 工作台是唯一的前端入口：
 - API DTO 与通信实现集中在 `lib/api.ts`；
 - 通用错误格式化集中在 `lib/errors.ts`；
 - feature 之间通过参数和回调通信，数据写入由对应业务模块发起；
-- 节点详情、路线列表和工作台共享当前项目上下文，但各自保持清晰的状态所有权。
+- 节点详情、路线列表和工作台共享当前项目上下文，但各自保持清晰的状态所有权；
+- 业务内容（Markdown 正文、表格、引用、代码块、统计排版）允许保留专用 CSS，不强行换成基础控件；
+- 课堂白板保持独立业务模块，本次不引入白板引擎，也不把白板需求并入控件/主题改造范围。

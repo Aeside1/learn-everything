@@ -1,0 +1,1663 @@
+{
+  "baseUrl": "http://127.0.0.1:8212",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T23:32:57",
+  "domSwapScreenshots": [],
+  "withoutOverlayProbe": [],
+  "scenarios": [
+    {
+      "name": "roadmap-create-preview-refine-save",
+      "baseUrl": "http://127.0.0.1:8212",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "新建学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "新建学习路线"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "textbox",
+            "name": "选题"
+          }
+        },
+        {
+          "index": 4,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "选题",
+            "value": "从零学习 Rust 异步编程"
+          }
+        },
+        {
+          "index": 5,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "学习背景",
+            "value": "已有 Rust 基础，写过同步 CLI"
+          }
+        },
+        {
+          "index": 6,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "学习目标",
+            "value": "能独立实现一个异步并发服务"
+          }
+        },
+        {
+          "index": 7,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "每周投入时间",
+            "value": "12"
+          }
+        },
+        {
+          "index": 8,
+          "step": "focus",
+          "target": {
+            "role": "textbox",
+            "name": "选题"
+          }
+        },
+        {
+          "index": 9,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-form",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "选题"
+              },
+              {
+                "role": "textbox",
+                "name": "每周投入时间"
+              },
+              {
+                "role": "button",
+                "name": "生成路线预览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 10,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "生成路线预览"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectFocus",
+          "target": {
+            "name": "生成路线预览"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-submit-focus",
+            "verify": [
+              {
+                "role": "button",
+                "name": "生成路线预览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "生成路线预览"
+          }
+        },
+        {
+          "index": 14,
+          "step": "expectText",
+          "target": "Rust 从入门到并发实践"
+        },
+        {
+          "index": 15,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "调整"
+          }
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-preview",
+            "verify": [
+              {
+                "role": "button",
+                "name": "调整"
+              },
+              {
+                "role": "button",
+                "name": "确认保存并开始准备"
+              }
+            ]
+          }
+        },
+        {
+          "index": 17,
+          "step": "expectText",
+          "target": "Rust 从入门到并发实践"
+        },
+        {
+          "index": 18,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "调整指令",
+            "value": "增加一个实操项目"
+          }
+        },
+        {
+          "index": 19,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "调整"
+          }
+        },
+        {
+          "index": 20,
+          "step": "expectText",
+          "target": "Rust 从入门到并发实践（已调整）"
+        },
+        {
+          "index": 21,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-refined",
+            "verify": [
+              {
+                "role": "button",
+                "name": "调整"
+              },
+              {
+                "role": "button",
+                "name": "确认保存并开始准备"
+              }
+            ]
+          }
+        },
+        {
+          "index": 22,
+          "step": "expectText",
+          "target": "Rust 从入门到并发实践（已调整）"
+        },
+        {
+          "index": 23,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "确认保存并开始准备"
+          }
+        },
+        {
+          "index": 24,
+          "step": "expectText",
+          "target": "课程内容正在准备"
+        },
+        {
+          "index": 25,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "停止准备"
+          }
+        },
+        {
+          "index": 26,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-content-job",
+            "verify": [
+              {
+                "role": "button",
+                "name": "停止准备"
+              },
+              {
+                "role": "status"
+              }
+            ]
+          }
+        },
+        {
+          "index": 27,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "停止准备"
+          }
+        },
+        {
+          "index": 28,
+          "step": "expectText",
+          "target": "课程内容准备已取消"
+        },
+        {
+          "index": 29,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "重试未完成内容"
+          }
+        },
+        {
+          "index": 30,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-job-cancelled",
+            "verify": [
+              {
+                "role": "button",
+                "name": "重试未完成内容"
+              },
+              {
+                "role": "button",
+                "name": "查看新项目"
+              }
+            ]
+          }
+        },
+        {
+          "index": 31,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重试未完成内容"
+          }
+        },
+        {
+          "index": 32,
+          "step": "expectText",
+          "target": "课程内容正在准备"
+        },
+        {
+          "index": 33,
+          "step": "screenshot",
+          "target": {
+            "name": "creation-job-retried",
+            "verify": [
+              {
+                "role": "button",
+                "name": "停止准备"
+              },
+              {
+                "role": "button",
+                "name": "查看新项目"
+              }
+            ]
+          }
+        },
+        {
+          "index": 34,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看新项目"
+          }
+        },
+        {
+          "index": 35,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "从零学习 Rust 异步编程"
+          }
+        },
+        {
+          "index": 36,
+          "step": "screenshot",
+          "target": {
+            "name": "created-project-workspace",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "从零学习 Rust 异步编程"
+              },
+              {
+                "role": "progressbar",
+                "name": "学习进度"
+              },
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "creation-form",
+          "light": "creation-form-light.png",
+          "dark": "creation-form-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "creation-submit-focus",
+          "light": "creation-submit-focus-light.png",
+          "dark": "creation-submit-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "creation-preview",
+          "light": "creation-preview-light.png",
+          "dark": "creation-preview-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "creation-refined",
+          "light": "creation-refined-light.png",
+          "dark": "creation-refined-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "creation-content-job",
+          "light": "creation-content-job-light.png",
+          "dark": "creation-content-job-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "creation-job-cancelled",
+          "light": "creation-job-cancelled-light.png",
+          "dark": "creation-job-cancelled-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "creation-job-retried",
+          "light": "creation-job-retried-light.png",
+          "dark": "creation-job-retried-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "created-project-workspace",
+          "light": "created-project-workspace-light.png",
+          "dark": "created-project-workspace-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "roadmap-node-list-status-and-detail-actions",
+      "baseUrl": "http://127.0.0.1:8212",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectChecked",
+          "target": {
+            "role": "radio",
+            "name": "已掌握",
+            "checked": true
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectChecked",
+          "target": {
+            "role": "radio",
+            "name": "待开始",
+            "checked": false
+          }
+        },
+        {
+          "index": 5,
+          "step": "hover",
+          "target": {
+            "role": "radio",
+            "name": "需复习"
+          }
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-node-list-status",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习路线"
+              },
+              {
+                "role": "button",
+                "name": "查看 所有权与借用 的详细内容"
+              },
+              {
+                "role": "radio",
+                "name": "已掌握"
+              },
+              {
+                "role": "radio",
+                "name": "待开始"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "focus",
+          "target": {
+            "role": "radio",
+            "name": "待开始"
+          }
+        },
+        {
+          "index": 8,
+          "step": "expectFocus",
+          "target": {
+            "name": "待开始"
+          }
+        },
+        {
+          "index": 9,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-status-focus",
+            "verify": [
+              {
+                "role": "radio",
+                "name": "待开始"
+              }
+            ]
+          }
+        },
+        {
+          "index": 10,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 11,
+          "step": "click",
+          "target": {
+            "role": "radio",
+            "name": "需复习"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectDisabled",
+          "target": {
+            "role": "radio",
+            "name": "需复习"
+          }
+        },
+        {
+          "index": 13,
+          "step": "expectDisabled",
+          "target": {
+            "role": "radio",
+            "name": "待开始"
+          }
+        },
+        {
+          "index": 14,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-status-pending",
+            "verify": [
+              {
+                "role": "radio",
+                "name": "需复习"
+              }
+            ]
+          }
+        },
+        {
+          "index": 15,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 16,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 17,
+          "step": "expectChecked",
+          "target": {
+            "role": "radio",
+            "name": "需复习",
+            "checked": true
+          }
+        },
+        {
+          "index": 18,
+          "step": "expectEnabled",
+          "target": {
+            "role": "radio",
+            "name": "待开始"
+          }
+        },
+        {
+          "index": 19,
+          "step": "setApiError",
+          "target": "PATCH /api/v1/nodes/\\d+/status"
+        },
+        {
+          "index": 20,
+          "step": "click",
+          "target": {
+            "role": "radio",
+            "name": "学习中"
+          }
+        },
+        {
+          "index": 21,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 22,
+          "step": "expectChecked",
+          "target": {
+            "role": "radio",
+            "name": "需复习",
+            "checked": true
+          }
+        },
+        {
+          "index": 23,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-status-rollback",
+            "verify": [
+              {
+                "role": "radio",
+                "name": "需复习"
+              }
+            ]
+          }
+        },
+        {
+          "index": 24,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 25,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 26,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "所有权与借用"
+          }
+        },
+        {
+          "index": 27,
+          "step": "expectChecked",
+          "target": {
+            "role": "radio",
+            "name": "需复习",
+            "checked": true
+          }
+        },
+        {
+          "index": 28,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记",
+            "value": "借用检查器要点：同一作用域内只能有一个可变借用。"
+          }
+        },
+        {
+          "index": 29,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-note-draft",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "所有权与借用"
+              },
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 30,
+          "step": "expectVisible",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 31,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "重新生成课程"
+          }
+        },
+        {
+          "index": 32,
+          "step": "expectFocus",
+          "target": {
+            "name": "重新生成课程"
+          }
+        },
+        {
+          "index": 33,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-action-focus",
+            "verify": [
+              {
+                "role": "button",
+                "name": "重新生成课程"
+              },
+              {
+                "role": "button",
+                "name": "拉取资料"
+              }
+            ]
+          }
+        },
+        {
+          "index": 34,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 35,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重新生成实操"
+          }
+        },
+        {
+          "index": 36,
+          "step": "expectText",
+          "target": "正在生成实操课程…"
+        },
+        {
+          "index": 37,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "保存笔记"
+          }
+        },
+        {
+          "index": 38,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "拉取资料"
+          }
+        },
+        {
+          "index": 39,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-action-loading",
+            "verify": [
+              {
+                "role": "button",
+                "name": "重新生成实操"
+              },
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              }
+            ]
+          }
+        },
+        {
+          "index": 40,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 41,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 42,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "保存笔记"
+          }
+        },
+        {
+          "index": 43,
+          "step": "setApiError",
+          "target": "PUT /api/v1/nodes/\\d+/note"
+        },
+        {
+          "index": 44,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "保存笔记"
+          }
+        },
+        {
+          "index": 45,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 46,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-note-error",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              },
+              {
+                "role": "button",
+                "name": "保存笔记"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 47,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 48,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "保存笔记"
+          }
+        },
+        {
+          "index": 49,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "保存笔记"
+          }
+        },
+        {
+          "index": 50,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-note-recovered",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              },
+              {
+                "role": "button",
+                "name": "拉取资料"
+              }
+            ]
+          }
+        },
+        {
+          "index": 51,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "拉取资料"
+          }
+        },
+        {
+          "index": 52,
+          "step": "expectVisible",
+          "target": {
+            "role": "link",
+            "name": "Rust Book"
+          }
+        },
+        {
+          "index": 53,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-resources",
+            "verify": [
+              {
+                "role": "link",
+                "name": "Rust Book"
+              },
+              {
+                "role": "button",
+                "name": "拉取资料"
+              }
+            ]
+          }
+        },
+        {
+          "index": 54,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 55,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "查看 生命周期与借用检查器 的详细内容"
+          }
+        },
+        {
+          "index": 56,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-returned-to-list",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习路线"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "roadmap-node-list-status",
+          "light": "roadmap-node-list-status-light.png",
+          "dark": "roadmap-node-list-status-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-status-focus",
+          "light": "roadmap-status-focus-light.png",
+          "dark": "roadmap-status-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-status-pending",
+          "light": "roadmap-status-pending-light.png",
+          "dark": "roadmap-status-pending-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-status-rollback",
+          "light": "roadmap-status-rollback-light.png",
+          "dark": "roadmap-status-rollback-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-note-draft",
+          "light": "node-detail-note-draft-light.png",
+          "dark": "node-detail-note-draft-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-action-focus",
+          "light": "node-detail-action-focus-light.png",
+          "dark": "node-detail-action-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-action-loading",
+          "light": "node-detail-action-loading-light.png",
+          "dark": "node-detail-action-loading-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-note-error",
+          "light": "node-detail-note-error-light.png",
+          "dark": "node-detail-note-error-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-note-recovered",
+          "light": "node-detail-note-recovered-light.png",
+          "dark": "node-detail-note-recovered-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-resources",
+          "light": "node-detail-resources-light.png",
+          "dark": "node-detail-resources-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-returned-to-list",
+          "light": "roadmap-returned-to-list-light.png",
+          "dark": "roadmap-returned-to-list-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [
+        {
+          "label": "selected:学习路线",
+          "state": {
+            "aria-selected": "true"
+          }
+        }
+      ],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": []
+    },
+    {
+      "name": "roadmap-detail-loading-and-error",
+      "baseUrl": "http://127.0.0.1:8212",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 3,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "正在读取节点详情"
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-loading",
+            "verify": [
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 7,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 8,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "所有权与借用"
+          }
+        },
+        {
+          "index": 9,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 10,
+          "step": "setApiError",
+          "target": "GET /api/v1/nodes/\\d+$"
+        },
+        {
+          "index": 11,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 13,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-load-error",
+            "verify": [
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              },
+              {
+                "role": "tab",
+                "name": "学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 14,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 15,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 16,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 17,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-loaded",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "所有权与借用"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "node-detail-loading",
+          "light": "node-detail-loading-light.png",
+          "dark": "node-detail-loading-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-load-error",
+          "light": "node-detail-load-error-light.png",
+          "dark": "node-detail-load-error-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-loaded",
+          "light": "node-detail-loaded-light.png",
+          "dark": "node-detail-loaded-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": []
+    },
+    {
+      "name": "roadmap-long-content-and-narrow-viewport",
+      "baseUrl": "http://127.0.0.1:8212",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 异步运行时与并发任务调度：一个足够长的知识点标题用于验证窄屏换行与截断行为 的详细内容"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "异步运行时与并发任务调度"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "实操步骤"
+        },
+        {
+          "index": 5,
+          "step": "expectText",
+          "target": "fn main()"
+        },
+        {
+          "index": 6,
+          "step": "expectVisible",
+          "target": {
+            "role": "link",
+            "name": "Rust Book"
+          }
+        },
+        {
+          "index": 7,
+          "step": "expectText",
+          "target": "长文本知识点"
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-long-content",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "异步运行时与并发任务调度"
+              },
+              {
+                "role": "link",
+                "name": "Rust Book"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 9,
+          "step": "viewport",
+          "target": {
+            "width": 900,
+            "height": 860
+          }
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "node-detail-narrow",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "异步运行时与并发任务调度"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              },
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectChecked",
+          "target": {
+            "role": "radio",
+            "name": "需复习",
+            "checked": true
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 13,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 900
+          }
+        },
+        {
+          "index": 14,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 15,
+          "step": "viewport",
+          "target": {
+            "width": 900,
+            "height": 860
+          }
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-list-narrow",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习路线"
+              },
+              {
+                "role": "button",
+                "name": "查看 所有权与借用 的详细内容"
+              },
+              {
+                "role": "radio",
+                "name": "已掌握"
+              }
+            ]
+          }
+        },
+        {
+          "index": 17,
+          "step": "viewport",
+          "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 18,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-shell-420px",
+            "verify": [
+              {
+                "role": "button",
+                "name": "新建学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 19,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 900
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "node-detail-long-content",
+          "light": "node-detail-long-content-light.png",
+          "dark": "node-detail-long-content-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "node-detail-narrow",
+          "light": "node-detail-narrow-light.png",
+          "dark": "node-detail-narrow-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-list-narrow",
+          "light": "roadmap-list-narrow-light.png",
+          "dark": "roadmap-list-narrow-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-shell-420px",
+          "light": "roadmap-shell-420px-light.png",
+          "dark": "roadmap-shell-420px-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}

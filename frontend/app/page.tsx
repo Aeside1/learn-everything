@@ -29,7 +29,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="app-shell flex h-screen w-full overflow-hidden bg-[#f4f7f5] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="app-shell flex h-screen w-full max-[760px]:flex-col overflow-hidden bg-background text-foreground">
       <ProjectRail
         projects={catalog.projects}
         selectedId={view === "workspace" ? selectedProjectId : null}
@@ -43,7 +43,7 @@ export default function HomePage() {
       />
       <div
         id="workspace-scroll-container"
-        className="flex-1 h-screen overflow-y-auto min-w-0"
+        className="flex-1 min-h-0 min-w-0 overflow-y-auto"
       >
         {view === "create" ? (
           <RoadmapCreation onCreated={showCreatedProject} />

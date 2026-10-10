@@ -1,0 +1,145 @@
+{
+  "scenarios": [
+    {
+      "name": "workspace-tabs-progress-detail",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "expectVisible": { "role": "tab", "name": "学习概览" } },
+        { "expectSelected": { "role": "tab", "name": "学习概览" } },
+        { "expectVisible": { "role": "progressbar", "name": "学习进度" } },
+        { "expectVisible": { "role": "heading", "name": "学习概览", "exact": true } },
+        {
+          "screenshot": {
+            "name": "workspace-overview",
+            "verify": [
+              { "role": "tab", "name": "学习概览" },
+              { "role": "progressbar", "name": "学习进度" },
+              { "role": "heading", "name": "学习概览", "exact": true }
+            ]
+          }
+        },
+        { "hover": { "role": "tab", "name": "学习路线" } },
+        { "screenshot": { "name": "workspace-tab-hover", "verify": [{ "role": "tab", "name": "学习概览" }] } },
+        { "focus": { "role": "tab", "name": "学习路线" } },
+        { "screenshot": { "name": "workspace-tab-focus", "verify": [{ "role": "tab", "name": "学习概览" }] } },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        { "expectSelected": { "role": "tab", "name": "学习路线" } },
+        {
+          "screenshot": {
+            "name": "workspace-roadmap-tab",
+            "verify": [
+              { "role": "tab", "name": "学习路线" },
+              { "role": "button", "name": "查看 所有权与借用 的详细内容" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "查看 所有权与借用 的详细内容" } },
+        { "expectVisible": { "role": "heading", "name": "所有权与借用" } },
+        {
+          "screenshot": {
+            "name": "roadmap-node-detail",
+            "verify": [
+              { "role": "heading", "name": "所有权与借用" },
+              { "role": "button", "name": "返回学习路线" }
+            ]
+          }
+        },
+        { "click": { "role": "tab", "name": "查漏测验" } },
+        { "expectSelected": { "role": "tab", "name": "查漏测验" } },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        {
+          "screenshot": {
+            "name": "roadmap-detail-preserved",
+            "verify": [
+              { "role": "heading", "name": "所有权与借用" },
+              { "role": "button", "name": "返回学习路线" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "返回学习路线" } },
+        { "expectVisible": { "role": "button", "name": "查看 生命周期与借用检查器 的详细内容" } }
+      ]
+    },
+    {
+      "name": "workspace-keyboard-narrow-long-title",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "focus": { "role": "tab", "name": "学习概览" } },
+        { "key": "ArrowRight" },
+        { "expectSelected": { "role": "tab", "name": "学习路线" } },
+        { "key": "ArrowRight" },
+        { "expectSelected": { "role": "tab", "name": "到期复习" } },
+        { "key": "ArrowLeft" },
+        { "expectSelected": { "role": "tab", "name": "学习路线" } },
+        { "key": "End" },
+        { "expectSelected": { "role": "tab", "name": "模型配置" } },
+        { "key": "Home" },
+        { "expectSelected": { "role": "tab", "name": "学习概览" } },
+        { "screenshot": { "name": "workspace-keyboard-tabs" } },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        { "viewport": { "width": 420, "height": 860 } },
+        { "wheelTo": { "role": "tab", "name": "学习路线" } },
+        { "expectInViewport": { "role": "tab", "name": "学习路线" } },
+        {
+          "screenshot": {
+            "name": "workspace-narrow-tabs",
+            "verify": [
+              { "role": "tab", "name": "学习路线" },
+              { "role": "button", "name": "查看 所有权与借用 的详细内容" }
+            ]
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成"
+          }
+        },
+        { "wheelTo": { "role": "tab", "name": "学习概览" } },
+        { "expectInViewport": { "role": "tab", "name": "学习概览" } },
+        {
+          "screenshot": {
+            "name": "workspace-narrow-long-title",
+            "verify": [{ "role": "tab", "name": "学习概览" }]
+          }
+        },
+        { "viewport": { "width": 1280, "height": 900 } }
+      ]
+    },
+    {
+      "name": "workspace-loading-and-error",
+      "steps": [
+        { "goto": "/" },
+        { "setApiDelay": 1200 },
+        { "reload": true },
+        { "screenshot": { "name": "workspace-loading-state" } },
+        { "setApiDelay": 0 },
+        { "wait": 1500 },
+        { "setApiError": "GET /api/v1/projects/\\d+/roadmap" },
+        { "reload": true },
+        { "expectVisible": { "role": "button", "name": "重新加载" } },
+        { "expectText": "项目数据暂时不可用" },
+        { "expectText": "验收模拟的服务端错误" },
+        {
+          "screenshot": {
+            "name": "workspace-error-state",
+            "verify": [{ "role": "button", "name": "重新加载" }]
+          }
+        },
+        { "setApiError": null },
+        { "click": { "role": "button", "name": "重新加载" } },
+        {
+          "screenshot": {
+            "name": "workspace-error-recovered",
+            "verify": [
+              { "role": "progressbar", "name": "学习进度" },
+              { "role": "tab", "name": "学习概览" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

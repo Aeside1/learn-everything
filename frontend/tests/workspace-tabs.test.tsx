@@ -27,47 +27,87 @@ vi.mock("../features/configuration/ModelConfigurationPanel", () => ({
   ModelConfigurationPanel: () => <div data-testid="models-panel">模型配置面板</div>,
 }));
 
+function renderWorkspace() {
+  const user = userEvent.setup();
+  render(
+    <Workspace
+      workspace={workspace}
+      roadmap={roadmap}
+      state="ready"
+      error={null}
+      statusPendingId={null}
+      onRetry={vi.fn()}
+      onUpdateStatus={vi.fn().mockResolvedValue(true)}
+    />
+  );
+  return user;
+}
+
 describe("Workspace Tabs 切换交互", () => {
-  it("点击不同的标签页能够正确切换对应的面板", async () => {
-    const user = userEvent.setup();
-    render(
-      <Workspace
-        workspace={workspace}
-        roadmap={roadmap}
-        state="ready"
-        error={null}
-        statusPendingId={null}
-        onRetry={vi.fn()}
-        onUpdateStatus={vi.fn().mockResolvedValue(true)}
-      />
-    );
+  it("默认进入学习概览，点击标签切换对应面板", async () => {
+    const user = renderWorkspace();
 
-    // 默认在 dashboard 面板
     expect(screen.getByTestId("dashboard-panel")).toBeTruthy();
+    expect(screen.getByRole("tab", { name: "学习概览" }).getAttribute("aria-selected")).toBe("true");
 
-    // 点击“学习路线”
-    const roadmapTab = screen.getByRole("tab", { name: "学习路线" });
-    await user.click(roadmapTab);
+    await user.click(screen.getByRole("tab", { name: "学习路线" }));
     expect(screen.getByTestId("roadmap-panel")).toBeTruthy();
 
-    // 点击“到期复习”
-    const reviewTab = screen.getByRole("tab", { name: "到期复习" });
-    await user.click(reviewTab);
+    await user.click(screen.getByRole("tab", { name: "到期复习" }));
     expect(screen.getByTestId("review-panel")).toBeTruthy();
 
-    // 点击“RAG 问答”
-    const ragTab = screen.getByRole("tab", { name: "RAG 问答" });
-    await user.click(ragTab);
+    await user.click(screen.getByRole("tab", { name: "RAG 问答" }));
     expect(screen.getByTestId("rag-panel")).toBeTruthy();
+    expect(screen.getByTestId("resources-panel")).toBeTruthy();
 
-    // 点击“查漏测验”
-    const quizTab = screen.getByRole("tab", { name: "查漏测验" });
-    await user.click(quizTab);
+    await user.click(screen.getByRole("tab", { name: "查漏测验" }));
     expect(screen.getByTestId("quiz-panel")).toBeTruthy();
 
-    // 点击“模型配置”
-    const modelsTab = screen.getByRole("tab", { name: "模型配置" });
-    await user.click(modelsTab);
+    await user.click(screen.getByRole("tab", { name: "模型配置" }));
     expect(screen.getByTestId("models-panel")).toBeTruthy();
+  });
+
+  it("标签与面板具备可访问关联，且只选中一个", async () => {
+    renderWorkspace();
+
+    const tabs = screen.getAllByRole("tab");
+    expect(tabs).toHaveLength(6);
+    expect(tabs.filter((tab) => tab.getAttribute("aria-selected") === "true")).toHaveLength(1);
+
+    const panel = screen.getByRole("tabpanel");
+    const labelledBy = panel.getAttribute("aria-labelledby");
+    expect(labelledBy).toBeTruthy();
+    const label = document.getElementById(labelledBy!);
+    expect(label?.getAttribute("role")).toBe("tab");
+    expect(label?.textContent).toBe("学习概览");
+  });
+
+  it("键盘方向键可以切换标签", async () => {
+    const user = renderWorkspace();
+
+    screen.getByRole("tab", { name: "学习概览" }).focus();
+    await user.keyboard("{ArrowRight}");
+    expect(screen.getByRole("tab", { name: "学习路线" }).getAttribute("aria-selected")).toBe("true");
+    expect(screen.getByTestId("roadmap-panel")).toBeTruthy();
+
+    await user.keyboard("{ArrowRight}");
+    expect(screen.getByRole("tab", { name: "到期复习" }).getAttribute("aria-selected")).toBe("true");
+
+    await user.keyboard("{ArrowLeft}");
+    expect(screen.getByRole("tab", { name: "学习路线" }).getAttribute("aria-selected")).toBe("true");
+
+    await user.keyboard("{End}");
+    expect(screen.getByRole("tab", { name: "模型配置" }).getAttribute("aria-selected")).toBe("true");
+
+    await user.keyboard("{Home}");
+    expect(screen.getByRole("tab", { name: "学习概览" }).getAttribute("aria-selected")).toBe("true");
+  });
+
+  it("路线标签之外的面板不参与渲染，路线面板保持挂载以保留详情状态", () => {
+    renderWorkspace();
+
+    expect(screen.getByTestId("roadmap-panel")).toBeTruthy();
+    expect(screen.queryByTestId("review-panel")).toBeNull();
+    expect(screen.queryByTestId("quiz-panel")).toBeNull();
   });
 });

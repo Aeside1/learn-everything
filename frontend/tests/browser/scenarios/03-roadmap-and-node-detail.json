@@ -1,0 +1,323 @@
+{
+  "scenarios": [
+    {
+      "name": "roadmap-create-preview-refine-save",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "expectVisible": { "role": "button", "name": "新建学习路线" } },
+        { "click": { "role": "button", "name": "新建学习路线" } },
+        { "expectVisible": { "role": "textbox", "name": "选题" } },
+        { "fill": { "role": "textbox", "name": "选题", "value": "从零学习 Rust 异步编程" } },
+        { "fill": { "role": "textbox", "name": "学习背景", "value": "已有 Rust 基础，写过同步 CLI" } },
+        { "fill": { "role": "textbox", "name": "学习目标", "value": "能独立实现一个异步并发服务" } },
+        { "fill": { "role": "textbox", "name": "每周投入时间", "value": "12" } },
+        { "focus": { "role": "textbox", "name": "选题" } },
+        {
+          "screenshot": {
+            "name": "creation-form",
+            "verify": [
+              { "role": "textbox", "name": "选题" },
+              { "role": "textbox", "name": "每周投入时间" },
+              { "role": "button", "name": "生成路线预览" }
+            ]
+          }
+        },
+        { "focus": { "role": "button", "name": "生成路线预览" } },
+        { "expectFocus": { "name": "生成路线预览" } },
+        {
+          "screenshot": {
+            "name": "creation-submit-focus",
+            "verify": [{ "role": "button", "name": "生成路线预览" }]
+          }
+        },
+        { "click": { "role": "button", "name": "生成路线预览" } },
+        { "expectText": "Rust 从入门到并发实践" },
+        { "expectVisible": { "role": "button", "name": "调整" } },
+        {
+          "screenshot": {
+            "name": "creation-preview",
+            "verify": [
+              { "role": "button", "name": "调整" },
+              { "role": "button", "name": "确认保存并开始准备" }
+            ]
+          }
+        },
+        { "expectText": "Rust 从入门到并发实践" },
+        { "fill": { "role": "textbox", "name": "调整指令", "value": "增加一个实操项目" } },
+        { "click": { "role": "button", "name": "调整" } },
+        { "expectText": "Rust 从入门到并发实践（已调整）" },
+        {
+          "screenshot": {
+            "name": "creation-refined",
+            "verify": [
+              { "role": "button", "name": "调整" },
+              { "role": "button", "name": "确认保存并开始准备" }
+            ]
+          }
+        },
+        { "expectText": "Rust 从入门到并发实践（已调整）" },
+        { "click": { "role": "button", "name": "确认保存并开始准备" } },
+        { "expectText": "课程内容正在准备" },
+        { "expectVisible": { "role": "button", "name": "停止准备" } },
+        {
+          "screenshot": {
+            "name": "creation-content-job",
+            "verify": [
+              { "role": "button", "name": "停止准备" },
+              { "role": "status" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "停止准备" } },
+        { "expectText": "课程内容准备已取消" },
+        { "expectVisible": { "role": "button", "name": "重试未完成内容" } },
+        {
+          "screenshot": {
+            "name": "creation-job-cancelled",
+            "verify": [
+              { "role": "button", "name": "重试未完成内容" },
+              { "role": "button", "name": "查看新项目" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "重试未完成内容" } },
+        { "expectText": "课程内容正在准备" },
+        {
+          "screenshot": {
+            "name": "creation-job-retried",
+            "verify": [
+              { "role": "button", "name": "停止准备" },
+              { "role": "button", "name": "查看新项目" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "查看新项目" } },
+        { "expectVisible": { "role": "heading", "name": "从零学习 Rust 异步编程" } },
+        {
+          "screenshot": {
+            "name": "created-project-workspace",
+            "verify": [
+              { "role": "heading", "name": "从零学习 Rust 异步编程" },
+              { "role": "progressbar", "name": "学习进度" },
+              { "role": "tab", "name": "学习概览" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "roadmap-node-list-status-and-detail-actions",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        { "expectSelected": { "role": "tab", "name": "学习路线" } },
+        { "expectChecked": { "role": "radio", "name": "已掌握", "checked": true } },
+        { "expectChecked": { "role": "radio", "name": "待开始", "checked": false } },
+        { "hover": { "role": "radio", "name": "需复习" } },
+        {
+          "screenshot": {
+            "name": "roadmap-node-list-status",
+            "verify": [
+              { "role": "tab", "name": "学习路线" },
+              { "role": "button", "name": "查看 所有权与借用 的详细内容" },
+              { "role": "radio", "name": "已掌握" },
+              { "role": "radio", "name": "待开始" }
+            ]
+          }
+        },
+        { "focus": { "role": "radio", "name": "待开始" } },
+        { "expectFocus": { "name": "待开始" } },
+        { "screenshot": { "name": "roadmap-status-focus", "verify": [{ "role": "radio", "name": "待开始" }] } },
+        { "setApiDelay": 1500 },
+        { "click": { "role": "radio", "name": "需复习" } },
+        { "expectDisabled": { "role": "radio", "name": "需复习" } },
+        { "expectDisabled": { "role": "radio", "name": "待开始" } },
+        { "screenshot": { "name": "roadmap-status-pending", "verify": [{ "role": "radio", "name": "需复习" }] } },
+        { "wait": 2000 },
+        { "setApiDelay": 0 },
+        { "expectChecked": { "role": "radio", "name": "需复习", "checked": true } },
+        { "expectEnabled": { "role": "radio", "name": "待开始" } },
+        { "setApiError": "PATCH /api/v1/nodes/\\d+/status" },
+        { "click": { "role": "radio", "name": "学习中" } },
+        { "wait": 600 },
+        { "expectChecked": { "role": "radio", "name": "需复习", "checked": true } },
+        { "screenshot": { "name": "roadmap-status-rollback", "verify": [{ "role": "radio", "name": "需复习" }] } },
+        { "setApiError": null },
+        { "click": { "role": "button", "name": "查看 所有权与借用 的详细内容" } },
+        { "expectVisible": { "role": "heading", "name": "所有权与借用" } },
+        { "expectChecked": { "role": "radio", "name": "需复习", "checked": true } },
+        { "fill": { "role": "textbox", "name": "学习笔记", "value": "借用检查器要点：同一作用域内只能有一个可变借用。" } },
+        {
+          "screenshot": {
+            "name": "node-detail-note-draft",
+            "verify": [
+              { "role": "heading", "name": "所有权与借用" },
+              { "role": "textbox", "name": "学习笔记" },
+              { "role": "button", "name": "返回学习路线" }
+            ]
+          }
+        },
+        { "expectVisible": { "role": "textbox", "name": "学习笔记" } },
+        { "focus": { "role": "button", "name": "重新生成课程" } },
+        { "expectFocus": { "name": "重新生成课程" } },
+        {
+          "screenshot": {
+            "name": "node-detail-action-focus",
+            "verify": [
+              { "role": "button", "name": "重新生成课程" },
+              { "role": "button", "name": "拉取资料" }
+            ]
+          }
+        },
+        { "setApiDelay": 1500 },
+        { "click": { "role": "button", "name": "重新生成实操" } },
+        { "expectText": "正在生成实操课程…" },
+        { "expectDisabled": { "role": "button", "name": "保存笔记" } },
+        { "expectDisabled": { "role": "button", "name": "拉取资料" } },
+        {
+          "screenshot": {
+            "name": "node-detail-action-loading",
+            "verify": [
+              { "role": "button", "name": "重新生成实操" },
+              { "role": "textbox", "name": "学习笔记" }
+            ]
+          }
+        },
+        { "wait": 2000 },
+        { "setApiDelay": 0 },
+        { "expectEnabled": { "role": "button", "name": "保存笔记" } },
+        { "setApiError": "PUT /api/v1/nodes/\\d+/note" },
+        { "click": { "role": "button", "name": "保存笔记" } },
+        { "expectText": "验收模拟的服务端错误" },
+        {
+          "screenshot": {
+            "name": "node-detail-note-error",
+            "verify": [
+              { "role": "textbox", "name": "学习笔记" },
+              { "role": "button", "name": "保存笔记" },
+              { "role": "button", "name": "返回学习路线" }
+            ]
+          }
+        },
+        { "setApiError": null },
+        { "click": { "role": "button", "name": "保存笔记" } },
+        { "expectEnabled": { "role": "button", "name": "保存笔记" } },
+        {
+          "screenshot": {
+            "name": "node-detail-note-recovered",
+            "verify": [
+              { "role": "textbox", "name": "学习笔记" },
+              { "role": "button", "name": "拉取资料" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "拉取资料" } },
+        { "expectVisible": { "role": "link", "name": "Rust Book" } },
+        {
+          "screenshot": {
+            "name": "node-detail-resources",
+            "verify": [
+              { "role": "link", "name": "Rust Book" },
+              { "role": "button", "name": "拉取资料" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "返回学习路线" } },
+        { "expectVisible": { "role": "button", "name": "查看 生命周期与借用检查器 的详细内容" } },
+        { "screenshot": { "name": "roadmap-returned-to-list", "verify": [{ "role": "tab", "name": "学习路线" }] } }
+      ]
+    },
+    {
+      "name": "roadmap-detail-loading-and-error",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        { "setApiDelay": 1500 },
+        { "click": { "role": "button", "name": "查看 所有权与借用 的详细内容" } },
+        { "expectText": "正在读取节点详情" },
+        { "screenshot": { "name": "node-detail-loading", "verify": [{ "role": "button", "name": "返回学习路线" }] } },
+        { "wait": 2000 },
+        { "setApiDelay": 0 },
+        { "expectVisible": { "role": "heading", "name": "所有权与借用" } },
+        { "click": { "role": "button", "name": "返回学习路线" } },
+        { "setApiError": "GET /api/v1/nodes/\\d+$" },
+        { "click": { "role": "button", "name": "查看 所有权与借用 的详细内容" } },
+        { "expectText": "验收模拟的服务端错误" },
+        { "screenshot": { "name": "node-detail-load-error", "verify": [{ "role": "button", "name": "返回学习路线" }, { "role": "tab", "name": "学习路线" }] } },
+        { "setApiError": null },
+        { "click": { "role": "button", "name": "返回学习路线" } },
+        { "click": { "role": "button", "name": "查看 所有权与借用 的详细内容" } },
+        {
+          "screenshot": {
+            "name": "node-detail-loaded",
+            "verify": [
+              { "role": "heading", "name": "所有权与借用" },
+              { "role": "button", "name": "返回学习路线" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "roadmap-long-content-and-narrow-viewport",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        { "click": { "role": "button", "name": "查看 异步运行时与并发任务调度：一个足够长的知识点标题用于验证窄屏换行与截断行为 的详细内容" } },
+        { "expectVisible": { "role": "heading", "name": "异步运行时与并发任务调度" } },
+        { "expectText": "实操步骤" },
+        { "expectText": "fn main()" },
+        { "expectVisible": { "role": "link", "name": "Rust Book" } },
+        { "expectText": "长文本知识点" },
+        {
+          "screenshot": {
+            "name": "node-detail-long-content",
+            "verify": [
+              { "role": "heading", "name": "异步运行时与并发任务调度" },
+              { "role": "link", "name": "Rust Book" },
+              { "role": "button", "name": "返回学习路线" }
+            ]
+          }
+        },
+        { "viewport": { "width": 900, "height": 860 } },
+        {
+          "screenshot": {
+            "name": "node-detail-narrow",
+            "verify": [
+              { "role": "heading", "name": "异步运行时与并发任务调度" },
+              { "role": "button", "name": "返回学习路线" },
+              { "role": "textbox", "name": "学习笔记" }
+            ]
+          }
+        },
+        { "expectChecked": { "role": "radio", "name": "需复习", "checked": true } },
+        { "expectEnabled": { "role": "button", "name": "返回学习路线" } },
+        { "viewport": { "width": 1280, "height": 900 } },
+        { "click": { "role": "button", "name": "返回学习路线" } },
+        { "viewport": { "width": 900, "height": 860 } },
+        {
+          "screenshot": {
+            "name": "roadmap-list-narrow",
+            "verify": [
+              { "role": "tab", "name": "学习路线" },
+              { "role": "button", "name": "查看 所有权与借用 的详细内容" },
+              { "role": "radio", "name": "已掌握" }
+            ]
+          }
+        },
+        { "viewport": { "width": 420, "height": 860 } },
+        {
+          "screenshot": {
+            "name": "roadmap-shell-420px",
+            "verify": [{ "role": "button", "name": "新建学习路线" }]
+          }
+        },
+        { "viewport": { "width": 1280, "height": 900 } }
+      ]
+    }
+  ]
+}

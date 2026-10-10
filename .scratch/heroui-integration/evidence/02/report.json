@@ -1,0 +1,786 @@
+{
+  "baseUrl": "http://127.0.0.1:8211",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T23:32:38",
+  "domSwapScreenshots": [],
+  "withoutOverlayProbe": [],
+  "scenarios": [
+    {
+      "name": "workspace-tabs-progress-detail",
+      "baseUrl": "http://127.0.0.1:8211",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "progressbar",
+            "name": "学习进度"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "学习概览",
+            "exact": true
+          }
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-overview",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              },
+              {
+                "role": "progressbar",
+                "name": "学习进度"
+              },
+              {
+                "role": "heading",
+                "name": "学习概览",
+                "exact": true
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "hover",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 7,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-tab-hover",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 8,
+          "step": "focus",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 9,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-tab-focus",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 10,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-roadmap-tab",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习路线"
+              },
+              {
+                "role": "button",
+                "name": "查看 所有权与借用 的详细内容"
+              }
+            ]
+          }
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 14,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "所有权与借用"
+          }
+        },
+        {
+          "index": 15,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-node-detail",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "所有权与借用"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 16,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "查漏测验"
+          }
+        },
+        {
+          "index": 17,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "查漏测验"
+          }
+        },
+        {
+          "index": 18,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 19,
+          "step": "screenshot",
+          "target": {
+            "name": "roadmap-detail-preserved",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "所有权与借用"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 20,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 21,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "查看 生命周期与借用检查器 的详细内容"
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "workspace-overview",
+          "light": "workspace-overview-light.png",
+          "dark": "workspace-overview-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-tab-hover",
+          "light": "workspace-tab-hover-light.png",
+          "dark": "workspace-tab-hover-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-tab-focus",
+          "light": "workspace-tab-focus-light.png",
+          "dark": "workspace-tab-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-roadmap-tab",
+          "light": "workspace-roadmap-tab-light.png",
+          "dark": "workspace-roadmap-tab-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-node-detail",
+          "light": "roadmap-node-detail-light.png",
+          "dark": "roadmap-node-detail-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "roadmap-detail-preserved",
+          "light": "roadmap-detail-preserved-light.png",
+          "dark": "roadmap-detail-preserved-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [
+        {
+          "label": "selected:学习概览",
+          "state": {
+            "aria-selected": "true"
+          }
+        },
+        {
+          "label": "selected:学习路线",
+          "state": {
+            "aria-selected": "true"
+          }
+        },
+        {
+          "label": "selected:查漏测验",
+          "state": {
+            "aria-selected": "true"
+          }
+        }
+      ],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "workspace-keyboard-narrow-long-title",
+      "baseUrl": "http://127.0.0.1:8211",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "focus",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 2,
+          "step": "key",
+          "target": "ArrowRight"
+        },
+        {
+          "index": 3,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 4,
+          "step": "key",
+          "target": "ArrowRight"
+        },
+        {
+          "index": 5,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "到期复习"
+          }
+        },
+        {
+          "index": 6,
+          "step": "key",
+          "target": "ArrowLeft"
+        },
+        {
+          "index": 7,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 8,
+          "step": "key",
+          "target": "End"
+        },
+        {
+          "index": 9,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "模型配置"
+          }
+        },
+        {
+          "index": 10,
+          "step": "key",
+          "target": "Home"
+        },
+        {
+          "index": 11,
+          "step": "expectSelected",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-keyboard-tabs"
+          }
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 14,
+          "step": "viewport",
+          "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 15,
+          "step": "wheelTo",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 16,
+          "step": "expectInViewport",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 17,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-narrow-tabs",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习路线"
+              },
+              {
+                "role": "button",
+                "name": "查看 所有权与借用 的详细内容"
+              }
+            ]
+          }
+        },
+        {
+          "index": 18,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成"
+          }
+        },
+        {
+          "index": 19,
+          "step": "wheelTo",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 20,
+          "step": "expectInViewport",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 21,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-narrow-long-title",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 22,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 900
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "workspace-keyboard-tabs",
+          "light": "workspace-keyboard-tabs-light.png",
+          "dark": "workspace-keyboard-tabs-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-narrow-tabs",
+          "light": "workspace-narrow-tabs-light.png",
+          "dark": "workspace-narrow-tabs-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-narrow-long-title",
+          "light": "workspace-narrow-long-title-light.png",
+          "dark": "workspace-narrow-long-title-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [
+        {
+          "label": "selected:学习路线",
+          "state": {
+            "aria-selected": "true"
+          }
+        },
+        {
+          "label": "selected:到期复习",
+          "state": {
+            "aria-selected": "true"
+          }
+        },
+        {
+          "label": "selected:学习路线",
+          "state": {
+            "aria-selected": "true"
+          }
+        },
+        {
+          "label": "selected:模型配置",
+          "state": {
+            "aria-selected": "true"
+          }
+        },
+        {
+          "label": "selected:学习概览",
+          "state": {
+            "aria-selected": "true"
+          }
+        }
+      ],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "workspace-loading-and-error",
+      "baseUrl": "http://127.0.0.1:8211",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 2,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-loading-state"
+          }
+        },
+        {
+          "index": 4,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 5,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 6,
+          "step": "setApiError",
+          "target": "GET /api/v1/projects/\\d+/roadmap"
+        },
+        {
+          "index": 7,
+          "step": "reload",
+          "target": true
+        },
+        {
+          "index": 8,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "重新加载"
+          }
+        },
+        {
+          "index": 9,
+          "step": "expectText",
+          "target": "项目数据暂时不可用"
+        },
+        {
+          "index": 10,
+          "step": "expectText",
+          "target": "验收模拟的服务端错误"
+        },
+        {
+          "index": 11,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-error-state",
+            "verify": [
+              {
+                "role": "button",
+                "name": "重新加载"
+              }
+            ]
+          }
+        },
+        {
+          "index": 12,
+          "step": "setApiError",
+          "target": true
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "重新加载"
+          }
+        },
+        {
+          "index": 14,
+          "step": "screenshot",
+          "target": {
+            "name": "workspace-error-recovered",
+            "verify": [
+              {
+                "role": "progressbar",
+                "name": "学习进度"
+              },
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "workspace-loading-state",
+          "light": "workspace-loading-state-light.png",
+          "dark": "workspace-loading-state-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-error-state",
+          "light": "workspace-error-state-light.png",
+          "dark": "workspace-error-state-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "workspace-error-recovered",
+          "light": "workspace-error-recovered-light.png",
+          "dark": "workspace-error-recovered-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedRequests": [
+        "GET http://127.0.0.1:8211/api/v1/projects -> net::ERR_ABORTED"
+      ]
+    }
+  ]
+}
