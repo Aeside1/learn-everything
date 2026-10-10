@@ -1,5 +1,7 @@
 "use client";
 
+import { Input, Button } from "@heroui/react";
+
 import { AlertCircle, Bot, CheckCircle2, Database, KeyRound, LoaderCircle, Plus, Save, Trash2, Wifi } from "lucide-react";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 
@@ -110,16 +112,16 @@ function EndpointConfiguration({ kind, title, subtitle, description, icon, endpo
     <div className="model-config-section-heading"><div><p className="eyebrow">{title}</p><h4>{subtitle}</h4><p>{description}</p></div>{icon}</div>
     <div className="model-profile-controls">
       <label>活动档案<select value={endpoint.active_profile_id ?? ""} onChange={(event) => onActivate(event.target.value)} disabled={busy || profiles.length === 0}><option value="" disabled>请选择档案</option>{profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}</select></label>
-      <label>新档案名称<input value={newName} onChange={(event) => onNewNameChange(event.target.value)} disabled={busy} /></label>
-      <button type="button" className="secondary-button icon-command" title="新建档案" onClick={onCreate} disabled={busy || !newName.trim()}><Plus size={16} />新建</button>
+      <label>新档案名称<Input value={newName} onChange={(event) => onNewNameChange(event.target.value)} disabled={busy} /></label>
+      <Button variant="secondary" type="button" onClick={onCreate} isDisabled={busy || !newName.trim()}><Plus size={16} />新建</Button>
     </div>
     {endpoint.active_profile_id && <div className="model-config-form">
-      <label>档案名称<input value={form.name} onChange={(event) => update("name", event.target.value)} disabled={busy} /></label>
-      <label>服务地址<input value={form.base_url} onChange={(event) => update("base_url", event.target.value)} placeholder="https://api.example.com/v1" disabled={busy} />{kind === "rag" && <small className="model-config-hint">请填写基础地址（例如 https://api.example.com/v1），不要包含 /embeddings。</small>}</label>
-      <label>{kind === "llm" ? "对话模型" : "向量模型"}<input value={form.model} onChange={(event) => update("model", event.target.value)} placeholder="模型名称" disabled={busy} /></label>
-      <label>API Key<input type="password" value={form.api_key} onChange={(event) => update("api_key", event.target.value)} placeholder={endpoint.api_key_configured ? "已配置，填写新值才会替换" : "输入 API Key"} autoComplete="off" disabled={busy} /></label>
+      <label>档案名称<Input value={form.name} onChange={(event) => update("name", event.target.value)} disabled={busy} /></label>
+      <label>服务地址<Input value={form.base_url} onChange={(event) => update("base_url", event.target.value)} placeholder="https://api.example.com/v1" disabled={busy} />{kind === "rag" && <small className="model-config-hint">请填写基础地址（例如 https://api.example.com/v1），不要包含 /embeddings。</small>}</label>
+      <label>{kind === "llm" ? "对话模型" : "向量模型"}<Input value={form.model} onChange={(event) => update("model", event.target.value)} placeholder="模型名称" disabled={busy} /></label>
+      <label>API Key<Input type="password" value={form.api_key} onChange={(event) => update("api_key", event.target.value)} placeholder={endpoint.api_key_configured ? "已配置，填写新值才会替换" : "输入 API Key"} autoComplete="off" disabled={busy} /></label>
       <div className="model-config-state"><span className={endpoint.ready ? "ready" : "missing"}>{subtitle} {endpoint.ready ? "已就绪" : "未配置"}</span></div>
-      <div className="model-config-actions"><button type="button" className="secondary-button" onClick={onTest} disabled={busy || !canTest}><Wifi size={16} />测试连接</button><button type="button" className="command-button" onClick={onSave} disabled={busy}><Save size={16} />保存配置</button><button type="button" className="icon-button danger" title="删除当前档案" onClick={onDelete} disabled={busy}><Trash2 size={16} /></button></div>
+      <div className="model-config-actions"><Button variant="secondary" type="button"  onClick={onTest} isDisabled={busy || !canTest}><Wifi size={16} />测试连接</Button><Button variant="primary" type="button" className="command-layout" onClick={onSave} isDisabled={busy}><Save size={16} />保存配置</Button><Button variant="ghost" type="button" aria-label="删除当前档案" onClick={onDelete} isDisabled={busy}><Trash2 size={16} /></Button></div>
       {testMessage && <div className={`model-config-message inline ${testMessage.kind === "error" ? "error" : ""}`} role="status">{testMessage.kind === "error" ? <AlertCircle size={17} /> : <CheckCircle2 size={17} />}{testMessage.text}</div>}
     </div>}
   </section>;

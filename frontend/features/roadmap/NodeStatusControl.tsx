@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@heroui/react";
+
 import type { WorkspaceNode } from "../../lib/api";
 
 export const statusLabels: Record<string, string> = {
@@ -17,15 +19,15 @@ export function NodeStatusControl({ node, pending, onUpdate }: { node: StatusNod
   return (
     <div className="status-control" aria-label={`${node.title} 的学习状态`}>
       {options.map((status) => (
-        <button
+        <Button variant="secondary"
           key={status}
           type="button"
           className={`status-button ${node.status === status ? "active" : ""}`}
-          disabled={pending}
+          isDisabled={pending}
           onClick={() => onUpdate(status)}
         >
           {statusLabels[status]}
-        </button>
+        </Button>
       ))}
     </div>
   );

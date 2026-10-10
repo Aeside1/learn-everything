@@ -92,7 +92,7 @@ export function ProjectRail({
           </div>
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
-          <button
+          <Button variant="secondary"
             type="button"
             onClick={toggleTheme}
             aria-label={resolvedTheme === "dark" ? "切换为浅色主题" : "切换为深色主题"}
@@ -100,7 +100,7 @@ export function ProjectRail({
           >
             {resolvedTheme === "dark" ? <Sun size={15} aria-hidden="true" /> : <Moon size={15} aria-hidden="true" />}
             <span className="sr-only">切换主题</span>
-          </button>
+          </Button>
           <Button
             variant="ghost"
             isIconOnly
@@ -129,13 +129,13 @@ export function ProjectRail({
               <AlertCircle size={16} className="shrink-0 text-rose-400" />
               <span className="leading-snug">{error}</span>
             </div>
-            <button
+            <Button variant="secondary"
               type="button"
               className="text-left font-semibold text-rose-400 hover:underline cursor-pointer pt-1"
               onClick={onRetry}
             >
               重试
-            </button>
+            </Button>
           </div>
         )}
 
@@ -169,7 +169,7 @@ export function ProjectRail({
                 />
 
                 <div className="flex items-stretch justify-between pl-3">
-                  <button
+                  <Button variant="secondary"
                     type="button"
                     className="flex-1 min-w-0 p-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-l-xl cursor-pointer"
                     onClick={() => onSelect(project.id)}
@@ -184,27 +184,27 @@ export function ProjectRail({
                     <span className="block text-[11px] font-semibold text-emerald-700 dark:text-emerald-400/90 mt-2.5 tracking-wide">
                       {project.progress.done}/{project.progress.total} 已完成
                     </span>
-                  </button>
+                  </Button>
 
                   <div className="flex flex-col items-center justify-start gap-1 p-2 pt-2.5">
-                    <button
+                    <Button variant="secondary"
                       type="button"
                       className="p-1.5 text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 rounded-lg transition-colors cursor-pointer"
-                      title={`编辑 ${project.title}`}
+                      aria-label={`编辑 ${project.title}`}
                       onClick={() => onEdit(project.id)}
                     >
                       <Pencil size={13} />
                       <span className="sr-only">编辑 {project.title}</span>
-                    </button>
-                    <button
+                    </Button>
+                    <Button variant="secondary"
                       type="button"
                       className="p-1.5 text-zinc-400 hover:text-rose-600 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-lg transition-colors cursor-pointer"
-                      title={`删除 ${project.title}`}
+                      aria-label={`删除 ${project.title}`}
                       onClick={() => onDelete(project)}
                     >
                       <Trash2 size={13} />
                       <span className="sr-only">删除 {project.title}</span>
-                    </button>
+                    </Button>
                   </div>
                 </div>
 

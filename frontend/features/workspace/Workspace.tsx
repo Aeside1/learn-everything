@@ -1,7 +1,6 @@
 "use client";
 
-import { ProgressBar, ProgressBarFill, ProgressBarOutput, ProgressBarTrack } from "@heroui/react";
-import { useState } from "react";
+import { ProgressBar, ProgressBarFill, ProgressBarOutput, ProgressBarTrack, Tabs } from "@heroui/react";
 
 import { RagChatPanel } from "../chat/RagChatPanel";
 import { ModelConfigurationPanel } from "../configuration/ModelConfigurationPanel";
@@ -32,9 +31,6 @@ function Progress({
 }: {
   value: number;
   "aria-label"?: string;
-  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
-  size?: "sm" | "md" | "lg";
-  radius?: "none" | "sm" | "md" | "lg" | "full";
   showValueLabel?: boolean;
 }) {
   return (
@@ -76,7 +72,6 @@ export function Workspace({
   onRetry: () => void;
   onUpdateStatus: (node: StatusNode, status: string) => Promise<boolean>;
 }) {
-  const [activeTab, setActiveTab] = useState<WorkspaceTab>("dashboard");
   if (state !== "ready" || !workspace) return <WorkspaceStatus state={state} error={error} onRetry={onRetry} />;
 
   const { project, progress, nodes } = workspace;
@@ -109,7 +104,7 @@ export function Workspace({
       </header>
 
       <section className="py-2 flex flex-col gap-2" aria-label="学习进度">
-        <Progress value={progressWidth} aria-label="学习进度" color="success" size="sm" radius="full" showValueLabel />
+        <Progress value={progressWidth} aria-label="学习进度" showValueLabel />
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-zinc-500 dark:text-zinc-400 pt-1">
           <span>{progressWidth}% 已完成</span>
           <span>{progress.learning} 个学习中</span>
@@ -117,62 +112,29 @@ export function Workspace({
         </div>
       </section>
 
-      <div className="w-full">
-        <div
-          role="tablist"
-          aria-label="学习功能"
-          className="inline-flex flex-wrap sm:flex-nowrap p-1.5 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl gap-1 shadow-inner"
-        >
-          {workspaceTabs.map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                id={`workspace-tab-${tab.id}`}
-                type="button"
-                role="tab"
-                aria-selected={isSelected}
-                aria-controls={`workspace-panel-${tab.id}`}
-                tabIndex={isSelected ? 0 : -1}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 ${
-                  isSelected
-                    ? "bg-white dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 shadow-sm border border-zinc-200/80 dark:border-zinc-700 font-extrabold"
-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 border border-transparent"
-                }`}
-              >
+      <Tabs defaultSelectedKey="dashboard" className="w-full min-w-0">
+        <Tabs.ListContainer className="max-w-full overflow-x-auto">
+          <Tabs.List aria-label="学习功能">
+            {workspaceTabs.map((tab) => (
+              <Tabs.Tab key={tab.id} id={tab.id} className="whitespace-nowrap">
                 {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <section
-        id={`workspace-panel-${activeTab}`}
-        className="w-full min-w-0"
-        role="tabpanel"
-        aria-labelledby={`workspace-tab-${activeTab}`}
-      >
-        <div hidden={activeTab !== "roadmap"}>
-          <RoadmapPanel
-            roadmap={roadmap}
-            nodes={nodes}
-            statusPendingId={statusPendingId}
-            onUpdateStatus={onUpdateStatus}
-          />
-        </div>
-        {activeTab === "dashboard" && <DashboardPanel projectId={project.id} />}
-        {activeTab === "review" && <ReviewPanel projectId={project.id} />}
-        {activeTab === "rag" && (
-          <>
-            <ResourceLibraryPanel nodes={nodes} />
-            <RagChatPanel nodes={nodes} />
-          </>
-        )}
-        {activeTab === "quiz" && <QuizPanel projectId={project.id} nodes={nodes} />}
-        {activeTab === "models" && <ModelConfigurationPanel />}
-      </section>
+                <Tabs.Indicator />
+              </Tabs.Tab>
+            ))}
+          </Tabs.List>
+        </Tabs.ListContainer>
+        <Tabs.Panel id="dashboard"><DashboardPanel projectId={project.id} /></Tabs.Panel>
+        <Tabs.Panel id="roadmap" shouldForceMount className="data-[inert]:hidden">
+          <RoadmapPanel roadmap={roadmap} nodes={nodes} statusPendingId={statusPendingId} onUpdateStatus={onUpdateStatus} />
+        </Tabs.Panel>
+        <Tabs.Panel id="review"><ReviewPanel projectId={project.id} /></Tabs.Panel>
+        <Tabs.Panel id="rag">
+          <ResourceLibraryPanel nodes={nodes} />
+          <RagChatPanel nodes={nodes} />
+        </Tabs.Panel>
+        <Tabs.Panel id="quiz"><QuizPanel projectId={project.id} nodes={nodes} /></Tabs.Panel>
+        <Tabs.Panel id="models"><ModelConfigurationPanel /></Tabs.Panel>
+      </Tabs>
     </main>
   );
 }

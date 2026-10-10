@@ -1,5 +1,7 @@
 "use client";
 
+import { Button, Input } from "@heroui/react";
+
 import { AlertCircle, FileUp, LoaderCircle, RefreshCw, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -56,12 +58,12 @@ export function ResourceLibraryPanel({ nodes }: { nodes: WorkspaceNode[] }) {
   };
 
   return <section className="resource-library-panel">
-    <div className="section-heading"><div><p className="eyebrow">RESOURCE LIBRARY</p><h3>资料库</h3></div><button className="icon-button" type="button" title="刷新资料" onClick={() => void load()} disabled={state === "loading"}><RefreshCw size={17} /></button></div>
-    <div className="resource-upload-form"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))}>{nodes.map((node) => <option key={node.id} value={node.id}>{node.code} {node.title}</option>)}</select></label><label>本地文件<input ref={fileInput} type="file" accept=".txt,.md,.pdf,.docx,.html" /></label><button type="button" className="command-button" onClick={() => void upload()} disabled={state === "uploading" || !nodeId}><FileUp size={16} />上传并索引</button></div>
+    <div className="section-heading"><div><p className="eyebrow">RESOURCE LIBRARY</p><h3>资料库</h3></div><Button variant="ghost" type="button" aria-label="刷新资料" onClick={() => void load()} isDisabled={state === "loading"}><RefreshCw size={17} /></Button></div>
+    <div className="resource-upload-form"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))}>{nodes.map((node) => <option key={node.id} value={node.id}>{node.code} {node.title}</option>)}</select></label><label>本地文件<input ref={fileInput} type="file" accept=".txt,.md,.pdf,.docx,.html" /></label><Button variant="primary" type="button" className="command-layout" onClick={() => void upload()} isDisabled={state === "uploading" || !nodeId}><FileUp size={16} />上传并索引</Button></div>
     {state === "loading" && <div className="review-state"><LoaderCircle className="spin" size={18} />正在读取资料</div>}
     {state === "uploading" && <div className="resource-progress">{progress.length ? progress.map((item, index) => <span key={`${item}-${index}`}>{item}</span>) : <span>正在建立索引任务</span>}</div>}
     {message && <div className="resource-error"><AlertCircle size={17} />{message}</div>}
     {resources.length === 0 && state !== "loading" && <div className="rag-empty">当前知识点还没有已上传资料。</div>}
-    <div className="resource-list">{resources.map((resource) => <article className={`resource-row ${resource.status}`} key={resource.resource_id}><div><strong>{resource.title}</strong><span>{resource.status === "completed" ? "已索引" : resource.status === "failed" ? "索引失败" : "索引中"} · {resource.rtype}</span>{resource.message && <p>{resource.message}</p>}</div><button type="button" className="icon-button danger" title={`删除 ${resource.title}`} onClick={() => void beginDelete(resource)} disabled={state === "deleting"}><Trash2 size={16} /></button>{deleting?.id === resource.resource_id && <div className="resource-delete-confirm"><span>输入“{deleting.phrase}”确认删除该资料索引。</span><input value={deleting.input} onChange={(event) => setDeleting({ ...deleting, input: event.target.value })} /><button type="button" className="danger-button" onClick={() => void confirmDelete()} disabled={deleting.input !== deleting.phrase || state === "deleting"}>确认删除</button><button type="button" className="secondary-button" onClick={() => setDeleting(null)}>取消</button></div>}</article>)}</div>
+    <div className="resource-list">{resources.map((resource) => <article className={`resource-row ${resource.status}`} key={resource.resource_id}><div><strong>{resource.title}</strong><span>{resource.status === "completed" ? "已索引" : resource.status === "failed" ? "索引失败" : "索引中"} · {resource.rtype}</span>{resource.message && <p>{resource.message}</p>}</div><Button variant="ghost" type="button" aria-label={`删除 ${resource.title}`} onClick={() => void beginDelete(resource)} isDisabled={state === "deleting"}><Trash2 size={16} /></Button>{deleting?.id === resource.resource_id && <div className="resource-delete-confirm"><span>输入“{deleting.phrase}”确认删除该资料索引。</span><Input value={deleting.input} onChange={(event) => setDeleting({ ...deleting, input: event.target.value })} /><Button variant="danger" type="button"  onClick={() => void confirmDelete()} isDisabled={deleting.input !== deleting.phrase || state === "deleting"}>确认删除</Button><Button variant="secondary" type="button"  onClick={() => setDeleting(null)}>取消</Button></div>}</article>)}</div>
   </section>;
 }

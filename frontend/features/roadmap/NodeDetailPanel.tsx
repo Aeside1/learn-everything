@@ -1,5 +1,7 @@
 "use client";
 
+import { Button, TextArea } from "@heroui/react";
+
 import { AlertCircle, LoaderCircle } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -52,19 +54,19 @@ export function NodeDetailPanel({
       <div className="preview-heading"><div><p className="eyebrow">LESSON DETAIL / 课程详情</p><h3>{detail.title}</h3></div><span>{detail.code}</span></div>
       <NodeStatusControl node={detail} pending={statusPending} onUpdate={onUpdateStatus} />
       <MarkdownContent content={detail.description || "当前没有完整课程内容。"} />
-      <div className="detail-actions"><button type="button" className="secondary-button" disabled={action !== null} onClick={onGenerateContent}>{action === "content" && <LoaderCircle className="spin" size={16} />}{detail.has_content ? "重新生成课程" : "生成课程"}</button></div>
-      <textarea className="detail-note" value={noteContent} disabled={action !== null} onChange={(event) => onNoteChange(event.target.value)} placeholder="记录你的理解、疑问和总结" />
-      <button type="button" className="command-button" disabled={action !== null} onClick={onSaveNote}>{action === "note" && <LoaderCircle className="spin" size={16} />}保存笔记</button>
+      <div className="detail-actions"><Button variant="secondary" type="button"  isDisabled={action !== null} onClick={onGenerateContent}>{action === "content" && <LoaderCircle className="spin" size={16} />}{detail.has_content ? "重新生成课程" : "生成课程"}</Button></div>
+      <TextArea className="detail-note" value={noteContent} disabled={action !== null} onChange={(event) => onNoteChange(event.target.value)} placeholder="记录你的理解、疑问和总结" />
+      <Button variant="primary" type="button" className="command-layout" isDisabled={action !== null} onClick={onSaveNote}>{action === "note" && <LoaderCircle className="spin" size={16} />}保存笔记</Button>
     </section>
     <section className="node-detail-panel">
       <div className="preview-heading"><div><p className="eyebrow">PRACTICE LESSON / 实操课程</p><h3>{detail.practice?.title ?? "尚未生成实操课程"}</h3></div></div>
       {detail.practice ? <div className="detail-practice-content"><MarkdownContent content={detail.practice.description} /></div> : <p className="detail-empty">生成课程后，可在这里完成针对当前知识点的实操练习。</p>}
-      <div className="detail-actions"><button type="button" className="secondary-button" disabled={action !== null} onClick={onGeneratePractice}>{action === "practice" && <LoaderCircle className="spin" size={16} />}{detail.practice ? "重新生成实操" : "生成实操"}</button></div>
+      <div className="detail-actions"><Button variant="secondary" type="button"  isDisabled={action !== null} onClick={onGeneratePractice}>{action === "practice" && <LoaderCircle className="spin" size={16} />}{detail.practice ? "重新生成实操" : "生成实操"}</Button></div>
     </section>
     <section className="node-detail-panel">
       <div className="preview-heading"><div><p className="eyebrow">REFERENCE MATERIALS / 参考资料</p><h3>{detail.resources.length ? `${detail.resources.length} 项已关联资料` : "尚未拉取参考资料"}</h3></div></div>
       {detail.resources.length ? <div className="detail-resource-list">{detail.resources.map((resource) => <a className="detail-resource" href={resource.url} target="_blank" rel="noreferrer" key={resource.id ?? resource.url}><strong>{resource.title}</strong><span>{resource.rtype} · {resource.source}</span>{resource.description && <small>{resource.description}</small>}</a>)}</div> : <p className="detail-empty">拉取后，资料会保留在当前节点并显示在此处。</p>}
-      <div className="detail-actions"><button type="button" className="secondary-button" disabled={action !== null} onClick={onGenerateResources}>{action === "resources" && <LoaderCircle className="spin" size={16} />}拉取资料</button></div>
+      <div className="detail-actions"><Button variant="secondary" type="button"  isDisabled={action !== null} onClick={onGenerateResources}>{action === "resources" && <LoaderCircle className="spin" size={16} />}拉取资料</Button></div>
     </section>
   </div>;
 }

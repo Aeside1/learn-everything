@@ -1,5 +1,7 @@
 "use client";
 
+import { Button, TextArea } from "@heroui/react";
+
 import { AlertCircle, LoaderCircle, MessageSquareText, RotateCcw, Send, Square } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -62,7 +64,7 @@ export function RagChatPanel({ nodes }: { nodes: WorkspaceNode[] }) {
     <div className="section-heading"><div><p className="eyebrow">KNOWLEDGE Q&A</p><h3>资料问答</h3></div><MessageSquareText size={22} aria-hidden="true" /></div>
     <div className="rag-scope"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))} disabled={running}>{nodes.map((node) => <option value={node.id} key={node.id}>{node.code} {node.title}</option>)}</select></label><div className="rag-source-list"><span>问答资料</span>{scopeLoading && <small><LoaderCircle className="spin" size={14} />正在读取资料</small>}{!scopeLoading && resources.length === 0 && <small>请先在资料库上传并完成索引。</small>}{resources.map((resource) => <label key={resource.source_id}><input type="checkbox" checked={selectedIds.includes(resource.source_id!)} onChange={() => toggleSource(resource.source_id!)} disabled={running} />{resource.title}</label>)}</div></div>
     <div className="rag-transcript" aria-live="polite">{messages.length === 0 && <div className="rag-empty">选择已索引资料后即可提问。</div>}{messages.map((item, index) => <article className={`rag-message ${item.role}`} key={`${item.role}-${index}`}><strong>{item.role === "user" ? "你" : "学习助手"}</strong><p>{item.content || (running && index === messages.length - 1 ? "正在检索资料..." : "")}</p>{item.excerpts?.map((excerpt) => <details key={`${excerpt.source_id}-${excerpt.text}`}><summary>{String(excerpt.metadata.file_name ?? excerpt.source_id)}</summary><p>{excerpt.text}</p></details>)}</article>)}</div>
-    {error && <div className="rag-error"><AlertCircle size={17} />{error}{latestQuestion.current && <button type="button" className="text-action" onClick={() => void ask(true)}>重试</button>}</div>}
-    <div className="rag-composer"><textarea value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="针对已选资料提问" disabled={running} /><div>{running ? <button type="button" className="secondary-button" onClick={() => controller.current?.abort()}><Square size={15} />停止</button> : <button type="button" className="command-button" onClick={() => void ask()} disabled={!resources.length}><Send size={16} />提问</button>}{messages.length > 0 && !running && <button type="button" className="icon-button" title="重试上一问题" onClick={() => void ask(true)}><RotateCcw size={16} /></button>}</div></div>
+    {error && <div className="rag-error"><AlertCircle size={17} />{error}{latestQuestion.current && <Button variant="ghost" size="sm" type="button"  onClick={() => void ask(true)}>重试</Button>}</div>}
+    <div className="rag-composer"><TextArea value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="针对已选资料提问" disabled={running} /><div>{running ? <Button variant="secondary" type="button"  onClick={() => controller.current?.abort()}><Square size={15} />停止</Button> : <Button variant="primary" type="button" className="command-layout" onClick={() => void ask()} isDisabled={!resources.length}><Send size={16} />提问</Button>}{messages.length > 0 && !running && <Button variant="ghost" type="button" aria-label="重试上一问题" onClick={() => void ask(true)}><RotateCcw size={16} /></Button>}</div></div>
   </section>;
 }
