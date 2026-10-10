@@ -1,0 +1,284 @@
+{
+  "baseUrl": "http://127.0.0.1:8147",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T22:35:11",
+  "domSwapScreenshots": [],
+  "scenarios": [
+    {
+      "name": "markdown-table-quote-and-code-theming",
+      "baseUrl": "http://127.0.0.1:8147",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 异步运行时与并发任务调度：一个足够长的知识点标题用于验证窄屏换行与截断行为 的详细内容"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "异步运行时与并发任务调度"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "调度策略"
+        },
+        {
+          "index": 5,
+          "step": "expectText",
+          "target": "单线程执行器"
+        },
+        {
+          "index": 6,
+          "step": "expectText",
+          "target": "执行器在等待 I/O 时会把控制权交还给调度器"
+        },
+        {
+          "index": 7,
+          "step": "expectText",
+          "target": "async fn fetch_all"
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "lesson-table-quote-code",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "异步运行时与并发任务调度"
+              },
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              }
+            ]
+          }
+        },
+        {
+          "index": 9,
+          "step": "viewport",
+          "target": {
+            "width": 900,
+            "height": 860
+          }
+        },
+        {
+          "index": 10,
+          "step": "scrollTo",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectInViewport",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "lesson-table-narrow",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              }
+            ]
+          }
+        },
+        {
+          "index": 13,
+          "step": "viewport",
+          "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 14,
+          "step": "wheelTo",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectInViewport",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 16,
+          "step": "expectText",
+          "target": "多线程执行器"
+        },
+        {
+          "index": 17,
+          "step": "screenshot",
+          "target": {
+            "name": "lesson-table-420",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "lesson-table-quote-code",
+          "light": "lesson-table-quote-code-light.png",
+          "dark": "lesson-table-quote-code-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "lesson-table-narrow",
+          "light": "lesson-table-narrow-light.png",
+          "dark": "lesson-table-narrow-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "lesson-table-420",
+          "light": "lesson-table-420-light.png",
+          "dark": "lesson-table-420-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "lesson-long-code-line-keeps-layout",
+      "baseUrl": "http://127.0.0.1:8147",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "所有权与借用"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "已有笔记内容"
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "detail-regular-content",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "所有权与借用"
+              },
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "detail-regular-content",
+          "light": "detail-regular-content-light.png",
+          "dark": "detail-regular-content-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}

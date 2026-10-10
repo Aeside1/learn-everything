@@ -52,6 +52,27 @@ def _node(node_id: int, code: str, title: str, status: str = "pending", **extra)
     return base
 
 
+RICH_LESSON = "\n".join(
+    [
+        "## 异步运行时要点",
+        "",
+        "长文本知识点：需要验证在窄屏、长标题和长描述下，节点列表、详情面板与状态控件仍然可读且可操作。",
+        "",
+        "> 引用块验证：执行器在等待 I/O 时会把控制权交还给调度器，因此单个线程也能并发处理大量任务。",
+        "",
+        "| 调度策略 | 适用场景 | 备注 |",
+        "| --- | --- | --- |",
+        "| 单线程执行器 | I/O 密集型任务 | 不需要 Send 约束，适合桌面端与轻量服务 |",
+        "| 多线程执行器 | CPU 密集型任务与阻塞调用混用 | 需要任务满足 Send，并注意线程池容量与队列堆积 |",
+        "",
+        "```rust",
+        'async fn fetch_all(urls: Vec<String>) -> Vec<Result<String, Box<dyn std::error::Error>>> { let mut handles = Vec::new(); for url in urls { handles.push(tokio::spawn(async move { reqwest::get(&url).await?.text().await })); } futures::future::join_all(handles).await.into_iter().map(|item| item?).collect() }',
+        "```",
+        "",
+        "长文本知识点第二段：验证主题切换后文字对比度与背景层次保持清晰，并且长行代码块可以横向滚动而不撑破面板。",
+    ]
+)
+
 NODES = [
     _node(101, "1.1", "所有权与借用", "mastered"),
     _node(102, "1.2", "生命周期与借用检查器", "learning"),
@@ -61,8 +82,7 @@ NODES = [
         "2.1",
         "异步运行时与并发任务调度：一个足够长的知识点标题用于验证窄屏换行与截断行为",
         "weak",
-        description="长文本知识点：需要验证在窄屏、长标题和长描述下，节点列表、详情面板与状态控件仍然可读且可操作，"
-        "同时验证主题切换后文字对比度与背景层次保持清晰。" * 2,
+        description=RICH_LESSON,
     ),
 ]
 

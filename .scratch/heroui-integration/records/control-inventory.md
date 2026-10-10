@@ -48,7 +48,13 @@
 - 12 个业务面板中原生 `select`/`textarea`/`checkbox`/手写按钮皮肤：见上表 ⏳ 04–05（03/06 已完成）。
 - `app/styles.css` 中仍保留尚未迁移调用方的控件皮肤规则；只有确认无调用方后才删除（07）。
 
-## 死样式审计清单（07 执行，输入为 2026 年审计产出，main @ 932141e）
+## 死样式审计与执行结果（07 已执行，输入为审计 agent 产出 + 主 agent 复核）
+
+执行结果：用 `.scratch/heroui-integration/tools/clean_dead_css.py` 删除 104 条纯死规则，再人工删除 10 条混合规则（父选择器仍活、只有自身类名死），共 **114 条**；`git diff` 为 90 行删除、2 行合并（把同一条剩余活规则上提）。
+
+删除后重新审计：**生产代码（`frontend/features|app|components|lib` 的 `.tsx`/`.ts`）中再无调用方的类只剩三个动态拼接名**：`job-blocked`（`RoadmapCreation.tsx:192` `` `content-job job-${status}` ``，后端 `learning_ext/application/jobs.py` 确实会置 `blocked`）、`node-mastered`/`node-weak`（`RoadmapPanel.tsx:46` `` `node-row node-${status}` ``）。它们必须保留。
+
+易错点记录：审计若把测试/场景名、`data-testid`、记录文本一起当作调用方，会把已死类误判为活（例如 `rag-scope`、`quiz-form` 只在场景名里出现）；因此判定必须以生产源码为准，并对模板字符串按片段核查。`sr-only` 保留：它在 `ResourceLibraryPanel.tsx:127` 仍被使用（Tailwind 也有同名工具类，删掉也不影响，无必要冒险）。
 
 审计方法：抽取全部 `className` token 集合与 CSS 类名求差，再对差集逐个做子串/动态拼接复查（模板字符串如 `` node-${status} `` 必须按片段查）。下表已由主 agent 抽检复核。
 
@@ -83,11 +89,14 @@
 | 项目侧栏 | 选择、刷新、新建、编辑、删除、进度、加载、错误 | 当前/普通/空列表/加载/错误/焦点、长标题、窄屏 | ✅ 01：`projects-workspace-and-dialogs` 7 组 + `project-delete-confirmation` 3 组 |
 | 项目弹窗 | Modal、TextField、TextArea、NumberField、Button | 打开后切主题、遮罩与正文、校验、提交中禁用与关闭限制、确认词 | ✅ 01：`project-edit-dialog`/`narrow-edit-dialog`/`delete-dialog-*` + jsdom 焦点返回与 Escape 阻止 |
 | 工作区 | Tabs、ProgressBar、Spinner、Card、Error+Retry | 鼠标与键盘切换、选中态、焦点、进度、零节点、加载/错误、详情保留、窄屏 | ✅ 02：3 场景 12 组截图 + jsdom 关联与键盘断言 |
-| 路线创建 | 见任务 03 记录 | 预览、调整、保存、准备任务、失败重试与禁用态 | ⏳ 03 |
-| 路线列表与节点详情 | 见任务 03 记录 | 已选/禁用、Markdown、代码、表格、参考链接、错误反馈 | ⏳ 03 |
-| 学习看板 | 见任务 04 记录 | 加载、错误、数据文本、热力图文字说明 | ⏳ 04 |
-| 到期复习 | 见任务 04 记录 | 正反面内容、评分、空队列、错误 | ⏳ 04 |
-| 查漏测验 | 见任务 04 记录 | 选择器浮层与长选项、已选答案、提交禁用、正确/错误反馈 | ⏳ 04 |
-| 资料库 | 见任务 05 记录 | 文件输入例外、索引进度、失败、确认删除、浮层 | ⏳ 05 |
-| RAG 问答 | 见任务 05 记录 | 资料勾选、流式回答、引用、停止、重试、禁用态 | ⏳ 05 |
-| 模型配置 | 见任务 06 记录 | 档案选择浮层、密码输入、保存、连接测试、就绪状态、错误 | ⏳ 06 |
+| 路线创建 | Button/Spinner、TextField+Label+Input、TextArea+FieldError、NumberField+Group+Increment/DecrementButton | 预览、调整、保存、准备任务、失败重试与禁用态 | ✅ 03：4 场景 26 组双主题（含 900px 窄屏与 420px 外壳） |
+| 路线列表与节点详情 | Button ghost 整行入口、ToggleButtonGroup 四态、TextArea+Button 笔记与动作 | 已选/禁用、Markdown 标题/列表/代码、参考链接、错误反馈 | ✅ 03：同上；❕ Markdown 表格与引用由 ✅ 07 补：`evidence/07/lesson-table-quote-code{,-narrow,-420}-{light,dark}.png` |
+| 学习看板 | Card/Alert/Spinner/Button、业务排版与热力图 | 加载、错误、数据文本、热力图文字说明、导出 | ✅ 04：3 场景 8 组双主题（`evidence/04/dashboard-*`） |
+| 到期复习 | Card/Alert/Spinner/Button、正反面业务排版 | 正反面内容、评分、空队列、错误 | ✅ 04：2 场景 7 组双主题（`review-*`） |
+| 查漏测验 | Select/ListBox 浮层、TextField+Label、TextArea、Button、Alert | 选择器浮层与长选项、已选答案、提交禁用、正确/错误反馈 | ✅ 04：2 场景 12 组双主题（`quiz-*`） |
+| 资料库 | TextField+Label、Input type=file（已登记例外）、Button+Spinner、Alert、删除确认 | 文件输入例外、索引进度、失败、确认删除、浮层 | ✅ 05：1 场景 9 组双主题（`resources-*`） |
+| RAG 问答 | Checkbox、TextField+TextArea、Disclosure 引用、Button+Spinner | 资料勾选、流式回答、引用、停止、重试、禁用态 | ✅ 05：3 场景 13 组双主题（`rag-*`） |
+| 模型配置 | SelectField、TextField+Label+Input、Button+Spinner、IconButton+Tooltip | 档案选择浮层、密码输入、保存、连接测试、就绪状态、错误 | ✅ 06：5 场景 14 组双主题（`model-config-*`） |
+| 业务内容主题（集成级） | 不转成控件：`.lesson-content` 下标题/列表/表格/引用/代码/链接 | 表格与引用跟随主题、超长代码行横向滚动不撑破布局、420px 下正文可读且笔记可操作 | ✅ 07：2 场景 4 组双主题（`evidence/07/`） |
+
+汇总：**01–07 共 33 个场景、约 263 张截图，全部 `passed`**（另一个 `evidence/06-regression-780/` 是刻意保留的失败快照，`controls-wheel-reachability/` 是断言自检的一通过一失败）。
