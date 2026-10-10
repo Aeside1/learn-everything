@@ -73,6 +73,8 @@
 
 **待确认**：`command-layout` 被 `RagChatPanel`/`QuizPanel`/`ResourceLibraryPanel` 使用但 CSS 中无定义（可能是漏定义的空类，交由 04/05 处理）；`lib/api.ts` 中 13 个类型导出（`Progress`、`RoadmapNode`、`QuizQuestion`、`RagStreamEvent`…）仅文件内部使用、外部 0 引用，属 API 契约类型，倾向于保留并在 07 说明理由。
 
+**保留决定（集成复核）**：`components/ui/SelectField.tsx:5` 的 `SelectOption` 保留导出。它是共享选择器的入参类型，调用方需要用它标注自己的 `options` 数组；经检索 04/05 工作区当前均未使用（0 命中），但删掉导出只会得到收益极小的内部收紧，不值得在并行开发期间制造冲突面。
+
 ## 接入与主题验收矩阵（逐模块填写实际结果）
 
 | 模块 | 基础控件与内容 | 必须覆盖的主题与交互场景 | 验证结果 |

@@ -28,3 +28,5 @@ dist/
 nul
 .spec-workflow/
 .vscode/
+.scratch/**/tmp-*
+.scratch/**/*.err.log
