@@ -1,7 +1,7 @@
 {
-  "baseUrl": "http://127.0.0.1:8146",
+  "baseUrl": "http://127.0.0.1:8156",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:28:49",
+  "ranAt": "2026-10-10T22:42:14",
   "domSwapScreenshots": [
     "model-configuration-profiles-and-fields/model-config-profile-selector-popover",
     "model-configuration-narrow-and-long-name/model-config-narrow-profile-popover"
@@ -9,7 +9,7 @@
   "scenarios": [
     {
       "name": "model-configuration-profiles-and-fields",
-      "baseUrl": "http://127.0.0.1:8146",
+      "baseUrl": "http://127.0.0.1:8156",
       "status": "passed",
       "steps": [
         {
@@ -272,7 +272,7 @@
     },
     {
       "name": "model-configuration-password-and-save",
-      "baseUrl": "http://127.0.0.1:8146",
+      "baseUrl": "http://127.0.0.1:8156",
       "status": "passed",
       "steps": [
         {
@@ -454,7 +454,7 @@
     },
     {
       "name": "model-configuration-connection-test-feedback",
-      "baseUrl": "http://127.0.0.1:8146",
+      "baseUrl": "http://127.0.0.1:8156",
       "status": "passed",
       "steps": [
         {
@@ -598,7 +598,7 @@
     },
     {
       "name": "model-configuration-busy-create-delete",
-      "baseUrl": "http://127.0.0.1:8146",
+      "baseUrl": "http://127.0.0.1:8156",
       "status": "passed",
       "steps": [
         {
@@ -859,7 +859,7 @@
     },
     {
       "name": "model-configuration-narrow-and-long-name",
-      "baseUrl": "http://127.0.0.1:8146",
+      "baseUrl": "http://127.0.0.1:8156",
       "status": "passed",
       "steps": [
         {

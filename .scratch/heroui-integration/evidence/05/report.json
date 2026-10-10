@@ -1,14 +1,14 @@
 {
-  "baseUrl": "http://127.0.0.1:8145",
+  "baseUrl": "http://127.0.0.1:8155",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:29:05",
+  "ranAt": "2026-10-10T22:42:28",
   "domSwapScreenshots": [
     "resources-select-upload-and-delete/resources-knowledge-selector-popover"
   ],
   "scenarios": [
     {
       "name": "resources-select-upload-and-delete",
-      "baseUrl": "http://127.0.0.1:8145",
+      "baseUrl": "http://127.0.0.1:8155",
       "status": "passed",
       "steps": [
         {
@@ -593,13 +593,13 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8145/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED",
-        "POST http://127.0.0.1:8145/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8155/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED",
+        "POST http://127.0.0.1:8155/api/v1/nodes/101/resources/upload/stream -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "rag-scope-ask-stream-and-citation",
-      "baseUrl": "http://127.0.0.1:8145",
+      "baseUrl": "http://127.0.0.1:8155",
       "status": "passed",
       "steps": [
         {
@@ -902,12 +902,12 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8155/api/v1/rag/stream -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "rag-stop-and-retry",
-      "baseUrl": "http://127.0.0.1:8145",
+      "baseUrl": "http://127.0.0.1:8155",
       "status": "passed",
       "steps": [
         {
@@ -1094,13 +1094,13 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED",
-        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8155/api/v1/rag/stream -> net::ERR_ABORTED",
+        "POST http://127.0.0.1:8155/api/v1/rag/stream -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "resources-rag-narrow-and-theme-retention",
-      "baseUrl": "http://127.0.0.1:8145",
+      "baseUrl": "http://127.0.0.1:8155",
       "status": "passed",
       "steps": [
         {
@@ -1424,7 +1424,7 @@
       "probes": [],
       "consoleErrors": [],
       "failedRequests": [
-        "POST http://127.0.0.1:8145/api/v1/rag/stream -> net::ERR_ABORTED"
+        "POST http://127.0.0.1:8155/api/v1/rag/stream -> net::ERR_ABORTED"
       ]
     }
   ]

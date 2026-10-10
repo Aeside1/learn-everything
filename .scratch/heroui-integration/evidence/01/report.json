@@ -1,7 +1,7 @@
 {
-  "baseUrl": "http://127.0.0.1:8141",
+  "baseUrl": "http://127.0.0.1:8151",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:26:08",
+  "ranAt": "2026-10-10T22:38:48",
   "domSwapScreenshots": [
     "projects-workspace-and-dialogs/project-edit-dialog",
     "projects-workspace-and-dialogs/narrow-edit-dialog",
@@ -12,7 +12,7 @@
   "scenarios": [
     {
       "name": "projects-workspace-and-dialogs",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
@@ -552,7 +552,7 @@
     },
     {
       "name": "project-edit-save",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
@@ -668,7 +668,7 @@
     },
     {
       "name": "project-delete-confirmation",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
@@ -854,12 +854,12 @@
         "error: Failed to load resource: net::ERR_EMPTY_RESPONSE"
       ],
       "failedRequests": [
-        "GET http://127.0.0.1:8141/api/v1/projects -> net::ERR_EMPTY_RESPONSE"
+        "GET http://127.0.0.1:8151/api/v1/projects -> net::ERR_EMPTY_RESPONSE"
       ]
     },
     {
       "name": "workspace-loading-error-retry",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
@@ -1011,12 +1011,12 @@
         "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
       ],
       "failedRequests": [
-        "GET http://127.0.0.1:8141/api/v1/projects -> net::ERR_ABORTED"
+        "GET http://127.0.0.1:8151/api/v1/projects -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "theme-preference-roundtrip",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
@@ -1192,11 +1192,13 @@
       ],
       "probes": [],
       "consoleErrors": [],
-      "failedRequests": []
+      "failedRequests": [
+        "GET http://127.0.0.1:8151/api/v1/projects/1/dashboard -> net::ERR_ABORTED"
+      ]
     },
     {
       "name": "layout-breakpoint-768-band",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
@@ -1303,7 +1305,7 @@
     },
     {
       "name": "layout-breakpoint-900-band",
-      "baseUrl": "http://127.0.0.1:8141",
+      "baseUrl": "http://127.0.0.1:8151",
       "status": "passed",
       "steps": [
         {
