@@ -27,7 +27,7 @@ describe("学习工作台组合根", () => {
     const user = userEvent.setup();
     render(<HomePage />);
     await screen.findByRole("heading", { name: "学习 Rust", level: 2 });
-    await user.click(screen.getByRole("button", { name: /^JS 学习学习 JS0\/1 已完成$/ }));
+    await user.click(screen.getByRole("button", { name: "JS 学习 学习 JS 0/1 已完成" }));
     await screen.findByRole("heading", { name: "JS 学习", level: 2 });
     expect(getProjectWorkspace).toHaveBeenCalledWith(2);
   });
@@ -38,7 +38,7 @@ describe("学习工作台组合根", () => {
     const user = userEvent.setup();
     render(<HomePage />);
     await screen.findByRole("heading", { name: "学习 Rust", level: 2 });
-    await user.click(screen.getByRole("button", { name: /^JS 学习学习 JS0\/1 已完成$/ }));
+    await user.click(screen.getByRole("button", { name: "JS 学习 学习 JS 0/1 已完成" }));
     await screen.findByRole("heading", { name: "JS 学习", level: 2 });
     await user.click(screen.getByRole("button", { name: "删除 JS 学习" }));
     await user.type(screen.getByRole("textbox"), "DELETE");

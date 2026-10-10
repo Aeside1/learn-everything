@@ -1,0 +1,205 @@
+{
+  "scenarios": [
+    {
+      "name": "projects-workspace-and-dialogs",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "expectVisible": { "role": "button", "name": "新建学习路线" } },
+        { "expectVisible": { "role": "progressbar", "name": "学习 Rust 学习进度" } },
+        { "expectVisible": { "role": "tab", "name": "学习概览" } },
+        {
+          "screenshot": {
+            "name": "projects-workspace",
+            "verify": [
+              { "role": "button", "name": "学习 Rust Rust 1/4 已完成" },
+              { "role": "button", "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成" },
+              { "role": "tab", "name": "学习概览" }
+            ]
+          }
+        },
+        { "hover": { "role": "button", "name": "学习 Rust Rust 1/4 已完成" } },
+        {
+          "screenshot": {
+            "name": "projects-workspace-hover",
+            "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        },
+        { "focus": { "role": "button", "name": "学习 Rust Rust 1/4 已完成" } },
+        {
+          "screenshot": {
+            "name": "projects-workspace-focus",
+            "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        },        { "click": { "role": "button", "name": "编辑 学习 Rust" } },
+        { "expectVisible": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshot": {
+            "name": "project-edit-dialog",
+            "verify": [
+              { "role": "dialog", "name": "编辑学习项目" },
+              { "role": "textbox", "name": "项目名称" }
+            ]
+          }
+        },
+        { "press": "Escape" },
+        { "expectHidden": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshot": {
+            "name": "after-dialog-close",
+            "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        },
+        { "viewport": { "width": 420, "height": 860 } },
+        {
+          "screenshot": {
+            "name": "narrow-projects",
+            "verify": [{ "role": "button", "name": "新建学习路线" }]
+          }
+        },
+        { "click": { "role": "button", "name": "编辑 学习 Rust" } },
+        { "expectVisible": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshot": {
+            "name": "narrow-edit-dialog",
+            "verify": [
+              { "role": "dialog", "name": "编辑学习项目" },
+              { "role": "textbox", "name": "项目名称" }
+            ]
+          }
+        },
+        { "press": "Escape" },
+        { "viewport": { "width": 1280, "height": 900 } }
+      ]
+    },
+    {
+      "name": "project-edit-save",
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "button", "name": "编辑 学习 Rust" } },
+        { "fill": { "role": "textbox", "name": "项目名称", "value": "Rust 并发实战" } },
+        {
+          "screenshot": {
+            "name": "edit-dialog-draft",
+            "verify": [{ "role": "textbox", "name": "项目名称" }]
+          }
+        },
+        { "click": { "role": "button", "name": "保存修改" } },
+        { "expectHidden": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshot": {
+            "name": "after-save",
+            "verify": [{ "role": "button", "name": "Rust 并发实战 Rust 1/4 已完成" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "project-delete-confirmation",
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "button", "name": "删除 学习 Rust" } },
+        { "expectVisible": { "role": "dialog", "name": "删除“学习 Rust”" } },
+        { "expectDisabled": { "role": "button", "name": "永久删除" } },
+        {
+          "screenshot": {
+            "name": "delete-dialog-disabled",
+            "verify": [
+              { "role": "dialog", "name": "删除“学习 Rust”" },
+              { "role": "textbox", "name": "DELETE 确认" }
+            ]
+          }
+        },
+        { "fill": { "role": "textbox", "name": "DELETE 确认", "value": "DELETE" } },
+        { "expectEnabled": { "role": "button", "name": "永久删除" } },
+        {
+          "screenshot": {
+            "name": "delete-dialog-enabled",
+            "verify": [
+              { "role": "dialog", "name": "删除“学习 Rust”" },
+              { "role": "textbox", "name": "DELETE 确认" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "永久删除" } },
+        { "expectHidden": { "role": "dialog", "name": "删除“学习 Rust”" } },
+        {
+          "screenshot": {
+            "name": "after-delete-fallback",
+            "verify": [{ "role": "button", "name": "前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "workspace-loading-error-retry",
+      "steps": [
+        { "goto": "/" },
+        { "setApiDelay": 1500 },
+        { "reload": true },
+        { "screenshot": "workspace-loading" },
+        { "setApiDelay": 0 },
+        { "wait": 1500 },
+        { "setApiError": "GET /api/v1/projects/\\d+/workspace" },
+        { "reload": true },
+        { "expectVisible": { "role": "button", "name": "重新加载" } },
+        {
+          "screenshot": {
+            "name": "workspace-error",
+            "verify": [{ "role": "button", "name": "重新加载" }]
+          }
+        },
+        { "setApiError": null },
+        { "click": { "role": "button", "name": "重新加载" } },
+        { "expectVisible": { "role": "progressbar", "name": "学习进度" } },
+        {
+          "screenshot": {
+            "name": "workspace-recovered",
+            "verify": [
+              { "role": "progressbar", "name": "学习进度" },
+              { "role": "button", "name": "学习 Rust Rust 1/4 已完成" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "theme-preference-roundtrip",
+      "steps": [
+        { "goto": "/" },
+        { "expectTheme": "light" },
+        { "storageTheme": "dark" },
+        { "reload": true },
+        { "expectTheme": "dark" },
+        { "expectVisible": { "role": "button", "name": "切换为浅色主题" } },
+        {
+          "screenshot": {
+            "name": "restored-dark-preference",
+            "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        },
+        { "click": { "role": "button", "name": "切换为深色主题" } },
+        { "expectTheme": "dark" },
+        { "reload": true },
+        { "expectTheme": "dark" },
+        { "expectVisible": { "role": "button", "name": "切换为浅色主题" } },
+        {
+          "screenshot": {
+            "name": "toggle-persisted-dark",
+            "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        },
+        { "expectTheme": "light" },
+        { "reload": true },
+        { "expectTheme": "light" },
+        { "expectVisible": { "role": "button", "name": "切换为深色主题" } },
+        {
+          "screenshot": {
+            "name": "toggle-persisted-light",
+            "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        }
+      ]
+    }
+  ]
+}

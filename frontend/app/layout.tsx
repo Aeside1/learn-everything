@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { themeInitScript } from "../features/theme/theme";
 import { ThemeProvider } from "../features/theme/ThemeProvider";
 import "./styles.css";
 
@@ -12,11 +13,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{const t=localStorage.getItem('learn_everything_theme');if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(_){}`,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
       </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>

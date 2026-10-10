@@ -29,7 +29,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="app-shell flex h-screen w-full overflow-hidden bg-[#f4f7f5] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="app-shell flex h-screen w-full overflow-hidden bg-background text-foreground">
       <ProjectRail
         projects={catalog.projects}
         selectedId={view === "workspace" ? selectedProjectId : null}
