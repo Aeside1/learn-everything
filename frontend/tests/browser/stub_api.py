@@ -12,6 +12,7 @@ import argparse
 import copy
 import json
 import re
+import sys
 import threading
 import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -597,6 +598,12 @@ class Handler(SimpleHTTPRequestHandler):
 
     def log_message(self, fmt, *args):  # noqa: A003 - 保持安静
         pass
+
+    def handle_error(self, request, client_address):
+        error = sys.exc_info()[1]
+        if isinstance(error, (ConnectionAbortedError, ConnectionResetError, BrokenPipeError)):
+            return
+        super().handle_error(request, client_address)
 
     def end_headers(self):
         self.send_header("Connection", "close")

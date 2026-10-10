@@ -103,13 +103,14 @@ frontend: npm run build
 | Web 框架 | Next.js | `16.3.3`，App Router，静态导出 |
 | UI 运行时 | React / React DOM | `19.2.8` |
 | 开发语言 | TypeScript | `7.0.2`，严格模式，`tsc --noEmit` |
-| UI 组件 | HeroUI | `@heroui/react`、`@heroui/styles` |
-| 样式 | Tailwind CSS + 原生 CSS | Tailwind 4、PostCSS、`frontend/app/styles.css` |
+| UI 组件 | HeroUI | `@heroui/react`、`@heroui/styles`，基础控件唯一来源 |
+| 样式 | Tailwind CSS + 主题变量 | Tailwind 4、PostCSS、`frontend/app/styles.css`（业务令牌映射 HeroUI 设计令牌） |
 | 图标与动画 | Lucide React、Framer Motion | 页面交互和图标使用 |
 | Markdown | react-markdown + remark-gfm | Markdown 内容渲染，禁用原始 HTML |
 | HTTP | 浏览器 Fetch API | `frontend/lib/api.ts` 类型化封装 |
 | 流式通信 | Fetch `ReadableStream` + SSE 帧解析 | RAG 对话、资料上传进度 |
 | 测试 | Vitest、Testing Library、jsdom | `npm run test` |
+| 浏览器验收 | Python Playwright + 本地替身 API | `frontend/tests/browser/`，双主题截图与浮层配色探针 |
 | 包管理 | npm | `package-lock.json` 锁定依赖 |
 
 当前前端是单页工作台：根布局负责元数据和主题初始化，`app/page.tsx` 负责顶层项目选择与视图切换，具体能力按领域放在 `features/` 中。没有使用 React Router 或服务端组件获取业务数据；业务页面以 Client Component 和 React Hooks 驱动。
@@ -133,7 +134,9 @@ frontend/
 │   ├── chat/             # RAG 流式问答
 │   ├── configuration/    # LLM/RAG 模型配置
 │   ├── markdown/         # Markdown 安全渲染
-│   └── theme/            # 主题状态与切换
+│   └── theme/            # 主题状态、存储与 DOM 同步
+├── components/
+│   └── ui/               # 跨业务复用的少量 HeroUI 组合控件
 └── lib/
     ├── api.ts            # API DTO、JSON 请求和 SSE 解析
     └── errors.ts         # 前端错误格式化
@@ -141,7 +144,17 @@ frontend/
 
 `page.tsx` 只持有跨模块协调状态：当前视图和当前项目。项目目录状态由 `useProjectCatalog` 持有，当前项目工作区状态由 `useProjectWorkspace` 持有，节点详情由路线模块管理。跨模块刷新通过显式回调传递，不引入全局状态库。
 
-### 3.3 API 和数据流
+### 3.3 界面控件与主题
+
+基础控件唯一来源是 HeroUI 3，不使用第二套组件库，也不为库控件建立转发包装层；只有多个业务模块重复同一语义时才在 `components/ui/` 增加组合控件。原生元素只在具备明确浏览器语义且无库替代（如文件选择）时保留，并登记在 `.scratch/heroui-integration/records/control-inventory.md`。
+
+主题状态的唯一来源是 `features/theme/theme.ts` 与 `features/theme/ThemeProvider.tsx`：解析 `light`/`dark`/`system`、持久化到 `learn_everything_theme`、把 `.dark` 类与 `data-theme` 写到 `<html>`。HeroUI 的深色令牌与 Tailwind 的 `dark` 变体都基于同一个类，因此库控件、portal 弹窗、选择器浮层、Tooltip 与业务内容共用同一主题状态。首屏由 `layout.tsx` 的内联脚本在 JS 包之前应用主题，Provider 挂载时先读取已保存偏好再写 DOM，避免闪烁与挂载后覆盖用户选择。
+
+业务配色不硬编码：`app/styles.css` 把业务令牌（`--ink`/`--paper`/`--panel`/`--line`/`--brand-*` 等）映射到 HeroUI 设计令牌，并在 `@theme inline` 中注册为 Tailwind 工具类；品牌色通过 `--accent`/`--focus` 集中配置。控件不单独维护浅色/深色两套样式。
+
+界面变更的验收分两层，两者都不可省略：静态检查确认控件来自 HeroUI、共享组合或已登记例外；浏览器检查确认这些控件在浅色、深色与往返切换后仍可读、可操作，且主题切换不丢失当前项目、标签、草稿或运行中的操作。工具在 `frontend/tests/browser/`：`stub_api.py` 提供静态产物托管的虚构 API 与可控 SSE/错误/延迟，`verify_theme.py` 按 JSON 场景执行并在每个截图点自动完成浅色→深色→浅色往返与浮层配色比对。
+
+### 3.4 API 和数据流
 
 ```text
 React Client Components
@@ -254,7 +267,7 @@ learn-everything/
 
 ## 8. 验证与已知风险
 
-当前前端提供 `npm run test`、`npm run typecheck` 和 `npm run build`。组件测试使用 Vitest、Testing Library 和 jsdom；后端/API 测试另按 Python 测试配置执行。浏览器和桌面运行仍需要在有完整依赖、模型配置和本地数据的环境中进行验收。
+当前前端提供 `npm run test`、`npm run typecheck` 和 `npm run build`。组件测试使用 Vitest、Testing Library 和 jsdom；后端/API 测试另按 Python 测试配置执行。双主题浏览器验收使用 `frontend/tests/browser/verify_theme.py`（需先 `npm run build` 生成 `frontend/out`），数据来自本地替身服务，不访问真实模型。浏览器和桌面运行仍需要在有完整依赖、模型配置和本地数据的环境中进行验收。
 
 已知风险：
 
