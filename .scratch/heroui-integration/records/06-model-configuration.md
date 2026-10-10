@@ -106,3 +106,14 @@ npx next build --webpack
 2. **RAG「服务地址辅助说明」未进入浏览器证据**：验收替身的 RAG 分区无活动档案，而 `verify_theme.py` 的定位器只取同名控件的第一个匹配（即 LLM 分区），无法在浏览器里为 RAG 分区新建档案。该说明、`向量模型` 标签与 RAG 密码输入改由单元测试覆盖（见第 3 节）。
 3. **窄屏 ≤760px 的应用外壳缺陷**：如上所述属既有问题，需要同时改 `frontend/app/styles.css` 与 `frontend/features/projects/ProjectRail.tsx`（均非本任务文件），本任务只上报。
 4. 浏览器验收使用本地替身数据（规格允许在 API 客户端处模拟），未对接真实模型服务；未验证真实密钥校验失败的响应体差异。
+
+## 集成后复验（主 agent，在集成 main 上执行）
+
+合并到 main（`d6b60a8`，`fixtures.ts` 冲突由主 agent 手工保留 03 与 06 双方新增内容）后，用最终版验收工具重跑了本任务全部场景：
+
+| 轮次 | 结果 | 说明 |
+| --- | --- | --- |
+| 首次复验 | 4 通过 / 1 失败 | `model-configuration-narrow-and-long-name`（780×1000）失败：选择器点击超时，日志为 `aside aria-label="项目列表" … intercepts pointer events` |
+| 修复后复验 | 5 通过 | 失败快照存于 `evidence/06-regression-780/report.json`；修复提交 `3d4ff73` |
+
+根因不是本任务代码：集成过程中侧栏一度被改为默认 `w-full`，在 761–1023px（外壳仍为横向布局）会盖住工作区。现已把外壳与侧栏统一到 760px 断点，并在任务 01 场景新增 768/900 两个断点场景作为回归护栏。修复后本任务 5 个场景全通过（14 组浅/深截图，`report.json` 全 `passed`），原先因该缺陷无法在 420px 交互的限制也随之解除（420px 交互由任务 01/03 场景覆盖）。
