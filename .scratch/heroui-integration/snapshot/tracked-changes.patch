@@ -1,0 +1,516 @@
+diff --git a/frontend/features/chat/RagChatPanel.tsx b/frontend/features/chat/RagChatPanel.tsx
+index 49c4250..e608235 100644
+--- a/frontend/features/chat/RagChatPanel.tsx
++++ b/frontend/features/chat/RagChatPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button, TextArea } from "@heroui/react";
++
+ import { AlertCircle, LoaderCircle, MessageSquareText, RotateCcw, Send, Square } from "lucide-react";
+ import { useCallback, useEffect, useRef, useState } from "react";
+ 
+@@ -62,7 +64,7 @@ export function RagChatPanel({ nodes }: { nodes: WorkspaceNode[] }) {
+     <div className="section-heading"><div><p className="eyebrow">KNOWLEDGE Q&A</p><h3>资料问答</h3></div><MessageSquareText size={22} aria-hidden="true" /></div>
+     <div className="rag-scope"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))} disabled={running}>{nodes.map((node) => <option value={node.id} key={node.id}>{node.code} {node.title}</option>)}</select></label><div className="rag-source-list"><span>问答资料</span>{scopeLoading && <small><LoaderCircle className="spin" size={14} />正在读取资料</small>}{!scopeLoading && resources.length === 0 && <small>请先在资料库上传并完成索引。</small>}{resources.map((resource) => <label key={resource.source_id}><input type="checkbox" checked={selectedIds.includes(resource.source_id!)} onChange={() => toggleSource(resource.source_id!)} disabled={running} />{resource.title}</label>)}</div></div>
+     <div className="rag-transcript" aria-live="polite">{messages.length === 0 && <div className="rag-empty">选择已索引资料后即可提问。</div>}{messages.map((item, index) => <article className={`rag-message ${item.role}`} key={`${item.role}-${index}`}><strong>{item.role === "user" ? "你" : "学习助手"}</strong><p>{item.content || (running && index === messages.length - 1 ? "正在检索资料..." : "")}</p>{item.excerpts?.map((excerpt) => <details key={`${excerpt.source_id}-${excerpt.text}`}><summary>{String(excerpt.metadata.file_name ?? excerpt.source_id)}</summary><p>{excerpt.text}</p></details>)}</article>)}</div>
+-    {error && <div className="rag-error"><AlertCircle size={17} />{error}{latestQuestion.current && <button type="button" className="text-action" onClick={() => void ask(true)}>重试</button>}</div>}
+-    <div className="rag-composer"><textarea value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="针对已选资料提问" disabled={running} /><div>{running ? <button type="button" className="secondary-button" onClick={() => controller.current?.abort()}><Square size={15} />停止</button> : <button type="button" className="command-button" onClick={() => void ask()} disabled={!resources.length}><Send size={16} />提问</button>}{messages.length > 0 && !running && <button type="button" className="icon-button" title="重试上一问题" onClick={() => void ask(true)}><RotateCcw size={16} /></button>}</div></div>
++    {error && <div className="rag-error"><AlertCircle size={17} />{error}{latestQuestion.current && <Button variant="ghost" size="sm" type="button"  onClick={() => void ask(true)}>重试</Button>}</div>}
++    <div className="rag-composer"><TextArea value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="针对已选资料提问" disabled={running} /><div>{running ? <Button variant="secondary" type="button"  onClick={() => controller.current?.abort()}><Square size={15} />停止</Button> : <Button variant="primary" type="button" className="command-layout" onClick={() => void ask()} isDisabled={!resources.length}><Send size={16} />提问</Button>}{messages.length > 0 && !running && <Button variant="ghost" type="button"  title="重试上一问题" onClick={() => void ask(true)}><RotateCcw size={16} /></Button>}</div></div>
+   </section>;
+ }
+diff --git a/frontend/features/configuration/ModelConfigurationPanel.tsx b/frontend/features/configuration/ModelConfigurationPanel.tsx
+index 9e54a8a..e51ecc1 100644
+--- a/frontend/features/configuration/ModelConfigurationPanel.tsx
++++ b/frontend/features/configuration/ModelConfigurationPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Input, Button } from "@heroui/react";
++
+ import { AlertCircle, Bot, CheckCircle2, Database, KeyRound, LoaderCircle, Plus, Save, Trash2, Wifi } from "lucide-react";
+ import { useCallback, useEffect, useState, type ReactNode } from "react";
+ 
+@@ -110,16 +112,16 @@ function EndpointConfiguration({ kind, title, subtitle, description, icon, endpo
+     <div className="model-config-section-heading"><div><p className="eyebrow">{title}</p><h4>{subtitle}</h4><p>{description}</p></div>{icon}</div>
+     <div className="model-profile-controls">
+       <label>活动档案<select value={endpoint.active_profile_id ?? ""} onChange={(event) => onActivate(event.target.value)} disabled={busy || profiles.length === 0}><option value="" disabled>请选择档案</option>{profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}</select></label>
+-      <label>新档案名称<input value={newName} onChange={(event) => onNewNameChange(event.target.value)} disabled={busy} /></label>
+-      <button type="button" className="secondary-button icon-command" title="新建档案" onClick={onCreate} disabled={busy || !newName.trim()}><Plus size={16} />新建</button>
++      <label>新档案名称<Input value={newName} onChange={(event) => onNewNameChange(event.target.value)} disabled={busy} /></label>
++      <Button variant="secondary" type="button"  title="新建档案" onClick={onCreate} isDisabled={busy || !newName.trim()}><Plus size={16} />新建</Button>
+     </div>
+     {endpoint.active_profile_id && <div className="model-config-form">
+-      <label>档案名称<input value={form.name} onChange={(event) => update("name", event.target.value)} disabled={busy} /></label>
+-      <label>服务地址<input value={form.base_url} onChange={(event) => update("base_url", event.target.value)} placeholder="https://api.example.com/v1" disabled={busy} />{kind === "rag" && <small className="model-config-hint">请填写基础地址（例如 https://api.example.com/v1），不要包含 /embeddings。</small>}</label>
+-      <label>{kind === "llm" ? "对话模型" : "向量模型"}<input value={form.model} onChange={(event) => update("model", event.target.value)} placeholder="模型名称" disabled={busy} /></label>
+-      <label>API Key<input type="password" value={form.api_key} onChange={(event) => update("api_key", event.target.value)} placeholder={endpoint.api_key_configured ? "已配置，填写新值才会替换" : "输入 API Key"} autoComplete="off" disabled={busy} /></label>
++      <label>档案名称<Input value={form.name} onChange={(event) => update("name", event.target.value)} disabled={busy} /></label>
++      <label>服务地址<Input value={form.base_url} onChange={(event) => update("base_url", event.target.value)} placeholder="https://api.example.com/v1" disabled={busy} />{kind === "rag" && <small className="model-config-hint">请填写基础地址（例如 https://api.example.com/v1），不要包含 /embeddings。</small>}</label>
++      <label>{kind === "llm" ? "对话模型" : "向量模型"}<Input value={form.model} onChange={(event) => update("model", event.target.value)} placeholder="模型名称" disabled={busy} /></label>
++      <label>API Key<Input type="password" value={form.api_key} onChange={(event) => update("api_key", event.target.value)} placeholder={endpoint.api_key_configured ? "已配置，填写新值才会替换" : "输入 API Key"} autoComplete="off" disabled={busy} /></label>
+       <div className="model-config-state"><span className={endpoint.ready ? "ready" : "missing"}>{subtitle} {endpoint.ready ? "已就绪" : "未配置"}</span></div>
+-      <div className="model-config-actions"><button type="button" className="secondary-button" onClick={onTest} disabled={busy || !canTest}><Wifi size={16} />测试连接</button><button type="button" className="command-button" onClick={onSave} disabled={busy}><Save size={16} />保存配置</button><button type="button" className="icon-button danger" title="删除当前档案" onClick={onDelete} disabled={busy}><Trash2 size={16} /></button></div>
++      <div className="model-config-actions"><Button variant="secondary" type="button"  onClick={onTest} isDisabled={busy || !canTest}><Wifi size={16} />测试连接</Button><Button variant="primary" type="button" className="command-layout" onClick={onSave} isDisabled={busy}><Save size={16} />保存配置</Button><Button variant="ghost" type="button"  title="删除当前档案" onClick={onDelete} isDisabled={busy}><Trash2 size={16} /></Button></div>
+       {testMessage && <div className={`model-config-message inline ${testMessage.kind === "error" ? "error" : ""}`} role="status">{testMessage.kind === "error" ? <AlertCircle size={17} /> : <CheckCircle2 size={17} />}{testMessage.text}</div>}
+     </div>}
+   </section>;
+diff --git a/frontend/features/dashboard/DashboardPanel.tsx b/frontend/features/dashboard/DashboardPanel.tsx
+index f3b4869..bd411f1 100644
+--- a/frontend/features/dashboard/DashboardPanel.tsx
++++ b/frontend/features/dashboard/DashboardPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button } from "@heroui/react";
++
+ import { AlertCircle, LoaderCircle } from "lucide-react";
+ import { useCallback, useEffect, useState } from "react";
+ 
+@@ -26,9 +28,9 @@ export function DashboardPanel({ projectId }: { projectId: number }) {
+   }, [projectId]);
+   useEffect(() => { void load(); }, [load]);
+   const download = (kind: string) => { window.location.assign(apiUrl(`/projects/${projectId}/exports/${kind}`)); };
+-  return <section className="dashboard-panel"><div className="section-heading"><div><p className="eyebrow">LEARNING DASHBOARD</p><h3>学习概览</h3></div><button type="button" className="text-action" onClick={() => void load()}>刷新</button></div>
++  return <section className="dashboard-panel"><div className="section-heading"><div><p className="eyebrow">LEARNING DASHBOARD</p><h3>学习概览</h3></div><Button variant="ghost" size="sm" type="button"  onClick={() => void load()}>刷新</Button></div>
+     {state === "loading" && <div className="review-state"><LoaderCircle className="spin" size={18} />正在读取看板</div>}
+-    {state === "error" && <div className="review-state detail-error"><AlertCircle size={18} />{error}<button type="button" className="text-action" onClick={() => void load()}>重试</button></div>}
+-    {dashboard && state === "ready" && <><div className="dashboard-metrics"><div><strong>{dashboard.metrics.total_nodes}</strong><span>知识点</span></div><div><strong>{dashboard.metrics.mastered_nodes}</strong><span>已掌握</span></div><div><strong>{Math.round(dashboard.metrics.avg_mastery * 100)}%</strong><span>平均掌握</span></div><div><strong>{dashboard.metrics.week_minutes}</strong><span>近 7 天分钟</span></div><div><strong>{dashboard.metrics.due_cards}/{dashboard.metrics.total_cards}</strong><span>到期卡片</span></div></div><div className="dashboard-detail"><div><strong>状态分布</strong>{Object.entries(dashboard.status_counts).map(([key, value]) => <p key={key}>{statusLabels[key] ?? key} <b>{value}</b></p>)}</div><div><strong>近 14 天学习热力</strong><div className="heatmap">{dashboard.heatmap.map((day) => <span title={`${day.date}: ${day.minutes} 分钟`} style={{ opacity: day.minutes ? Math.min(1, 0.25 + day.minutes / 60) : 0.1 }} key={day.date}>{day.minutes}</span>)}</div></div></div><article className="dashboard-report">{dashboard.latest_report}</article><div className="export-actions"><button type="button" onClick={() => download("roadmap")}>路线 JSON</button><button type="button" onClick={() => download("markdown")}>学习笔记</button><button type="button" onClick={() => download("report")}>进度报告 HTML</button><button type="button" onClick={() => download("anki")}>Anki ZIP</button></div><p className="export-hint">进度报告为 HTML 文件，下载后可使用浏览器打印功能保存为 PDF。</p></>}
++    {state === "error" && <div className="review-state detail-error"><AlertCircle size={18} />{error}<Button variant="ghost" size="sm" type="button"  onClick={() => void load()}>重试</Button></div>}
++    {dashboard && state === "ready" && <><div className="dashboard-metrics"><div><strong>{dashboard.metrics.total_nodes}</strong><span>知识点</span></div><div><strong>{dashboard.metrics.mastered_nodes}</strong><span>已掌握</span></div><div><strong>{Math.round(dashboard.metrics.avg_mastery * 100)}%</strong><span>平均掌握</span></div><div><strong>{dashboard.metrics.week_minutes}</strong><span>近 7 天分钟</span></div><div><strong>{dashboard.metrics.due_cards}/{dashboard.metrics.total_cards}</strong><span>到期卡片</span></div></div><div className="dashboard-detail"><div><strong>状态分布</strong>{Object.entries(dashboard.status_counts).map(([key, value]) => <p key={key}>{statusLabels[key] ?? key} <b>{value}</b></p>)}</div><div><strong>近 14 天学习热力</strong><div className="heatmap">{dashboard.heatmap.map((day) => <span title={`${day.date}: ${day.minutes} 分钟`} style={{ opacity: day.minutes ? Math.min(1, 0.25 + day.minutes / 60) : 0.1 }} key={day.date}>{day.minutes}</span>)}</div></div></div><article className="dashboard-report">{dashboard.latest_report}</article><div className="export-actions"><Button variant="secondary" type="button" onClick={() => download("roadmap")}>路线 JSON</Button><Button variant="secondary" type="button" onClick={() => download("markdown")}>学习笔记</Button><Button variant="secondary" type="button" onClick={() => download("report")}>进度报告 HTML</Button><Button variant="secondary" type="button" onClick={() => download("anki")}>Anki ZIP</Button></div><p className="export-hint">进度报告为 HTML 文件，下载后可使用浏览器打印功能保存为 PDF。</p></>}
+   </section>;
+ }
+diff --git a/frontend/features/projects/ProjectRail.tsx b/frontend/features/projects/ProjectRail.tsx
+index 153bfa2..6bfc422 100644
+--- a/frontend/features/projects/ProjectRail.tsx
++++ b/frontend/features/projects/ProjectRail.tsx
+@@ -92,7 +92,7 @@ export function ProjectRail({
+           </div>
+         </div>
+         <div className="flex items-center gap-1.5 shrink-0">
+-          <button
++          <Button variant="secondary"
+             type="button"
+             onClick={toggleTheme}
+             aria-label={resolvedTheme === "dark" ? "切换为浅色主题" : "切换为深色主题"}
+@@ -100,7 +100,7 @@ export function ProjectRail({
+           >
+             {resolvedTheme === "dark" ? <Sun size={15} aria-hidden="true" /> : <Moon size={15} aria-hidden="true" />}
+             <span className="sr-only">切换主题</span>
+-          </button>
++          </Button>
+           <Button
+             variant="ghost"
+             isIconOnly
+@@ -129,13 +129,13 @@ export function ProjectRail({
+               <AlertCircle size={16} className="shrink-0 text-rose-400" />
+               <span className="leading-snug">{error}</span>
+             </div>
+-            <button
++            <Button variant="secondary"
+               type="button"
+               className="text-left font-semibold text-rose-400 hover:underline cursor-pointer pt-1"
+               onClick={onRetry}
+             >
+               重试
+-            </button>
++            </Button>
+           </div>
+         )}
+ 
+@@ -169,7 +169,7 @@ export function ProjectRail({
+                 />
+ 
+                 <div className="flex items-stretch justify-between pl-3">
+-                  <button
++                  <Button variant="secondary"
+                     type="button"
+                     className="flex-1 min-w-0 p-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-l-xl cursor-pointer"
+                     onClick={() => onSelect(project.id)}
+@@ -184,10 +184,10 @@ export function ProjectRail({
+                     <span className="block text-[11px] font-semibold text-emerald-700 dark:text-emerald-400/90 mt-2.5 tracking-wide">
+                       {project.progress.done}/{project.progress.total} 已完成
+                     </span>
+-                  </button>
++                  </Button>
+ 
+                   <div className="flex flex-col items-center justify-start gap-1 p-2 pt-2.5">
+-                    <button
++                    <Button variant="secondary"
+                       type="button"
+                       className="p-1.5 text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 rounded-lg transition-colors cursor-pointer"
+                       title={`编辑 ${project.title}`}
+@@ -195,8 +195,8 @@ export function ProjectRail({
+                     >
+                       <Pencil size={13} />
+                       <span className="sr-only">编辑 {project.title}</span>
+-                    </button>
+-                    <button
++                    </Button>
++                    <Button variant="secondary"
+                       type="button"
+                       className="p-1.5 text-zinc-400 hover:text-rose-600 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-lg transition-colors cursor-pointer"
+                       title={`删除 ${project.title}`}
+@@ -204,7 +204,7 @@ export function ProjectRail({
+                     >
+                       <Trash2 size={13} />
+                       <span className="sr-only">删除 {project.title}</span>
+-                    </button>
++                    </Button>
+                   </div>
+                 </div>
+ 
+diff --git a/frontend/features/quiz/QuizPanel.tsx b/frontend/features/quiz/QuizPanel.tsx
+index 5ea4b42..08ed730 100644
+--- a/frontend/features/quiz/QuizPanel.tsx
++++ b/frontend/features/quiz/QuizPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Input, Button, TextArea } from "@heroui/react";
++
+ import { AlertCircle, LoaderCircle } from "lucide-react";
+ import { useEffect, useState } from "react";
+ 
+@@ -36,9 +38,9 @@ export function QuizPanel({ projectId, nodes }: { projectId: number; nodes: Work
+   };
+   const next = () => { setIndex((value) => value + 1); setAnswer(""); setFeedback(null); setError(null); };
+   return <section className="quiz-panel"><div className="section-heading"><div><p className="eyebrow">KNOWLEDGE CHECK</p><h3>查漏测验</h3></div></div>
+-    <div className="quiz-form"><label>知识点<select value={selectedNodeId} onChange={(event) => setSelectedNodeId(event.target.value)} disabled={!nodes.length || state === "loading"}><option value="">{nodes.length ? "请选择知识点" : "当前项目没有知识点"}</option>{nodes.map((node) => <option value={node.id} key={node.id} title={`${node.code} ${node.title}`}>{node.code} {node.title}</option>)}</select></label>{selectedNode && <p className="quiz-selection-detail" title={selectedNode.title}>已选：{selectedNode.code} {selectedNode.title}</p>}<label>题目数量<input type="number" min="1" max="20" value={count} onChange={(event) => setCount(Number(event.target.value))} /></label><label>题型<select value={qtype} onChange={(event) => setQtype(event.target.value)}><option value="mixed">混合</option><option value="choice">选择</option><option value="fill">填空</option><option value="short">简答</option><option value="practice">实操</option></select></label><button type="button" className="command-button" onClick={() => void generate()} disabled={!nodes.length || state === "loading"}>生成测验</button></div>
++    <div className="quiz-form"><label>知识点<select value={selectedNodeId} onChange={(event) => setSelectedNodeId(event.target.value)} disabled={!nodes.length || state === "loading"}><option value="">{nodes.length ? "请选择知识点" : "当前项目没有知识点"}</option>{nodes.map((node) => <option value={node.id} key={node.id} title={`${node.code} ${node.title}`}>{node.code} {node.title}</option>)}</select></label>{selectedNode && <p className="quiz-selection-detail" title={selectedNode.title}>已选：{selectedNode.code} {selectedNode.title}</p>}<label>题目数量<Input type="number" min="1" max="20" value={count} onChange={(event) => setCount(Number(event.target.value))} /></label><label>题型<select value={qtype} onChange={(event) => setQtype(event.target.value)}><option value="mixed">混合</option><option value="choice">选择</option><option value="fill">填空</option><option value="short">简答</option><option value="practice">实操</option></select></label><Button variant="primary" type="button" className="command-layout" onClick={() => void generate()} isDisabled={!nodes.length || state === "loading"}>生成测验</Button></div>
+     {state === "loading" && <div className="review-state"><LoaderCircle className="spin" size={18} />正在处理测验</div>}
+     {error && <div className="review-state detail-error"><AlertCircle size={18} />{error}</div>}
+-    {question && state !== "loading" && <div className="quiz-question"><span>第 {index + 1} / {quiz?.questions.length} 题 · {question.qtype}</span><strong>{question.stem}</strong>{question.options.map((option) => <button type="button" className={`quiz-option ${answer === option ? "active" : ""}`} key={option} onClick={() => setAnswer(option)}>{option}</button>)}<textarea value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="输入你的答案" /><button type="button" className="command-button" onClick={() => void submit()} disabled={Boolean(feedback)}>提交答案</button>{feedback && <div className={feedback.is_correct ? "quiz-feedback correct" : "quiz-feedback incorrect"}><strong>{feedback.is_correct ? "回答正确" : "需要巩固"}</strong><p>{feedback.feedback}</p>{feedback.mastery !== null && <span>当前掌握度 {Math.round(feedback.mastery * 100)}%</span>}{index + 1 < (quiz?.questions.length ?? 0) && <button type="button" className="secondary-button" onClick={next}>下一题</button>}</div>}</div>}
++    {question && state !== "loading" && <div className="quiz-question"><span>第 {index + 1} / {quiz?.questions.length} 题 · {question.qtype}</span><strong>{question.stem}</strong>{question.options.map((option) => <Button variant="secondary" type="button" className={`quiz-option ${answer === option ? "active" : ""}`} key={option} onClick={() => setAnswer(option)}>{option}</Button>)}<TextArea value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="输入你的答案" /><Button variant="primary" type="button" className="command-layout" onClick={() => void submit()} isDisabled={Boolean(feedback)}>提交答案</Button>{feedback && <div className={feedback.is_correct ? "quiz-feedback correct" : "quiz-feedback incorrect"}><strong>{feedback.is_correct ? "回答正确" : "需要巩固"}</strong><p>{feedback.feedback}</p>{feedback.mastery !== null && <span>当前掌握度 {Math.round(feedback.mastery * 100)}%</span>}{index + 1 < (quiz?.questions.length ?? 0) && <Button variant="secondary" type="button"  onClick={next}>下一题</Button>}</div>}</div>}
+   </section>;
+ }
+diff --git a/frontend/features/resources/ResourceLibraryPanel.tsx b/frontend/features/resources/ResourceLibraryPanel.tsx
+index cc167fc..8abdb56 100644
+--- a/frontend/features/resources/ResourceLibraryPanel.tsx
++++ b/frontend/features/resources/ResourceLibraryPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button, Input } from "@heroui/react";
++
+ import { AlertCircle, FileUp, LoaderCircle, RefreshCw, Trash2 } from "lucide-react";
+ import { useCallback, useEffect, useRef, useState } from "react";
+ 
+@@ -56,12 +58,12 @@ export function ResourceLibraryPanel({ nodes }: { nodes: WorkspaceNode[] }) {
+   };
+ 
+   return <section className="resource-library-panel">
+-    <div className="section-heading"><div><p className="eyebrow">RESOURCE LIBRARY</p><h3>资料库</h3></div><button className="icon-button" type="button" title="刷新资料" onClick={() => void load()} disabled={state === "loading"}><RefreshCw size={17} /></button></div>
+-    <div className="resource-upload-form"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))}>{nodes.map((node) => <option key={node.id} value={node.id}>{node.code} {node.title}</option>)}</select></label><label>本地文件<input ref={fileInput} type="file" accept=".txt,.md,.pdf,.docx,.html" /></label><button type="button" className="command-button" onClick={() => void upload()} disabled={state === "uploading" || !nodeId}><FileUp size={16} />上传并索引</button></div>
++    <div className="section-heading"><div><p className="eyebrow">RESOURCE LIBRARY</p><h3>资料库</h3></div><Button variant="ghost"  type="button" title="刷新资料" onClick={() => void load()} isDisabled={state === "loading"}><RefreshCw size={17} /></Button></div>
++    <div className="resource-upload-form"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))}>{nodes.map((node) => <option key={node.id} value={node.id}>{node.code} {node.title}</option>)}</select></label><label>本地文件<input ref={fileInput} type="file" accept=".txt,.md,.pdf,.docx,.html" /></label><Button variant="primary" type="button" className="command-layout" onClick={() => void upload()} isDisabled={state === "uploading" || !nodeId}><FileUp size={16} />上传并索引</Button></div>
+     {state === "loading" && <div className="review-state"><LoaderCircle className="spin" size={18} />正在读取资料</div>}
+     {state === "uploading" && <div className="resource-progress">{progress.length ? progress.map((item, index) => <span key={`${item}-${index}`}>{item}</span>) : <span>正在建立索引任务</span>}</div>}
+     {message && <div className="resource-error"><AlertCircle size={17} />{message}</div>}
+     {resources.length === 0 && state !== "loading" && <div className="rag-empty">当前知识点还没有已上传资料。</div>}
+-    <div className="resource-list">{resources.map((resource) => <article className={`resource-row ${resource.status}`} key={resource.resource_id}><div><strong>{resource.title}</strong><span>{resource.status === "completed" ? "已索引" : resource.status === "failed" ? "索引失败" : "索引中"} · {resource.rtype}</span>{resource.message && <p>{resource.message}</p>}</div><button type="button" className="icon-button danger" title={`删除 ${resource.title}`} onClick={() => void beginDelete(resource)} disabled={state === "deleting"}><Trash2 size={16} /></button>{deleting?.id === resource.resource_id && <div className="resource-delete-confirm"><span>输入“{deleting.phrase}”确认删除该资料索引。</span><input value={deleting.input} onChange={(event) => setDeleting({ ...deleting, input: event.target.value })} /><button type="button" className="danger-button" onClick={() => void confirmDelete()} disabled={deleting.input !== deleting.phrase || state === "deleting"}>确认删除</button><button type="button" className="secondary-button" onClick={() => setDeleting(null)}>取消</button></div>}</article>)}</div>
++    <div className="resource-list">{resources.map((resource) => <article className={`resource-row ${resource.status}`} key={resource.resource_id}><div><strong>{resource.title}</strong><span>{resource.status === "completed" ? "已索引" : resource.status === "failed" ? "索引失败" : "索引中"} · {resource.rtype}</span>{resource.message && <p>{resource.message}</p>}</div><Button variant="ghost" type="button"  title={`删除 ${resource.title}`} onClick={() => void beginDelete(resource)} isDisabled={state === "deleting"}><Trash2 size={16} /></Button>{deleting?.id === resource.resource_id && <div className="resource-delete-confirm"><span>输入“{deleting.phrase}”确认删除该资料索引。</span><Input value={deleting.input} onChange={(event) => setDeleting({ ...deleting, input: event.target.value })} /><Button variant="danger" type="button"  onClick={() => void confirmDelete()} isDisabled={deleting.input !== deleting.phrase || state === "deleting"}>确认删除</Button><Button variant="secondary" type="button"  onClick={() => setDeleting(null)}>取消</Button></div>}</article>)}</div>
+   </section>;
+ }
+diff --git a/frontend/features/review/ReviewPanel.tsx b/frontend/features/review/ReviewPanel.tsx
+index 2d010ab..462f7a4 100644
+--- a/frontend/features/review/ReviewPanel.tsx
++++ b/frontend/features/review/ReviewPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button } from "@heroui/react";
++
+ import { AlertCircle, LoaderCircle } from "lucide-react";
+ import { useCallback, useEffect, useState } from "react";
+ 
+@@ -40,10 +42,10 @@ export function ReviewPanel({ projectId }: { projectId: number }) {
+       setState("error");
+     }
+   };
+-  return <section className="review-panel"><div className="section-heading"><div><p className="eyebrow">FSRS REVIEW</p><h3>到期复习</h3></div><button type="button" className="text-action" onClick={() => void load()}>刷新</button></div>
++  return <section className="review-panel"><div className="section-heading"><div><p className="eyebrow">FSRS REVIEW</p><h3>到期复习</h3></div><Button variant="ghost" size="sm" type="button"  onClick={() => void load()}>刷新</Button></div>
+     {state === "loading" && <div className="review-state"><LoaderCircle className="spin" size={18} />正在读取复习卡片</div>}
+-    {state === "error" && <div className="review-state detail-error"><AlertCircle size={18} />{error}<button type="button" className="text-action" onClick={() => void load()}>重试</button></div>}
++    {state === "error" && <div className="review-state detail-error"><AlertCircle size={18} />{error}<Button variant="ghost" size="sm" type="button"  onClick={() => void load()}>重试</Button></div>}
+     {state === "ready" && !card && <div className="review-state">当前没有到期卡片。</div>}
+-    {state === "ready" && card && <div className="review-card"><strong>{card.front}</strong>{showBack && <p>{card.back}</p>}<button type="button" className="secondary-button" onClick={() => setShowBack((value) => !value)}>{showBack ? "隐藏答案" : "查看答案"}</button><div className="review-actions"><button type="button" onClick={() => void review(1)}>重来</button><button type="button" onClick={() => void review(2)}>困难</button><button type="button" onClick={() => void review(3)}>良好</button><button type="button" onClick={() => void review(4)}>简单</button></div></div>}
++    {state === "ready" && card && <div className="review-card"><strong>{card.front}</strong>{showBack && <p>{card.back}</p>}<Button variant="secondary" type="button"  onClick={() => setShowBack((value) => !value)}>{showBack ? "隐藏答案" : "查看答案"}</Button><div className="review-actions"><Button variant="secondary" type="button" onClick={() => void review(1)}>重来</Button><Button variant="secondary" type="button" onClick={() => void review(2)}>困难</Button><Button variant="secondary" type="button" onClick={() => void review(3)}>良好</Button><Button variant="secondary" type="button" onClick={() => void review(4)}>简单</Button></div></div>}
+   </section>;
+ }
+diff --git a/frontend/features/roadmap/NodeDetailPanel.tsx b/frontend/features/roadmap/NodeDetailPanel.tsx
+index 730e9f6..15df7cc 100644
+--- a/frontend/features/roadmap/NodeDetailPanel.tsx
++++ b/frontend/features/roadmap/NodeDetailPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button, TextArea } from "@heroui/react";
++
+ import { AlertCircle, LoaderCircle } from "lucide-react";
+ import { useEffect, useRef } from "react";
+ 
+@@ -52,19 +54,19 @@ export function NodeDetailPanel({
+       <div className="preview-heading"><div><p className="eyebrow">LESSON DETAIL / 课程详情</p><h3>{detail.title}</h3></div><span>{detail.code}</span></div>
+       <NodeStatusControl node={detail} pending={statusPending} onUpdate={onUpdateStatus} />
+       <MarkdownContent content={detail.description || "当前没有完整课程内容。"} />
+-      <div className="detail-actions"><button type="button" className="secondary-button" disabled={action !== null} onClick={onGenerateContent}>{action === "content" && <LoaderCircle className="spin" size={16} />}{detail.has_content ? "重新生成课程" : "生成课程"}</button></div>
+-      <textarea className="detail-note" value={noteContent} disabled={action !== null} onChange={(event) => onNoteChange(event.target.value)} placeholder="记录你的理解、疑问和总结" />
+-      <button type="button" className="command-button" disabled={action !== null} onClick={onSaveNote}>{action === "note" && <LoaderCircle className="spin" size={16} />}保存笔记</button>
++      <div className="detail-actions"><Button variant="secondary" type="button"  isDisabled={action !== null} onClick={onGenerateContent}>{action === "content" && <LoaderCircle className="spin" size={16} />}{detail.has_content ? "重新生成课程" : "生成课程"}</Button></div>
++      <TextArea className="detail-note" value={noteContent} disabled={action !== null} onChange={(event) => onNoteChange(event.target.value)} placeholder="记录你的理解、疑问和总结" />
++      <Button variant="primary" type="button" className="command-layout" isDisabled={action !== null} onClick={onSaveNote}>{action === "note" && <LoaderCircle className="spin" size={16} />}保存笔记</Button>
+     </section>
+     <section className="node-detail-panel">
+       <div className="preview-heading"><div><p className="eyebrow">PRACTICE LESSON / 实操课程</p><h3>{detail.practice?.title ?? "尚未生成实操课程"}</h3></div></div>
+       {detail.practice ? <div className="detail-practice-content"><MarkdownContent content={detail.practice.description} /></div> : <p className="detail-empty">生成课程后，可在这里完成针对当前知识点的实操练习。</p>}
+-      <div className="detail-actions"><button type="button" className="secondary-button" disabled={action !== null} onClick={onGeneratePractice}>{action === "practice" && <LoaderCircle className="spin" size={16} />}{detail.practice ? "重新生成实操" : "生成实操"}</button></div>
++      <div className="detail-actions"><Button variant="secondary" type="button"  isDisabled={action !== null} onClick={onGeneratePractice}>{action === "practice" && <LoaderCircle className="spin" size={16} />}{detail.practice ? "重新生成实操" : "生成实操"}</Button></div>
+     </section>
+     <section className="node-detail-panel">
+       <div className="preview-heading"><div><p className="eyebrow">REFERENCE MATERIALS / 参考资料</p><h3>{detail.resources.length ? `${detail.resources.length} 项已关联资料` : "尚未拉取参考资料"}</h3></div></div>
+       {detail.resources.length ? <div className="detail-resource-list">{detail.resources.map((resource) => <a className="detail-resource" href={resource.url} target="_blank" rel="noreferrer" key={resource.id ?? resource.url}><strong>{resource.title}</strong><span>{resource.rtype} · {resource.source}</span>{resource.description && <small>{resource.description}</small>}</a>)}</div> : <p className="detail-empty">拉取后，资料会保留在当前节点并显示在此处。</p>}
+-      <div className="detail-actions"><button type="button" className="secondary-button" disabled={action !== null} onClick={onGenerateResources}>{action === "resources" && <LoaderCircle className="spin" size={16} />}拉取资料</button></div>
++      <div className="detail-actions"><Button variant="secondary" type="button"  isDisabled={action !== null} onClick={onGenerateResources}>{action === "resources" && <LoaderCircle className="spin" size={16} />}拉取资料</Button></div>
+     </section>
+   </div>;
+ }
+diff --git a/frontend/features/roadmap/NodeStatusControl.tsx b/frontend/features/roadmap/NodeStatusControl.tsx
+index db19223..818b868 100644
+--- a/frontend/features/roadmap/NodeStatusControl.tsx
++++ b/frontend/features/roadmap/NodeStatusControl.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button } from "@heroui/react";
++
+ import type { WorkspaceNode } from "../../lib/api";
+ 
+ export const statusLabels: Record<string, string> = {
+@@ -17,15 +19,15 @@ export function NodeStatusControl({ node, pending, onUpdate }: { node: StatusNod
+   return (
+     <div className="status-control" aria-label={`${node.title} 的学习状态`}>
+       {options.map((status) => (
+-        <button
++        <Button variant="secondary"
+           key={status}
+           type="button"
+           className={`status-button ${node.status === status ? "active" : ""}`}
+-          disabled={pending}
++          isDisabled={pending}
+           onClick={() => onUpdate(status)}
+         >
+           {statusLabels[status]}
+-        </button>
++        </Button>
+       ))}
+     </div>
+   );
+diff --git a/frontend/features/roadmap/RoadmapCreation.tsx b/frontend/features/roadmap/RoadmapCreation.tsx
+index 81e77c9..656d4c0 100644
+--- a/frontend/features/roadmap/RoadmapCreation.tsx
++++ b/frontend/features/roadmap/RoadmapCreation.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Input, TextArea, Button } from "@heroui/react";
++
+ import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle, RotateCcw, Sparkles } from "lucide-react";
+ import { FormEvent, useEffect, useState } from "react";
+ 
+@@ -118,26 +120,26 @@ export function RoadmapCreation({ onCreated }: { onCreated: (projectId: number)
+       </header>
+ 
+       <form className="roadmap-form" onSubmit={(event) => void generate(event)}>
+-        <label>选题<input value={topic} onChange={(event) => setTopic(event.target.value)} placeholder="例如：从零学习 Transformer" required maxLength={300} /></label>
+-        <label>学习背景<textarea value={background} onChange={(event) => setBackground(event.target.value)} placeholder="已有 Python 基础，了解神经网络" maxLength={4000} rows={3} /></label>
+-        <label>学习目标<textarea value={goal} onChange={(event) => setGoal(event.target.value)} placeholder="能理解论文并实现小型模型" maxLength={4000} rows={3} /></label>
+-        <label>每周投入时间<span className="hour-input"><input type="number" min="1" max="168" value={weeklyHours} onChange={(event) => setWeeklyHours(Number(event.target.value))} required />小时</span></label>
+-        <button className="command-button" type="submit" disabled={isBusy}><Sparkles size={17} />{state === "previewing" ? "正在生成" : "生成路线预览"}</button>
++        <label>选题<Input value={topic} onChange={(event) => setTopic(event.target.value)} placeholder="例如：从零学习 Transformer" required maxLength={300} /></label>
++        <label>学习背景<TextArea value={background} onChange={(event) => setBackground(event.target.value)} placeholder="已有 Python 基础，了解神经网络" maxLength={4000} rows={3} /></label>
++        <label>学习目标<TextArea value={goal} onChange={(event) => setGoal(event.target.value)} placeholder="能理解论文并实现小型模型" maxLength={4000} rows={3} /></label>
++        <label>每周投入时间<span className="hour-input"><Input type="number" min="1" max="168" value={weeklyHours} onChange={(event) => setWeeklyHours(Number(event.target.value))} required />小时</span></label>
++        <Button variant="primary" className="command-layout" type="submit" isDisabled={isBusy}><Sparkles size={17} />{state === "previewing" ? "正在生成" : "生成路线预览"}</Button>
+       </form>
+ 
+-      {error && <div className="creation-error"><AlertCircle size={19} /><span>{error}</span><button type="button" className="text-action" onClick={() => setError(null)}>关闭</button></div>}
++      {error && <div className="creation-error"><AlertCircle size={19} /><span>{error}</span><Button variant="ghost" size="sm" type="button"  onClick={() => setError(null)}>关闭</Button></div>}
+ 
+       {preview && (
+         <section className="roadmap-preview" aria-live="polite">
+           <div className="preview-heading"><div><p className="eyebrow">PREVIEW</p><h3>{preview.roadmap.summary}</h3></div><span>{preview.roadmap.nodes.length} 个节点</span></div>
+           {(preview.audit.verdict || preview.audit.score !== undefined) && <div className="audit-note"><strong>路线审计</strong><span>{preview.audit.score ?? "-"} 分 · {preview.audit.verdict ?? "已完成"}</span></div>}
+           <ol className="preview-nodes">{preview.roadmap.nodes.map((node) => <li key={node.code}><span>{node.code}</span><div><strong>{node.title}</strong><p>{node.description}</p></div><em>{node.est_hours} 小时</em></li>)}</ol>
+-          <div className="refine-row"><input value={instruction} onChange={(event) => setInstruction(event.target.value)} placeholder="例如：增加一个实操项目" maxLength={4000} /><button type="button" className="secondary-button" onClick={() => void refine()} disabled={isBusy || !instruction.trim()}><RotateCcw size={16} />调整</button></div>
+-          <button type="button" className="command-button save-route" onClick={() => void save()} disabled={isBusy}><CheckCircle2 size={17} />{state === "saving" ? "正在保存项目" : state === "preparing" ? "正在启动内容准备" : "确认保存并开始准备"}<ArrowRight size={17} /></button>
++          <div className="refine-row"><Input value={instruction} onChange={(event) => setInstruction(event.target.value)} placeholder="例如：增加一个实操项目" maxLength={4000} /><Button variant="secondary" type="button"  onClick={() => void refine()} isDisabled={isBusy || !instruction.trim()}><RotateCcw size={16} />调整</Button></div>
++          <Button variant="primary" type="button" className="save-route command-layout" onClick={() => void save()} isDisabled={isBusy}><CheckCircle2 size={17} />{state === "saving" ? "正在保存项目" : state === "preparing" ? "正在启动内容准备" : "确认保存并开始准备"}<ArrowRight size={17} /></Button>
+         </section>
+       )}
+ 
+-      {creation && <section className={`content-job job-${creation.status}`}><LoaderCircle className={creation.status === "doing" || creation.status === "cancelling" ? "spin" : ""} size={20} /><div><strong>{creation.status === "doing" ? "课程内容正在准备" : creation.status === "cancelling" ? "正在停止课程准备" : creation.status === "done" ? "课程内容已准备完成" : creation.status === "cancelled" ? "课程内容准备已取消" : "课程内容准备受阻"}</strong><span>已生成 {creation.generated_node_ids.length} 节，待处理 {creation.pending_node_ids.length} 节，失败 {creation.failed_node_ids.length} 节，第 {creation.attempts} 次尝试。</span>{creation.error && <span>{creation.error}</span>}<div className="detail-actions">{creation.status === "doing" && <button type="button" className="secondary-button" onClick={() => void cancelPreparation()}>停止准备</button>}{(creation.status === "blocked" || creation.status === "cancelled") && creation.pending_node_ids.length + creation.failed_node_ids.length > 0 && <button type="button" className="secondary-button" onClick={() => void retryPreparation()}>重试未完成内容</button>}{createdProjectId && <button type="button" className="text-action" onClick={() => onCreated(createdProjectId)}>查看新项目</button>}</div></div></section>}
++      {creation && <section className={`content-job job-${creation.status}`}><LoaderCircle className={creation.status === "doing" || creation.status === "cancelling" ? "spin" : ""} size={20} /><div><strong>{creation.status === "doing" ? "课程内容正在准备" : creation.status === "cancelling" ? "正在停止课程准备" : creation.status === "done" ? "课程内容已准备完成" : creation.status === "cancelled" ? "课程内容准备已取消" : "课程内容准备受阻"}</strong><span>已生成 {creation.generated_node_ids.length} 节，待处理 {creation.pending_node_ids.length} 节，失败 {creation.failed_node_ids.length} 节，第 {creation.attempts} 次尝试。</span>{creation.error && <span>{creation.error}</span>}<div className="detail-actions">{creation.status === "doing" && <Button variant="secondary" type="button"  onClick={() => void cancelPreparation()}>停止准备</Button>}{(creation.status === "blocked" || creation.status === "cancelled") && creation.pending_node_ids.length + creation.failed_node_ids.length > 0 && <Button variant="secondary" type="button"  onClick={() => void retryPreparation()}>重试未完成内容</Button>}{createdProjectId && <Button variant="ghost" size="sm" type="button"  onClick={() => onCreated(createdProjectId)}>查看新项目</Button>}</div></div></section>}
+     </main>
+   );
+ }
+diff --git a/frontend/features/roadmap/RoadmapPanel.tsx b/frontend/features/roadmap/RoadmapPanel.tsx
+index b87374b..f874349 100644
+--- a/frontend/features/roadmap/RoadmapPanel.tsx
++++ b/frontend/features/roadmap/RoadmapPanel.tsx
+@@ -1,5 +1,7 @@
+ "use client";
+ 
++import { Button } from "@heroui/react";
++
+ import { ArrowLeft, CheckCircle2 } from "lucide-react";
+ import { useMemo, useState } from "react";
+ 
+@@ -28,7 +30,7 @@ export function RoadmapPanel({ roadmap, nodes, statusPendingId, onUpdateStatus }
+   };
+ 
+   if (view === "detail") return <>
+-    <div className="detail-navigation"><button type="button" className="secondary-button" onClick={returnToRoadmap}><ArrowLeft size={16} />返回学习路线</button></div>
++    <div className="detail-navigation"><Button variant="secondary" type="button"  onClick={returnToRoadmap}><ArrowLeft size={16} />返回学习路线</Button></div>
+     <NodeDetailPanel detail={detail.detail} state={detail.state} error={detail.error} action={detail.action} actionError={detail.actionError} noteContent={detail.noteContent} onNoteChange={detail.setNoteContent} onUpdateStatus={(status) => void updateDetailStatus(status)} onGenerateContent={() => detail.detail && void detail.generateContent(detail.detail.id, detail.detail.has_content)} onGeneratePractice={() => detail.detail && void detail.generatePractice(detail.detail.id)} onGenerateResources={() => detail.detail && void detail.generateResources(detail.detail.id)} onSaveNote={() => detail.detail && void detail.saveNote(detail.detail.id, detail.noteContent)} statusPending={detail.detail ? statusPendingId === detail.detail.id : false} />
+   </>;
+ 
+@@ -39,10 +41,10 @@ export function RoadmapPanel({ roadmap, nodes, statusPendingId, onUpdateStatus }
+       {nodes.map((node) => {
+         const roadmapNode = roadmapNodes.get(node.id);
+         return <article className={`node-row node-${node.status}`} key={node.id}>
+-          <button type="button" className="node-open-button" onClick={() => void openDetail(node.id)} aria-label={`查看 ${node.title} 的详细内容`}>
++          <Button variant="ghost" type="button" className="node-open-button" onClick={() => void openDetail(node.id)} aria-label={`查看 ${node.title} 的详细内容`}>
+             <div className="node-marker" aria-hidden="true">{node.status === "mastered" ? <CheckCircle2 size={20} /> : node.code}</div>
+             <div className="node-content"><div className="node-title-row"><h4>{node.title}</h4><span>{roadmapNode?.stage || node.stage}</span></div><p>{nodePreview(node.description)}</p><div className="node-meta"><span>{node.est_hours} 小时</span><span>难度 {node.difficulty}/5</span><span>{statusLabels[node.status] ?? node.status}</span></div><p className="node-prerequisites">{roadmapNode?.prerequisites?.length ? `前置节点：${roadmapNode.prerequisites.join("、")}` : "可直接开始"}</p>{node.resources.length > 0 && <p className="resource-count">已关联 {node.resources.length} 项学习资料</p>}</div>
+-          </button>
++          </Button>
+           <NodeStatusControl node={node} pending={statusPendingId === node.id} onUpdate={(status) => void onUpdateStatus(node, status)} />
+         </article>;
+       })}
+diff --git a/frontend/features/workspace/Workspace.tsx b/frontend/features/workspace/Workspace.tsx
+index 186e2cc..888dc62 100644
+--- a/frontend/features/workspace/Workspace.tsx
++++ b/frontend/features/workspace/Workspace.tsx
+@@ -1,7 +1,6 @@
+ "use client";
+ 
+-import { ProgressBar, ProgressBarFill, ProgressBarOutput, ProgressBarTrack } from "@heroui/react";
+-import { useState } from "react";
++import { ProgressBar, ProgressBarFill, ProgressBarOutput, ProgressBarTrack, Tabs } from "@heroui/react";
+ 
+ import { RagChatPanel } from "../chat/RagChatPanel";
+ import { ModelConfigurationPanel } from "../configuration/ModelConfigurationPanel";
+@@ -32,9 +31,6 @@ function Progress({
+ }: {
+   value: number;
+   "aria-label"?: string;
+-  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
+-  size?: "sm" | "md" | "lg";
+-  radius?: "none" | "sm" | "md" | "lg" | "full";
+   showValueLabel?: boolean;
+ }) {
+   return (
+@@ -76,7 +72,6 @@ export function Workspace({
+   onRetry: () => void;
+   onUpdateStatus: (node: StatusNode, status: string) => Promise<boolean>;
+ }) {
+-  const [activeTab, setActiveTab] = useState<WorkspaceTab>("dashboard");
+   if (state !== "ready" || !workspace) return <WorkspaceStatus state={state} error={error} onRetry={onRetry} />;
+ 
+   const { project, progress, nodes } = workspace;
+@@ -109,7 +104,7 @@ export function Workspace({
+       </header>
+ 
+       <section className="py-2 flex flex-col gap-2" aria-label="学习进度">
+-        <Progress value={progressWidth} aria-label="学习进度" color="success" size="sm" radius="full" showValueLabel />
++        <Progress value={progressWidth} aria-label="学习进度" showValueLabel />
+         <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-zinc-500 dark:text-zinc-400 pt-1">
+           <span>{progressWidth}% 已完成</span>
+           <span>{progress.learning} 个学习中</span>
+@@ -117,62 +112,29 @@ export function Workspace({
+         </div>
+       </section>
+ 
+-      <div className="w-full">
+-        <div
+-          role="tablist"
+-          aria-label="学习功能"
+-          className="inline-flex flex-wrap sm:flex-nowrap p-1.5 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl gap-1 shadow-inner"
+-        >
+-          {workspaceTabs.map((tab) => {
+-            const isSelected = activeTab === tab.id;
+-            return (
+-              <button
+-                key={tab.id}
+-                id={`workspace-tab-${tab.id}`}
+-                type="button"
+-                role="tab"
+-                aria-selected={isSelected}
+-                aria-controls={`workspace-panel-${tab.id}`}
+-                tabIndex={isSelected ? 0 : -1}
+-                onClick={() => setActiveTab(tab.id)}
+-                className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 ${
+-                  isSelected
+-                    ? "bg-white dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 shadow-sm border border-zinc-200/80 dark:border-zinc-700 font-extrabold"
+-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 border border-transparent"
+-                }`}
+-              >
++      <Tabs defaultSelectedKey="dashboard" className="w-full min-w-0">
++        <Tabs.ListContainer className="max-w-full overflow-x-auto">
++          <Tabs.List aria-label="学习功能">
++            {workspaceTabs.map((tab) => (
++              <Tabs.Tab key={tab.id} id={tab.id} className="whitespace-nowrap">
+                 {tab.label}
+-              </button>
+-            );
+-          })}
+-        </div>
+-      </div>
+-
+-      <section
+-        id={`workspace-panel-${activeTab}`}
+-        className="w-full min-w-0"
+-        role="tabpanel"
+-        aria-labelledby={`workspace-tab-${activeTab}`}
+-      >
+-        <div hidden={activeTab !== "roadmap"}>
+-          <RoadmapPanel
+-            roadmap={roadmap}
+-            nodes={nodes}
+-            statusPendingId={statusPendingId}
+-            onUpdateStatus={onUpdateStatus}
+-          />
+-        </div>
+-        {activeTab === "dashboard" && <DashboardPanel projectId={project.id} />}
+-        {activeTab === "review" && <ReviewPanel projectId={project.id} />}
+-        {activeTab === "rag" && (
+-          <>
+-            <ResourceLibraryPanel nodes={nodes} />
+-            <RagChatPanel nodes={nodes} />
+-          </>
+-        )}
+-        {activeTab === "quiz" && <QuizPanel projectId={project.id} nodes={nodes} />}
+-        {activeTab === "models" && <ModelConfigurationPanel />}
+-      </section>
++                <Tabs.Indicator />
++              </Tabs.Tab>
++            ))}
++          </Tabs.List>
++        </Tabs.ListContainer>
++        <Tabs.Panel id="dashboard"><DashboardPanel projectId={project.id} /></Tabs.Panel>
++        <Tabs.Panel id="roadmap" shouldForceMount className="data-[inert]:hidden">
++          <RoadmapPanel roadmap={roadmap} nodes={nodes} statusPendingId={statusPendingId} onUpdateStatus={onUpdateStatus} />
++        </Tabs.Panel>
++        <Tabs.Panel id="review"><ReviewPanel projectId={project.id} /></Tabs.Panel>
++        <Tabs.Panel id="rag">
++          <ResourceLibraryPanel nodes={nodes} />
++          <RagChatPanel nodes={nodes} />
++        </Tabs.Panel>
++        <Tabs.Panel id="quiz"><QuizPanel projectId={project.id} nodes={nodes} /></Tabs.Panel>
++        <Tabs.Panel id="models"><ModelConfigurationPanel /></Tabs.Panel>
++      </Tabs>
+     </main>
+   );
+ }
