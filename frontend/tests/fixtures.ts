@@ -1,4 +1,4 @@
-import type { NodeDetail, ProjectRoadmap, ProjectSummary, ProjectWorkspace } from "../lib/api";
+import type { IndexedResource, NodeDetail, ProjectRoadmap, ProjectSummary, ProjectWorkspace, WorkspaceNode } from "../lib/api";
 
 export const workspaceNode = {
   id: 101,
@@ -43,4 +43,44 @@ export const nodeDetail: NodeDetail = {
   practice: null,
   note: { id: 1, content: "原笔记", selection: "", updated_at: "" },
   resources: [],
+};
+
+export const secondWorkspaceNode: WorkspaceNode = {
+  ...workspaceNode,
+  id: 102,
+  code: "1.2",
+  title: "生命周期与借用检查器",
+};
+
+export const indexedResource: IndexedResource = {
+  resource_id: 701,
+  node_id: 101,
+  title: "Rust 官方文档：所有权章节",
+  rtype: "markdown",
+  source: "ownership.md",
+  status: "completed",
+  message: null,
+  collection_id: "collection-1",
+  source_id: "source-1",
+};
+
+export const indexedResourceLong: IndexedResource = {
+  ...indexedResource,
+  resource_id: 702,
+  title: "一份名称非常长的参考资料，用于验证资料标题在窄屏与长文本下的换行表现是否仍然可读",
+  rtype: "pdf",
+  source: "long-name.pdf",
+  source_id: "source-2",
+};
+
+export const failedResource: IndexedResource = {
+  resource_id: 703,
+  node_id: 101,
+  title: "索引失败的示例资料",
+  rtype: "docx",
+  source: "broken.docx",
+  status: "failed",
+  message: "解析失败：文档加密",
+  collection_id: null,
+  source_id: null,
 };
