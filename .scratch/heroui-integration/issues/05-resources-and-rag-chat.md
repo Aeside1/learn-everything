@@ -4,7 +4,7 @@
 
 **Blocked by:** 02 — 完成 HeroUI 工作区导航与进度。
 
-**Status:** in-review（记录见 `records/05-resources-and-rag-chat.md`）
+**Status:** done — 10/10 条目已勾选；本任务模块内的手写皮肤已清零，`app/styles.css` 中属于本任务的残留规则已由任务 07 删除（114 条），双主题证据 `evidence/05/`（4 场景 22 组）全部通过。
 
 依据规格《统一前端 HeroUI 基础控件与浅色/深色主题验收》。本任务保持资料上传和问答的现有 REST、SSE 与数据契约，不需要修改索引或模型配置业务。
 
