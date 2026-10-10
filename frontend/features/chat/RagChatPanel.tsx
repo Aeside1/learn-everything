@@ -1,10 +1,12 @@
 "use client";
 
-import { Button, TextArea } from "@heroui/react";
+import { Alert, Button, Checkbox, Disclosure, Label, Spinner, TextArea, TextField } from "@heroui/react";
 
-import { AlertCircle, LoaderCircle, MessageSquareText, RotateCcw, Send, Square } from "lucide-react";
+import { AlertCircle, MessageSquareText, RotateCcw, Send, Square } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { IconButton } from "../../components/ui/IconButton";
+import { SelectField } from "../../components/ui/SelectField";
 import { ApiError, listNodeResources, streamRagChat, type IndexedResource, type RagExcerpt, type WorkspaceNode } from "../../lib/api";
 
 type Message = { role: "user" | "assistant"; content: string; excerpts?: RagExcerpt[] };
@@ -61,10 +63,78 @@ export function RagChatPanel({ nodes }: { nodes: WorkspaceNode[] }) {
   };
 
   return <section className="rag-chat-panel">
-    <div className="section-heading"><div><p className="eyebrow">KNOWLEDGE Q&A</p><h3>资料问答</h3></div><MessageSquareText size={22} aria-hidden="true" /></div>
-    <div className="rag-scope"><label>知识点<select value={nodeId ?? ""} onChange={(event) => setNodeId(Number(event.target.value))} disabled={running}>{nodes.map((node) => <option value={node.id} key={node.id}>{node.code} {node.title}</option>)}</select></label><div className="rag-source-list"><span>问答资料</span>{scopeLoading && <small><LoaderCircle className="spin" size={14} />正在读取资料</small>}{!scopeLoading && resources.length === 0 && <small>请先在资料库上传并完成索引。</small>}{resources.map((resource) => <label key={resource.source_id}><input type="checkbox" checked={selectedIds.includes(resource.source_id!)} onChange={() => toggleSource(resource.source_id!)} disabled={running} />{resource.title}</label>)}</div></div>
-    <div className="rag-transcript" aria-live="polite">{messages.length === 0 && <div className="rag-empty">选择已索引资料后即可提问。</div>}{messages.map((item, index) => <article className={`rag-message ${item.role}`} key={`${item.role}-${index}`}><strong>{item.role === "user" ? "你" : "学习助手"}</strong><p>{item.content || (running && index === messages.length - 1 ? "正在检索资料..." : "")}</p>{item.excerpts?.map((excerpt) => <details key={`${excerpt.source_id}-${excerpt.text}`}><summary>{String(excerpt.metadata.file_name ?? excerpt.source_id)}</summary><p>{excerpt.text}</p></details>)}</article>)}</div>
-    {error && <div className="rag-error"><AlertCircle size={17} />{error}{latestQuestion.current && <Button variant="ghost" size="sm" type="button"  onClick={() => void ask(true)}>重试</Button>}</div>}
-    <div className="rag-composer"><TextArea value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="针对已选资料提问" disabled={running} /><div>{running ? <Button variant="secondary" type="button"  onClick={() => controller.current?.abort()}><Square size={15} />停止</Button> : <Button variant="primary" type="button" className="command-layout" onClick={() => void ask()} isDisabled={!resources.length}><Send size={16} />提问</Button>}{messages.length > 0 && !running && <Button variant="ghost" type="button" aria-label="重试上一问题" onClick={() => void ask(true)}><RotateCcw size={16} /></Button>}</div></div>
+    <div className="section-heading">
+      <div><p className="eyebrow">KNOWLEDGE Q&amp;A</p><h3>资料问答</h3></div>
+      <MessageSquareText size={22} aria-hidden="true" />
+    </div>
+
+    <div className="grid min-w-0 gap-2.5 md:grid-cols-[minmax(180px,0.7fr)_minmax(0,1.3fr)]">
+      <SelectField
+        label="知识点"
+        value={nodeId === null ? null : String(nodeId)}
+        options={nodes.map((node) => ({ id: String(node.id), label: `${node.code} ${node.title}` }))}
+        onChange={(value) => setNodeId(value === "" ? null : Number(value))}
+        isDisabled={running}
+      />
+      <div className="grid content-start gap-1.5 rounded-lg border border-border bg-surface p-2.5">
+        <span className="text-sm font-semibold text-foreground">问答资料</span>
+        {scopeLoading && <span className="flex items-center gap-1.5 text-xs text-muted"><Spinner size="sm" color="success" aria-label="正在读取资料" />正在读取资料</span>}
+        {!scopeLoading && resources.length === 0 && <span className="text-xs text-muted">请先在资料库上传并完成索引。</span>}
+        {resources.map((resource) => <Checkbox
+          key={resource.source_id}
+          isSelected={selectedIds.includes(resource.source_id!)}
+          onChange={() => toggleSource(resource.source_id!)}
+          isDisabled={running}
+          className="min-w-0"
+        >
+          <Checkbox.Content className="min-w-0 items-start gap-2.5">
+            <Checkbox.Control className="mt-0.5"><Checkbox.Indicator /></Checkbox.Control>
+            <span className="min-w-0 text-left text-sm font-normal whitespace-normal wrap-anywhere text-foreground">{resource.title}</span>
+          </Checkbox.Content>
+        </Checkbox>)}
+      </div>
+    </div>
+
+    <div className="rag-transcript" aria-live="polite">
+      {messages.length === 0 && <div className="rag-empty">选择已索引资料后即可提问。</div>}
+      {messages.map((item, index) => <article className={`rag-message ${item.role}`} key={`${item.role}-${index}`}>
+        <strong>{item.role === "user" ? "你" : "学习助手"}</strong>
+        <p>{item.content || (running && index === messages.length - 1 ? "正在检索资料..." : "")}</p>
+        {item.excerpts?.map((excerpt) => <Disclosure key={`${excerpt.source_id}-${excerpt.text}`}>
+          <Disclosure.Heading level={4}>
+            <Disclosure.Trigger className="flex w-full items-center gap-2 text-left text-xs font-bold text-brand-ink">
+              {String(excerpt.metadata.file_name ?? excerpt.source_id)}
+              <Disclosure.Indicator />
+            </Disclosure.Trigger>
+          </Disclosure.Heading>
+          <Disclosure.Content>
+            <Disclosure.Body className="text-xs leading-relaxed text-muted">{excerpt.text}</Disclosure.Body>
+          </Disclosure.Content>
+        </Disclosure>)}
+      </article>)}
+    </div>
+
+    {error && <Alert status="danger">
+      <Alert.Indicator><AlertCircle size={17} aria-hidden="true" /></Alert.Indicator>
+      <Alert.Content className="flex flex-wrap items-center gap-2.5">
+        <Alert.Description>{error}</Alert.Description>
+        {latestQuestion.current && <Button variant="ghost" size="sm" type="button" onClick={() => void ask(true)} isDisabled={running}>重试</Button>}
+      </Alert.Content>
+    </Alert>}
+
+    <div className="grid gap-2.5">
+      <TextField value={question} onChange={setQuestion} isDisabled={running} fullWidth>
+        <Label>问题</Label>
+        <TextArea rows={3} placeholder="针对已选资料提问" />
+      </TextField>
+      <div className="flex items-center justify-end gap-2">
+        {running
+          ? <Button variant="secondary" type="button" onClick={() => controller.current?.abort()}><Square size={15} aria-hidden="true" />停止</Button>
+          : <Button variant="primary" type="button" className="justify-center" onClick={() => void ask()} isDisabled={!resources.length}><Send size={16} aria-hidden="true" />提问</Button>}
+        {messages.length > 0 && !running && <IconButton label="重试上一问题" onClick={() => void ask(true)}>
+          <RotateCcw size={16} aria-hidden="true" />
+        </IconButton>}
+      </div>
+    </div>
   </section>;
 }
