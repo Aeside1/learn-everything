@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
 
 import type { WorkspaceNode } from "../../lib/api";
 
@@ -12,23 +12,31 @@ export const statusLabels: Record<string, string> = {
   skipped: "已跳过",
 };
 
+const statusOptions = ["pending", "learning", "mastered", "weak"];
+
 type StatusNode = Pick<WorkspaceNode, "id" | "title" | "status">;
 
 export function NodeStatusControl({ node, pending, onUpdate }: { node: StatusNode; pending: boolean; onUpdate: (status: string) => void }) {
-  const options = ["pending", "learning", "mastered", "weak"];
   return (
-    <div className="status-control" aria-label={`${node.title} 的学习状态`}>
-      {options.map((status) => (
-        <Button variant="secondary"
-          key={status}
-          type="button"
-          className={`status-button ${node.status === status ? "active" : ""}`}
-          isDisabled={pending}
-          onClick={() => onUpdate(status)}
-        >
+    <ToggleButtonGroup
+      className="status-control"
+      aria-label={`${node.title} 的学习状态`}
+      selectionMode="single"
+      disallowEmptySelection
+      isDetached
+      size="sm"
+      selectedKeys={[node.status]}
+      isDisabled={pending}
+      onSelectionChange={(keys) => {
+        const next = Array.from(keys)[0];
+        if (typeof next === "string" && next !== node.status) onUpdate(next);
+      }}
+    >
+      {statusOptions.map((status) => (
+        <ToggleButton key={status} id={status}>
           {statusLabels[status]}
-        </Button>
+        </ToggleButton>
       ))}
-    </div>
+    </ToggleButtonGroup>
   );
 }
