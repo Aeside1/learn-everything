@@ -1,4 +1,4 @@
-import type { ContentPreparation, NodeDetail, ProjectCreation, ProjectRoadmap, ProjectSummary, ProjectWorkspace, RoadmapPreview } from "../lib/api";
+import type { ContentPreparation, ModelConfiguration, NodeDetail, ProjectCreation, ProjectRoadmap, ProjectSummary, ProjectWorkspace, RoadmapPreview } from "../lib/api";
 
 export const workspaceNode = {
   id: 101,
@@ -107,4 +107,28 @@ export const projectCreation: ProjectCreation = {
   node_count: 3,
   environment_status: "ready",
   environment_error: null,
+};
+
+export const modelConfiguration: ModelConfiguration = {
+  llm: {
+    active_profile_id: "llm-default",
+    active_profile_name: "默认 LLM 档案",
+    base_url: "https://llm.example.test/v1",
+    model: "example-chat-model",
+    api_key_configured: true,
+    ready: true,
+  },
+  rag: {
+    active_profile_id: null,
+    active_profile_name: null,
+    base_url: "",
+    model: "",
+    api_key_configured: false,
+    ready: false,
+  },
+  llm_profiles: [
+    { id: "llm-default", name: "默认 LLM 档案", base_url: "https://llm.example.test/v1", model: "example-chat-model", api_key_configured: true },
+    { id: "llm-backup", name: "备用档案：一个很长的档案名称用于验证选择器浮层内的换行与选中回传", base_url: "https://backup.example.test/v1", model: "example-backup-model", api_key_configured: false },
+  ],
+  rag_profiles: [],
 };

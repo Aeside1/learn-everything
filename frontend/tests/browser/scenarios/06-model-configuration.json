@@ -1,0 +1,239 @@
+{
+  "scenarios": [
+    {
+      "name": "model-configuration-profiles-and-fields",
+      "viewport": { "width": 1280, "height": 1400 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "模型配置" } },
+        { "expectVisible": { "role": "region", "name": "LLM 配置" } },
+        { "expectVisible": { "role": "region", "name": "RAG 向量模型配置" } },
+        { "expectText": "LLM 配置 已就绪" },
+        { "expectText": "RAG 向量模型配置 未配置" },
+        { "expectText": "还没有 RAG 档案，填写名称后点击「新建」。" },
+        {
+          "screenshot": {
+            "name": "model-config-ready",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "region", "name": "RAG 向量模型配置" },
+              { "role": "textbox", "name": "API Key" },
+              { "role": "textbox", "name": "服务地址" },
+              { "role": "button", "name": "测试连接" },
+              { "role": "button", "name": "保存配置" },
+              { "role": "button", "name": "删除当前档案" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "活动档案" } },
+        { "expectVisible": { "role": "option", "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行" } },
+        {
+          "screenshot": {
+            "name": "model-config-profile-selector-popover",
+            "verify": [
+              { "role": "option", "name": "本地默认 LLM" },
+              { "role": "option", "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行" }
+            ]
+          }
+        },
+        { "click": { "role": "option", "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行" } },
+        { "expectText": "LLM 档案已切换并应用。" },
+        { "expectText": "LLM 配置 未配置" },
+        { "expectText": "还没有可用密钥，填写 API Key 后才能测试连接。" },
+        { "expectDisabled": { "role": "button", "name": "测试连接" } },
+        {
+          "screenshot": {
+            "name": "model-config-profile-switched-unconfigured",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "textbox", "name": "档案名称" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "活动档案" } },
+        { "click": { "role": "option", "name": "本地默认 LLM" } },
+        { "expectText": "LLM 配置 已就绪" }
+      ]
+    },
+    {
+      "name": "model-configuration-password-and-save",
+      "viewport": { "width": 1280, "height": 1400 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "模型配置" } },
+        { "expectText": "LLM 配置 已就绪" },
+        { "fill": { "role": "textbox", "name": "API Key", "value": "sk-fake-acceptance-0001" } },
+        { "focus": { "role": "textbox", "name": "API Key" } },
+        {
+          "screenshot": {
+            "name": "model-config-password-focused",
+            "verify": [
+              { "role": "textbox", "name": "API Key" },
+              { "role": "textbox", "name": "服务地址" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        },
+        { "fill": { "role": "textbox", "name": "服务地址", "value": "https://llm.example.test/v2" } },
+        { "click": { "role": "button", "name": "保存配置" } },
+        { "expectText": "LLM 配置已保存，密钥不会再次显示。" },
+        {
+          "screenshot": {
+            "name": "model-config-saved",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "textbox", "name": "API Key" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        },
+        { "focus": { "role": "button", "name": "保存配置" } },
+        { "expectFocus": { "role": "button", "name": "保存配置" } },
+        {
+          "screenshot": {
+            "name": "model-config-save-button-focus",
+            "verify": [{ "role": "button", "name": "保存配置" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "model-configuration-connection-test-feedback",
+      "viewport": { "width": 1280, "height": 1400 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "模型配置" } },
+        { "expectText": "LLM 配置 已就绪" },
+        { "fill": { "role": "textbox", "name": "服务地址", "value": "https://fail.example.test/v1" } },
+        { "click": { "role": "button", "name": "测试连接" } },
+        { "expectText": "连接失败：请检查服务地址与密钥。" },
+        {
+          "screenshot": {
+            "name": "model-config-connection-test-failure",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "textbox", "name": "服务地址" },
+              { "role": "button", "name": "测试连接" }
+            ]
+          }
+        },
+        { "fill": { "role": "textbox", "name": "服务地址", "value": "https://llm.example.test/v3" } },
+        { "click": { "role": "button", "name": "测试连接" } },
+        { "expectText": "连接成功，模型可用。" },
+        {
+          "screenshot": {
+            "name": "model-config-connection-test-success",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "button", "name": "测试连接" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "model-configuration-busy-create-delete",
+      "viewport": { "width": 1280, "height": 1400 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "模型配置" } },
+        { "expectText": "LLM 配置 已就绪" },
+        { "setApiDelay": 8000 },
+        { "click": { "role": "button", "name": "测试连接" } },
+        { "expectDisabled": { "role": "button", "name": "保存配置" } },
+        { "expectDisabled": { "role": "button", "name": "删除当前档案" } },
+        {
+          "screenshot": {
+            "name": "model-config-busy-actions-disabled",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "button", "name": "测试连接" },
+              { "role": "button", "name": "保存配置" },
+              { "role": "button", "name": "删除当前档案" }
+            ]
+          }
+        },
+        { "setApiDelay": 0 },
+        { "wait": 8000 },
+        { "expectText": "连接成功，模型可用。" },
+        { "expectEnabled": { "role": "button", "name": "保存配置" } },
+        { "fill": { "role": "textbox", "name": "新档案名称", "value": "验收 LLM 档案" } },
+        { "click": { "role": "button", "name": "新建", "exact": true } },
+        { "expectText": "已新建 LLM 档案，请填写并保存配置。" },
+        { "expectDisabled": { "role": "button", "name": "测试连接" } },
+        {
+          "screenshot": {
+            "name": "model-config-created-profile",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "textbox", "name": "档案名称" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "删除当前档案" } },
+        { "expectText": "LLM 档案已删除。" },
+        { "expectHidden": { "role": "textbox", "name": "档案名称", "exact": true } },
+        {
+          "screenshot": {
+            "name": "model-config-deleted-profile",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "button", "name": "活动档案" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "活动档案" } },
+        { "click": { "role": "option", "name": "本地默认 LLM" } },
+        { "expectText": "LLM 配置 已就绪" }
+      ]
+    },
+    {
+      "name": "model-configuration-narrow-and-long-name",
+      "viewport": { "width": 1280, "height": 1400 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "模型配置" } },
+        { "expectText": "LLM 配置 已就绪" },
+        { "viewport": { "width": 780, "height": 1000 } },
+        { "wait": 400 },
+        {
+          "screenshot": {
+            "name": "model-config-narrow",
+            "verify": [
+              { "role": "region", "name": "LLM 配置" },
+              { "role": "region", "name": "RAG 向量模型配置" },
+              { "role": "textbox", "name": "API Key" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        },
+        { "click": { "role": "button", "name": "活动档案" } },
+        { "expectVisible": { "role": "option", "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行" } },
+        {
+          "screenshot": {
+            "name": "model-config-narrow-profile-popover",
+            "verify": [
+              { "role": "option", "name": "本地默认 LLM" },
+              { "role": "option", "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行" }
+            ]
+          }
+        },
+        { "press": "Escape" },
+        { "expectHidden": { "role": "option", "name": "本地默认 LLM" } },
+        { "viewport": { "width": 1280, "height": 1400 } },
+        {
+          "screenshot": {
+            "name": "model-config-long-profile-name-wide",
+            "verify": [
+              { "role": "button", "name": "活动档案" },
+              { "role": "button", "name": "保存配置" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
