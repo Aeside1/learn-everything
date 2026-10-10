@@ -44,3 +44,28 @@ export const nodeDetail: NodeDetail = {
   note: { id: 1, content: "原笔记", selection: "", updated_at: "" },
   resources: [],
 };
+import type { ModelConfiguration } from "../lib/api";
+
+export const modelConfiguration: ModelConfiguration = {
+  llm: {
+    active_profile_id: "llm-default",
+    active_profile_name: "默认 LLM 档案",
+    base_url: "https://llm.example.test/v1",
+    model: "example-chat-model",
+    api_key_configured: true,
+    ready: true,
+  },
+  rag: {
+    active_profile_id: null,
+    active_profile_name: null,
+    base_url: "",
+    model: "",
+    api_key_configured: false,
+    ready: false,
+  },
+  llm_profiles: [
+    { id: "llm-default", name: "默认 LLM 档案", base_url: "https://llm.example.test/v1", model: "example-chat-model", api_key_configured: true },
+    { id: "llm-backup", name: "备用档案：一个很长的档案名称用于验证选择器浮层内的换行与选中回传", base_url: "https://backup.example.test/v1", model: "example-backup-model", api_key_configured: false },
+  ],
+  rag_profiles: [],
+};

@@ -1,0 +1,1060 @@
+{
+  "baseUrl": "http://127.0.0.1:8134",
+  "static": "G:\\Github\\le-wt\\heroui-06\\frontend\\out",
+  "ranAt": "2026-10-10T21:32:02",
+  "scenarios": [
+    {
+      "name": "model-configuration-profiles-and-fields",
+      "baseUrl": "http://127.0.0.1:8134",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "模型配置"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectVisible",
+          "target": {
+            "role": "region",
+            "name": "LLM 配置"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectVisible",
+          "target": {
+            "role": "region",
+            "name": "RAG 向量模型配置"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        },
+        {
+          "index": 5,
+          "step": "expectText",
+          "target": "RAG 向量模型配置 未配置"
+        },
+        {
+          "index": 6,
+          "step": "expectText",
+          "target": "还没有 RAG 档案，填写名称后点击「新建」。"
+        },
+        {
+          "index": 7,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-ready",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "region",
+                "name": "RAG 向量模型配置"
+              },
+              {
+                "role": "textbox",
+                "name": "API Key"
+              },
+              {
+                "role": "textbox",
+                "name": "服务地址"
+              },
+              {
+                "role": "button",
+                "name": "测试连接"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              },
+              {
+                "role": "button",
+                "name": "删除当前档案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 8,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "活动档案"
+          }
+        },
+        {
+          "index": 9,
+          "step": "expectVisible",
+          "target": {
+            "role": "option",
+            "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
+          }
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-profile-selector-popover",
+            "verify": [
+              {
+                "role": "option",
+                "name": "本地默认 LLM"
+              },
+              {
+                "role": "option",
+                "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
+              }
+            ]
+          }
+        },
+        {
+          "index": 11,
+          "step": "click",
+          "target": {
+            "role": "option",
+            "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectText",
+          "target": "LLM 档案已切换并应用。"
+        },
+        {
+          "index": 13,
+          "step": "expectText",
+          "target": "LLM 配置 未配置"
+        },
+        {
+          "index": 14,
+          "step": "expectText",
+          "target": "还没有可用密钥，填写 API Key 后才能测试连接。"
+        },
+        {
+          "index": 15,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "测试连接"
+          }
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-profile-switched-unconfigured",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "textbox",
+                "name": "档案名称"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        },
+        {
+          "index": 17,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "活动档案"
+          }
+        },
+        {
+          "index": 18,
+          "step": "click",
+          "target": {
+            "role": "option",
+            "name": "本地默认 LLM"
+          }
+        },
+        {
+          "index": 19,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "model-config-ready",
+          "light": "model-config-ready-light.png",
+          "dark": "model-config-ready-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-profile-selector-popover",
+          "light": "model-config-profile-selector-popover-light.png",
+          "dark": "model-config-profile-selector-popover-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "oklch(1 0 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "oklch(0.2103 0.0059 285.89)",
+                "color": "oklch(0.9911 0 0)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "oklch(0.9911 0 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "model-config-profile-switched-unconfigured",
+          "light": "model-config-profile-switched-unconfigured-light.png",
+          "dark": "model-config-profile-switched-unconfigured-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "model-configuration-password-and-save",
+      "baseUrl": "http://127.0.0.1:8134",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "模型配置"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        },
+        {
+          "index": 3,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "API Key",
+            "value": "sk-fake-acceptance-0001"
+          }
+        },
+        {
+          "index": 4,
+          "step": "focus",
+          "target": {
+            "role": "textbox",
+            "name": "API Key"
+          }
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-password-focused",
+            "verify": [
+              {
+                "role": "textbox",
+                "name": "API Key"
+              },
+              {
+                "role": "textbox",
+                "name": "服务地址"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "服务地址",
+            "value": "https://llm.example.test/v2"
+          }
+        },
+        {
+          "index": 7,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 8,
+          "step": "expectText",
+          "target": "LLM 配置已保存，密钥不会再次显示。"
+        },
+        {
+          "index": 9,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-saved",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "textbox",
+                "name": "API Key"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        },
+        {
+          "index": 10,
+          "step": "focus",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 11,
+          "step": "expectFocus",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-save-button-focus",
+            "verify": [
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "model-config-password-focused",
+          "light": "model-config-password-focused-light.png",
+          "dark": "model-config-password-focused-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-saved",
+          "light": "model-config-saved-light.png",
+          "dark": "model-config-saved-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-save-button-focus",
+          "light": "model-config-save-button-focus-light.png",
+          "dark": "model-config-save-button-focus-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "model-configuration-connection-test-feedback",
+      "baseUrl": "http://127.0.0.1:8134",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "模型配置"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        },
+        {
+          "index": 3,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "服务地址",
+            "value": "https://fail.example.test/v1"
+          }
+        },
+        {
+          "index": 4,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "测试连接"
+          }
+        },
+        {
+          "index": 5,
+          "step": "expectText",
+          "target": "连接失败：请检查服务地址与密钥。"
+        },
+        {
+          "index": 6,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-connection-test-failure",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "textbox",
+                "name": "服务地址"
+              },
+              {
+                "role": "button",
+                "name": "测试连接"
+              }
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "服务地址",
+            "value": "https://llm.example.test/v3"
+          }
+        },
+        {
+          "index": 8,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "测试连接"
+          }
+        },
+        {
+          "index": 9,
+          "step": "expectText",
+          "target": "连接成功，模型可用。"
+        },
+        {
+          "index": 10,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-connection-test-success",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "button",
+                "name": "测试连接"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "model-config-connection-test-failure",
+          "light": "model-config-connection-test-failure-light.png",
+          "dark": "model-config-connection-test-failure-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-connection-test-success",
+          "light": "model-config-connection-test-success-light.png",
+          "dark": "model-config-connection-test-success-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "model-configuration-busy-create-delete",
+      "baseUrl": "http://127.0.0.1:8134",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "模型配置"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        },
+        {
+          "index": 3,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 4,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "测试连接"
+          }
+        },
+        {
+          "index": 5,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "删除当前档案"
+          }
+        },
+        {
+          "index": 7,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-busy-actions-disabled",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "button",
+                "name": "测试连接"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              },
+              {
+                "role": "button",
+                "name": "删除当前档案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 8,
+          "step": "setApiDelay",
+          "target": true
+        },
+        {
+          "index": 9,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 10,
+          "step": "expectText",
+          "target": "连接成功，模型可用。"
+        },
+        {
+          "index": 11,
+          "step": "expectEnabled",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 12,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "新档案名称",
+            "value": "验收 LLM 档案"
+          }
+        },
+        {
+          "index": 13,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "新建",
+            "exact": true
+          }
+        },
+        {
+          "index": 14,
+          "step": "expectText",
+          "target": "已新建 LLM 档案，请填写并保存配置。"
+        },
+        {
+          "index": 15,
+          "step": "expectDisabled",
+          "target": {
+            "role": "button",
+            "name": "测试连接"
+          }
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-created-profile",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "textbox",
+                "name": "档案名称"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        },
+        {
+          "index": 17,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "删除当前档案"
+          }
+        },
+        {
+          "index": 18,
+          "step": "expectText",
+          "target": "LLM 档案已删除。"
+        },
+        {
+          "index": 19,
+          "step": "expectHidden",
+          "target": {
+            "role": "textbox",
+            "name": "档案名称",
+            "exact": true
+          }
+        },
+        {
+          "index": 20,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-deleted-profile",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "button",
+                "name": "活动档案"
+              }
+            ]
+          }
+        },
+        {
+          "index": 21,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "活动档案"
+          }
+        },
+        {
+          "index": 22,
+          "step": "click",
+          "target": {
+            "role": "option",
+            "name": "本地默认 LLM"
+          }
+        },
+        {
+          "index": 23,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "model-config-busy-actions-disabled",
+          "light": "model-config-busy-actions-disabled-light.png",
+          "dark": "model-config-busy-actions-disabled-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-created-profile",
+          "light": "model-config-created-profile-light.png",
+          "dark": "model-config-created-profile-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-deleted-profile",
+          "light": "model-config-deleted-profile-light.png",
+          "dark": "model-config-deleted-profile-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "model-configuration-narrow-and-long-name",
+      "baseUrl": "http://127.0.0.1:8134",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "模型配置"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectText",
+          "target": "LLM 配置 已就绪"
+        },
+        {
+          "index": 3,
+          "step": "viewport",
+          "target": {
+            "width": 780,
+            "height": 1000
+          }
+        },
+        {
+          "index": 4,
+          "step": "wait",
+          "target": true
+        },
+        {
+          "index": 5,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-narrow",
+            "verify": [
+              {
+                "role": "region",
+                "name": "LLM 配置"
+              },
+              {
+                "role": "region",
+                "name": "RAG 向量模型配置"
+              },
+              {
+                "role": "textbox",
+                "name": "API Key"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "活动档案"
+          }
+        },
+        {
+          "index": 7,
+          "step": "expectVisible",
+          "target": {
+            "role": "option",
+            "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
+          }
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-narrow-profile-popover",
+            "verify": [
+              {
+                "role": "option",
+                "name": "本地默认 LLM"
+              },
+              {
+                "role": "option",
+                "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
+              }
+            ]
+          }
+        },
+        {
+          "index": 9,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 10,
+          "step": "expectHidden",
+          "target": {
+            "role": "option",
+            "name": "本地默认 LLM"
+          }
+        },
+        {
+          "index": 11,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 1400
+          }
+        },
+        {
+          "index": 12,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-long-profile-name-wide",
+            "verify": [
+              {
+                "role": "button",
+                "name": "活动档案"
+              },
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "model-config-narrow",
+          "light": "model-config-narrow-light.png",
+          "dark": "model-config-narrow-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-narrow-profile-popover",
+          "light": "model-config-narrow-profile-popover-light.png",
+          "dark": "model-config-narrow-profile-popover-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "dom-swap",
+            "toLight": "dom-swap"
+          },
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=dialog]",
+                "background": "oklch(1 0 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "oklch(0.2103 0.0059 285.89)"
+              }
+            ],
+            "dark": [
+              {
+                "selector": "[role=dialog]",
+                "background": "oklch(0.2103 0.0059 285.89)",
+                "color": "oklch(0.9911 0 0)"
+              },
+              {
+                "selector": "[role=listbox]",
+                "background": "rgba(0, 0, 0, 0)",
+                "color": "oklch(0.9911 0 0)"
+              }
+            ]
+          }
+        },
+        {
+          "name": "model-config-long-profile-name-wide",
+          "light": "model-config-long-profile-name-wide-light.png",
+          "dark": "model-config-long-profile-name-wide-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}
