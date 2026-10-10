@@ -14,6 +14,8 @@
 - [x] 全局切换入口使用 HeroUI，具有说明下一步切换目标的可访问名称；浅色→深色→浅色立即生效，不刷新、不重置当前项目、功能视图或草稿。
 - [x] 主题偏好可持久化，重新加载按已保存主题呈现；存储不可用时界面仍可切换，首屏初始化与 React 主题状态一致，避免挂载后覆盖用户选择。
 - [x] 项目侧栏的选择、刷新、新建、编辑、删除和进度使用适当的 HeroUI 控件；项目长标题、空列表、读取中、错误和已选状态在两种主题下均清晰可辨。
+  - 注（Spec 轴评审后补齐，主 agent）：原证据缺少空列表与侧栏读取失败态。已新增场景 `rail-empty-and-error-states`（替身支持 `empty_projects` 与针对 `GET ^/api/v1/projects$` 的注入错误），双主题截图 `rail-error-state-light/dark.png`、`rail-empty-state-light/dark.png`；读取中（Spinner）由 `workspace-loading-error-retry` 覆盖。
+  - 浮层证据标注（同次评审）：`after-dialog-close`、`band-768-row-layout` 两张截图声明 `probeOverlays=false`（悬停浮层只会在浅色探针瞬间可见），不得引用为 Tooltip 主题证据；Tooltip 的双主题证据改由新增场景 `tooltip-theme-consistency`（`screenshotPair`，每次截图前重新悬停）提供。
 - [x] 项目编辑使用 HeroUI 弹窗及表单控件，保留完整字段提交、校验、错误反馈；取消不提交，保存期间防重复操作，并阻止按钮、Escape 或遮罩关闭正在提交的弹窗。
 - [x] 项目删除保留输入 DELETE 的确认要求；未匹配确认词或正在删除时不能提交，成功后保持已有项目回退行为，失败保留确认内容及错误提示。
 - [x] 弹窗有正确标题、焦点管理及关闭后焦点返回；主题更新作用于弹窗、遮罩和 Tooltip 的 portal 内容。模态弹窗打开时，不绕过焦点约束访问侧栏切换按钮，主题同步可通过受控主题状态更新验证。

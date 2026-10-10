@@ -1,14 +1,17 @@
 {
-  "baseUrl": "http://127.0.0.1:8154",
+  "baseUrl": "http://127.0.0.1:8213",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:39:10",
+  "ranAt": "2026-10-10T23:33:11",
   "domSwapScreenshots": [
     "quiz-selection-popover-and-answer-flow/quiz-knowledge-popover-long-option"
+  ],
+  "withoutOverlayProbe": [
+    "dashboard-loading-error-retry/dashboard-error"
   ],
   "scenarios": [
     {
       "name": "dashboard-metrics-heatmap-report",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -167,6 +170,43 @@
           "index": 15,
           "step": "viewport",
           "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 16,
+          "step": "wheelTo",
+          "target": {
+            "role": "button",
+            "name": "刷新学习看板"
+          }
+        },
+        {
+          "index": 17,
+          "step": "expectInViewport",
+          "target": {
+            "role": "button",
+            "name": "刷新学习看板"
+          }
+        },
+        {
+          "index": 18,
+          "step": "screenshot",
+          "target": {
+            "name": "dashboard-420",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习概览"
+              }
+            ]
+          }
+        },
+        {
+          "index": 19,
+          "step": "viewport",
+          "target": {
             "width": 1280,
             "height": 900
           }
@@ -182,6 +222,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -196,6 +237,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -210,6 +252,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -224,6 +267,22 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "dashboard-420",
+          "light": "dashboard-420-light.png",
+          "dark": "dashboard-420-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -236,7 +295,7 @@
     },
     {
       "name": "dashboard-export-targets",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -356,6 +415,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -368,7 +428,7 @@
     },
     {
       "name": "dashboard-loading-error-retry",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -459,6 +519,7 @@
           "step": "screenshot",
           "target": {
             "name": "dashboard-error",
+            "probeOverlays": false,
             "verify": [
               {
                 "role": "tab",
@@ -517,6 +578,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -531,14 +593,9 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": false,
           "overlays": {
-            "light": [
-              {
-                "selector": "[role=tooltip]",
-                "background": "lab(100 0 0)",
-                "color": "lab(8.34178 0.607349 -2.12998)"
-              }
-            ],
+            "light": [],
             "dark": []
           }
         },
@@ -551,6 +608,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -565,7 +623,7 @@
     },
     {
       "name": "review-front-back-rating-empty-queue",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -806,6 +864,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -820,6 +879,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -834,6 +894,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -848,6 +909,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -862,6 +924,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -874,7 +937,7 @@
     },
     {
       "name": "review-loading-error-retry",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -969,6 +1032,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -983,6 +1047,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -997,7 +1062,7 @@
     },
     {
       "name": "quiz-selection-popover-and-answer-flow",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -1388,6 +1453,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1402,6 +1468,7 @@
             "toDark": "dom-swap",
             "toLight": "dom-swap"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [
               {
@@ -1438,6 +1505,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1452,6 +1520,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1466,6 +1535,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1480,6 +1550,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1494,6 +1565,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1508,6 +1580,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1520,7 +1593,7 @@
     },
     {
       "name": "quiz-validation-and-failures",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -1723,6 +1796,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1737,6 +1811,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1751,6 +1826,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1765,6 +1841,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1780,7 +1857,7 @@
     },
     {
       "name": "theme-switch-retention-review-and-quiz",
-      "baseUrl": "http://127.0.0.1:8154",
+      "baseUrl": "http://127.0.0.1:8213",
       "status": "passed",
       "steps": [
         {
@@ -2003,6 +2080,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -2017,6 +2095,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -2031,6 +2110,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []

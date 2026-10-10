@@ -31,6 +31,9 @@ class StepFailure(Exception):
 
 
 def locator_for(page: Page, target: dict):
+    selector = target.get("selector")
+    if selector:
+        return page.locator(selector)
     role = target.get("role")
     name = target.get("name")
     if not role:
@@ -39,6 +42,8 @@ def locator_for(page: Page, target: dict):
 
 
 def describe(target: dict) -> str:
+    if target.get("selector"):
+        return f"selector={target['selector']!r}"
     return f"{target.get('role')}={target.get('name')!r}"
 
 
@@ -66,6 +71,22 @@ def control(page: Page, base_url: str, payload: dict) -> None:
         data=json.dumps(payload).encode("utf-8"),
         headers={"content-type": "application/json"},
     )
+
+
+def save_screenshot(page: Page, path: Path) -> None:
+    """写截图，带有限的写出重试。
+
+    Windows 上曾观测到间歇性的 OSError(EINVAL)（同一目录重复写小文件无法复现，怀疑杀软/文件锁竞态），
+    因此这里重试 3 次；仍失败则直接报错，不静默跳过。
+    """
+    for attempt in range(3):
+        try:
+            page.screenshot(path=str(path))
+            return
+        except OSError as error:
+            if attempt == 2:
+                raise StepFailure(f"截图写入失败（{path.name}）：{error}") from error
+            time.sleep(0.5)
 
 
 def set_theme(page: Page, target: str) -> str:
@@ -127,35 +148,100 @@ class Runner:
             self.page.wait_for_timeout(100)
         raise StepFailure(f"{describe(target)} 仍然可见")
 
-    def capture(self, name: str, verify: list[dict] | None = None) -> None:
-        """先归一到浅色，再浅色截图 → 深色截图 → 切回浅色，并在每次切换后重新校验 verify。"""
+    def capture(self, name: str, verify: list[dict] | None = None, with_overlay_probe: bool = True) -> None:
+        """先归一到浅色，再浅色截图 → 深色截图 → 切回浅色，并在每次切换后重新校验 verify。
+
+        probe_overlays=False 用于那些“浮层只在浅色探针时恰好可见”的截图（例如鼠标停在带 Tooltip 的按钮上）：
+        这类截图不再声称覆盖浮层主题一致性，会在 report/summary 里显式标出，不得被引用为浮层证据；
+        浮层的双主题证据必须用 screenshotPair。
+        """
         verify = verify or []
         normalize_mode = set_theme(self.page, "light")
         expect_theme(self.page, "light")
         self.page.wait_for_timeout(120)
-        light_probe = probe_overlays(self.page)
+        light_probe = probe_overlays(self.page) if with_overlay_probe else []
         light_path = self.out_dir / f"{name}-light.png"
-        self.page.screenshot(path=str(light_path))
+        save_screenshot(self.page, light_path)
         light_theme_mode = set_theme(self.page, "dark")
         expect_theme(self.page, "dark")
         self.verify_assertions(verify)
         self.page.wait_for_timeout(120)
-        dark_probe = probe_overlays(self.page)
+        dark_probe = probe_overlays(self.page) if with_overlay_probe else []
         dark_path = self.out_dir / f"{name}-dark.png"
-        self.page.screenshot(path=str(dark_path))
+        save_screenshot(self.page, dark_path)
         back_mode = set_theme(self.page, "light")
         expect_theme(self.page, "light")
         self.verify_assertions(verify)
 
-        unchanged = [light["selector"] for light, dark in zip(light_probe, dark_probe) if light["background"] == dark["background"] and light["color"] == dark["color"]]
-        if unchanged:
-            raise StepFailure(f"浮层内容未随主题变化：{sorted(set(unchanged))}")
+        if with_overlay_probe:
+            if len(light_probe) != len(dark_probe):
+                raise StepFailure(
+                    f"浮层探针数量不一致（浅色 {len(light_probe)}、深色 {len(dark_probe)}），深色下无法证明浮层主题一致性；"
+                    "若该截图不打算覆盖浮层，请显式写 probeOverlays=false"
+                )
+            unchanged = [light["selector"] for light, dark in zip(light_probe, dark_probe) if light["background"] == dark["background"] and light["color"] == dark["color"]]
+            if unchanged:
+                raise StepFailure(f"浮层内容未随主题变化：{sorted(set(unchanged))}")
         self.report["screenshots"].append(
             {
                 "name": name,
                 "light": str(light_path.relative_to(self.out_dir)),
                 "dark": str(dark_path.relative_to(self.out_dir)),
                 "switchMode": {"normalize": normalize_mode, "toDark": light_theme_mode, "toLight": back_mode},
+                "probeOverlays": bool(with_overlay_probe),
+                "overlays": {"light": light_probe, "dark": dark_probe},
+            }
+        )
+
+    def hover_until_overlay(self, hover: dict) -> list[dict]:
+        """把鼠标分步移到目标中心，并轮询等待浮层出现（HeroUI Tooltip 默认 400ms 延迟）。"""
+        locator = locator_for(self.page, hover).first
+        locator.wait_for(state="visible", timeout=DEFAULT_TIMEOUT_MS)
+        box = locator.bounding_box()
+        if not box:
+            raise StepFailure(f"{describe(hover)} 无可点区域，无法悬停")
+        self.page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2, steps=8)
+        for _ in range(14):
+            probe = probe_overlays(self.page)
+            if probe:
+                return probe
+            self.page.wait_for_timeout(250)
+        raise StepFailure(f"悬停 {describe(hover)} 后未出现浮层，无法作为浮层主题证据")
+
+    def capture_hover_pair(self, name: str, hover: dict, verify: list[dict] | None = None) -> None:
+        """悬停某个触发器，在两种主题下各截一张图，专门用于证明 Tooltip 等悬停浮层跟随主题。
+
+        两次截图之间用真实主题控件切换（真实用户路径），并在切换后重新悬停，
+        以免“鼠标移开后浮层消失”被当成主题不一致。
+        """
+        verify = verify or []
+        set_theme(self.page, "light")
+        light_probe = self.hover_until_overlay(hover)
+        self.verify_assertions(verify)
+        light_path = self.out_dir / f"{name}-light.png"
+        save_screenshot(self.page, light_path)
+        self.page.mouse.move(8, 8)
+        self.page.wait_for_timeout(400)
+        toggle_mode = set_theme(self.page, "dark")
+        expect_theme(self.page, "dark")
+        dark_probe = self.hover_until_overlay(hover)
+        self.verify_assertions(verify)
+        dark_path = self.out_dir / f"{name}-dark.png"
+        save_screenshot(self.page, dark_path)
+        self.page.mouse.move(8, 8)
+        self.page.wait_for_timeout(150)
+        back_mode = set_theme(self.page, "light")
+        expect_theme(self.page, "light")
+        unchanged = [light["selector"] for light, dark in zip(light_probe, dark_probe) if light["background"] == dark["background"] and light["color"] == dark["color"]]
+        if unchanged:
+            raise StepFailure(f"悬停浮层未随主题变化：{sorted(set(unchanged))}")
+        self.report["screenshots"].append(
+            {
+                "name": name,
+                "light": str(light_path.relative_to(self.out_dir)),
+                "dark": str(dark_path.relative_to(self.out_dir)),
+                "switchMode": {"toDark": toggle_mode, "toLight": back_mode, "hover": "每次截图前重新悬停"},
+                "probeOverlays": True,
                 "overlays": {"light": light_probe, "dark": dark_probe},
             }
         )
@@ -172,7 +258,7 @@ class Runner:
         self.verify_assertions(verify)
         self.page.wait_for_timeout(120)
         path = self.out_dir / f"{name}-{theme}.png"
-        self.page.screenshot(path=str(path))
+        save_screenshot(self.page, path)
         self.report["screenshots"].append(
             {
                 "name": name,
@@ -237,6 +323,19 @@ class Runner:
                     "lightToggleVisible": page.get_by_role("button", name="切换为浅色主题").first.is_visible() if page.get_by_role("button", name="切换为浅色主题").count() else None,
                 },
             })
+        elif "screenshotPair" in step:
+            spec = step["screenshotPair"]
+            self.capture_hover_pair(spec["name"], spec["hover"], spec.get("verify"))
+        elif "expectScrollable" in step:
+            spec = step["expectScrollable"]
+            locator = locator_for(page, spec).first
+            locator.wait_for(state="attached", timeout=DEFAULT_TIMEOUT_MS)
+            horizontal = locator.evaluate("el => el.scrollWidth - el.clientWidth")
+            vertical = locator.evaluate("el => el.scrollHeight - el.clientHeight")
+            if horizontal <= 2:
+                raise StepFailure(f"{describe(spec)} 期望横向可滚动，实际可滚动宽度 {horizontal}")
+            if spec.get("vertical") and vertical <= 2:
+                raise StepFailure(f"{describe(spec)} 期望纵向可滚动，实际可滚动高度 {vertical}")
         elif "screenshotHere" in step:
             spec = step["screenshotHere"]
             self.capture_here(spec["name"], spec.get("verify"))
@@ -248,6 +347,8 @@ class Runner:
             control(page, self.report["baseUrl"], {"error": step["setApiError"]})
         elif "setApiDelay" in step:
             control(page, self.report["baseUrl"], {"delay_ms": step["setApiDelay"]})
+        elif "setEmptyProjects" in step:
+            control(page, self.report["baseUrl"], {"empty_projects": step["setEmptyProjects"]})
         elif "toggleTheme" in step:
             set_theme(page, step["toggleTheme"])
         elif "expectTheme" in step:
@@ -344,7 +445,7 @@ class Runner:
         elif "screenshot" in step:
             spec = step["screenshot"]
             if isinstance(spec, dict):
-                self.capture(spec["name"], spec.get("verify"))
+                self.capture(spec["name"], spec.get("verify"), spec.get("probeOverlays", True))
             else:
                 self.capture(spec)
         else:
@@ -386,7 +487,7 @@ def run_scenario(browser, scenario: dict, args, out_dir: Path) -> dict:
             pass
         try:
             page.screenshot(path=str(out_dir / f"{scenario['name']}-failure.png"))
-        except PlaywrightError:
+        except (PlaywrightError, OSError):
             pass
     finally:
         context.close()
@@ -427,16 +528,20 @@ def main() -> int:
         server.shutdown()
 
     dom_swaps: list[str] = []
+    unprobed: list[str] = []
     for item in results:
         for shot in item.get("screenshots", []):
             mode = shot.get("switchMode")
             if isinstance(mode, dict) and "dom-swap" in mode.values():
                 dom_swaps.append(f"{item['name']}/{shot['name']}")
+            if shot.get("probeOverlays") is False:
+                unprobed.append(f"{item['name']}/{shot['name']}")
     summary = {
         "baseUrl": args.base_url,
         "static": static_dir,
         "ranAt": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "domSwapScreenshots": dom_swaps,
+        "withoutOverlayProbe": unprobed,
         "scenarios": results,
     }
     (out_dir / "report.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -449,6 +554,9 @@ def main() -> int:
     if dom_swaps:
         lines.append("")
         lines.append(f"> 注意：{len(dom_swaps)} 张截图在弹窗打开时用受控 DOM 切换主题生成（{', '.join(dom_swaps)}），只能证明浮层随主题变色，不能作为“用户可在弹窗内切换主题”的证据。")
+    if unprobed:
+        lines.append("")
+        lines.append(f"> 注意：{len(unprobed)} 张截图声明不覆盖浮层主题一致性（{', '.join(unprobed)}），不得被引用为 Tooltip/弹窗/选择器浮层的主题证据。")
     (out_dir / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
     failed = [item for item in results if item["status"] != "passed"]

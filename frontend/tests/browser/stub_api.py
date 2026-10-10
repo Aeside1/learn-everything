@@ -18,7 +18,7 @@ import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
-CONTROL = {"error": None, "delay_ms": 0}
+CONTROL = {"error": None, "delay_ms": 0, "empty_projects": False}
 LOCK = threading.Lock()
 
 def _progress(done: int, total: int, learning: int = 0, weak: int = 0) -> dict:
@@ -127,7 +127,11 @@ SUMMARY_PROGRESS = {1: _progress(1, 4, learning=1, weak=1), 2: _progress(0, 3)}
 
 
 def _project(project_id: int) -> dict:
-    return PROJECTS.get(project_id, PROJECTS[1])
+    if project_id in PROJECTS:
+        return PROJECTS[project_id]
+    if PROJECTS:
+        return next(iter(PROJECTS.values()))
+    return next(iter(INITIAL_STATE["projects"].values()))
 
 
 def _summary(project_id: int) -> dict:
@@ -328,6 +332,9 @@ def _sse(handler, events: list[tuple[str, dict]], delay_ms: int = 150) -> None:
 
 @route("GET", r"^/api/v1/projects$")
 def list_projects(ctx):
+    with LOCK:
+        if CONTROL["empty_projects"]:
+            return 200, []
     return 200, [_summary(pid) for pid in PROJECTS]
 
 
@@ -650,9 +657,12 @@ class Handler(SimpleHTTPRequestHandler):
                     CONTROL["error"] = body["error"]
                 if "delay_ms" in body:
                     CONTROL["delay_ms"] = int(body["delay_ms"])
+                if "empty_projects" in body:
+                    CONTROL["empty_projects"] = bool(body["empty_projects"])
                 if body.get("reset"):
                     CONTROL["error"] = None
                     CONTROL["delay_ms"] = 0
+                    CONTROL["empty_projects"] = False
                     reset_fixtures()
             return _json(self, 200, dict(CONTROL))
         if not path.startswith("/api/v1/"):
@@ -703,10 +713,12 @@ INITIAL_STATE = {
 
 
 def reset_fixtures() -> None:
+    projects = copy.deepcopy(INITIAL_STATE["projects"])
+    progress = copy.deepcopy(INITIAL_STATE["summary_progress"])
     PROJECTS.clear()
-    PROJECTS.update(copy.deepcopy(INITIAL_STATE["projects"]))
+    PROJECTS.update({key: projects[key] for key in sorted(projects)})
     SUMMARY_PROGRESS.clear()
-    SUMMARY_PROGRESS.update(copy.deepcopy(INITIAL_STATE["summary_progress"]))
+    SUMMARY_PROGRESS.update({key: progress[key] for key in sorted(progress)})
     NODES[:] = copy.deepcopy(INITIAL_STATE["nodes"])
 
 

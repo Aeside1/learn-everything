@@ -61,6 +61,6 @@ describe("项目弹窗", () => {
     expect(await screen.findByRole("dialog", { name: "编辑学习项目" })).toBeTruthy();
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
-    expect(document.activeElement).toBe(trigger);
+    await waitFor(() => expect(document.activeElement).toBe(trigger));
   });
 });

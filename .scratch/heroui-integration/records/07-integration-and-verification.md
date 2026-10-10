@@ -66,9 +66,9 @@ Standards 评审指出弹窗打开时主题控件在遮罩后面，工具改用�
 | `npm run typecheck` | 通过 |
 | `npx vitest run --no-cache` | 通过（12 文件 / 89 测试）；见第 7 节的抖动说明 |
 | `npm run build` | 通过（静态导出 `○`） |
-| 浏览器双主题（01–07 场景文件） | 33 个场景全部通过，01–07 证据目录共约 263 张截图 |
+| 浏览器双主题（01–07 场景文件） | 35 个场景全部通过（01–07 证据目录共 276 张截图） |
 
-各模块证据数量：01 = 45 张（含 2 张单主题用户路径）、02 = 26、03 = 52、04 = 60、05 = 44、06 = 28、07 = 8。
+各模块证据数量：01 = 54 张（含 2 张单主题用户路径）、02 = 26、03 = 52、04 = 62、05 = 44、06 = 30、07 = 8。
 
 ## 7. 诚实的限制与未做项
 
@@ -81,3 +81,24 @@ Standards 评审指出弹窗打开时主题控件在遮罩后面，工具改用�
 7. **`next.config.ts` 未加 `turbopack.root`**：worktree 内 `npm run build` 因 junction 的 `node_modules` 指向仓库根之外而报 Turbopack 符号链接错误（可用 `NEXT_PRIVATE_OUTPUT_TRACE_ROOT` 或 `--webpack` 绕过）。这是并行 worktree 的环境限制，主检出 `npm run build` 正常，因此不在仓库里写死本机路径。
 8. **`lib/api.ts` 的 13 个类型导出与 `SelectOption`**：外部无引用但属 API 契约/共享组件入参类型，决定保留并在 `control-inventory.md` 说明理由。
 9. **死样式清理范围**：只清理了 `app/styles.css`。`features/markdown/MarkdownContent.tsx` 与 `.lesson-content` 的业务排版样式按规范保留（业务内容不强行转成基础控件）。
+
+## 8. 双轴评审后的修复（第二轮）
+
+Spec 轴评审（只读 subagent）发现的问题与处理：
+
+| 发现 | 类型 | 处理 |
+| --- | --- | --- |
+| 弹窗关闭后焦点返回用例不稳定（隔离重跑约 1/3 失败，也解释了集成阶段那次“不可复现”的抖动） | 真缺陷（测试时序） | `tests/project-dialogs.test.tsx` 改为 `waitFor` 等待焦点恢复（仍断言同一属性）；修复后全量 6 次 + 隔离 5 次共 11 次均通过 |
+| Tooltip 只有浅色探针，且工具在“深色探针为空”时静默通过 | 真缺陷（证据可信度） | 工具改为探针数量不一致即失败；新增 `screenshotPair` 步骤（分步移动鼠标 + 轮询等待浮层，浅/深两次都重新悬停，中间用真实控件切主题）；新增场景 `tooltip-theme-consistency`（`evidence/01/rail-tooltip-theme-{light,dark}.png`） |
+| 三张截图只在浅色下拓到浮层（`after-dialog-close`、`band-768-row-layout`、`dashboard-error`） | 记录不实风险 | 显式声明 `probeOverlays=false`，并在 `summary.md`/`report.json` 集中列出，不得引用为浮层证据 |
+| 项目侧栏空列表与错误态无证据（issue 01 却已勾选） | 记录不足 | 替身新增 `empty_projects` 控制；新增场景 `rail-empty-and-error-states`（2 组双主题截图），并在 issue 01 里加注 |
+| 04/06 缺 420×860 证据 | 记录不足 | 为 `dashboard-metrics-heatmap-report` 与 `model-configuration-narrow-and-long-name` 补 420×860 + `wheelTo`/`expectInViewport` 步骤（新截图 `dashboard-420`、`model-config-420`） |
+| “长代码行横向滚动”无断言，仅目测 | 记录不实 | 新增 `expectScrollable` 步骤（断言 `scrollWidth - clientWidth > 2`），用在 07 场景的 `.lesson-content pre` 上 |
+| `.rag-message details/summary` 是死规则（元素选择器，类名审计看不见） | 真缺陷（残留死样式） | 确认 `<details>/<summary>` 已被 HeroUI `Disclosure` 取代（全仓 0 命中）后删除 |
+| `control-inventory.md` 内部矛盾（模块表仍写“待迁移”、文件输入“待验证”、与矩阵全 ✅ 冲突；`sr-only` 前后不一致） | 记录不足 | 已修正为迁移完成状态 + 实测数字 |
+
+## 9. 环境层发现（影响可重复性，非产品缺陷）
+
+1. **G: 盘间歇性写入失败**：多次出现 `OSError: [Errno 22] Invalid argument`，包括写 PNG 与写 `verify_theme.py` 源文件；同目录连续写 25 次 200KB 文件无法复现。因此验收工具对截图写出加了 3 次重试（仍失败则显式报错），并保留本节记录。
+2. **两个残留 python 进程**（早前批次的验收进程未退出）与新一轮写入同一批 PNG，导致一次失败；清理后正常。并行跑验收前必须确认上一批已结束。
+3. **修工具时自己引入的三个缺陷（已自查修复）**：`capture` 新增参数没同步进函数签名（TypeError）、参数名遮蔽了同名的 `probe_overlays()` 函数（bool not callable）、把“原子 reset”写成 dict 重排序后项目列表顺序变化导致默认项目变成项目 2、连带 768/900 断点场景失败。后者已回退为保序 reset，并用防御式 `_project()` 消除并发读空窗口。

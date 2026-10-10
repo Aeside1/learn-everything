@@ -1,12 +1,13 @@
 {
-  "baseUrl": "http://127.0.0.1:8152",
+  "baseUrl": "http://127.0.0.1:8211",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:38:36",
+  "ranAt": "2026-10-10T23:32:38",
   "domSwapScreenshots": [],
+  "withoutOverlayProbe": [],
   "scenarios": [
     {
       "name": "workspace-tabs-progress-detail",
-      "baseUrl": "http://127.0.0.1:8152",
+      "baseUrl": "http://127.0.0.1:8211",
       "status": "passed",
       "steps": [
         {
@@ -245,6 +246,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -259,6 +261,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -273,6 +276,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -287,6 +291,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -301,6 +306,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -315,6 +321,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -346,7 +353,7 @@
     },
     {
       "name": "workspace-keyboard-narrow-long-title",
-      "baseUrl": "http://127.0.0.1:8152",
+      "baseUrl": "http://127.0.0.1:8211",
       "status": "passed",
       "steps": [
         {
@@ -539,6 +546,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -553,6 +561,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -567,6 +576,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -610,7 +620,7 @@
     },
     {
       "name": "workspace-loading-and-error",
-      "baseUrl": "http://127.0.0.1:8152",
+      "baseUrl": "http://127.0.0.1:8211",
       "status": "passed",
       "steps": [
         {
@@ -727,6 +737,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -741,6 +752,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -755,6 +767,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -766,7 +779,7 @@
         "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
       ],
       "failedRequests": [
-        "GET http://127.0.0.1:8152/api/v1/projects -> net::ERR_ABORTED"
+        "GET http://127.0.0.1:8211/api/v1/projects -> net::ERR_ABORTED"
       ]
     }
   ]

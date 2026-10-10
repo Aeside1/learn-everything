@@ -12,6 +12,7 @@
         { "expectText": "单线程执行器" },
         { "expectText": "执行器在等待 I/O 时会把控制权交还给调度器" },
         { "expectText": "async fn fetch_all" },
+        { "expectScrollable": { "selector": ".lesson-content pre" } },
         {
           "screenshot": {
             "name": "lesson-table-quote-code",

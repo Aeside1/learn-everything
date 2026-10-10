@@ -47,6 +47,7 @@
         {
           "screenshot": {
             "name": "after-dialog-close",
+            "probeOverlays": false,
             "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
           }
         },
@@ -244,6 +245,7 @@
         {
           "screenshot": {
             "name": "band-768-row-layout",
+            "probeOverlays": false,
             "verify": [{ "role": "heading", "name": "学习 Rust" }, { "role": "tab", "name": "学习路线" }]
           }
         }
@@ -262,6 +264,53 @@
             "verify": [{ "role": "heading", "name": "学习 Rust" }, { "role": "button", "name": "编辑 学习 Rust" }]
           }
         }
+      ]
+    },
+    {
+      "name": "tooltip-theme-consistency",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "expectVisible": { "role": "button", "name": "刷新项目" } },
+        {
+          "screenshotPair": {
+            "name": "rail-tooltip-theme",
+            "hover": { "role": "button", "name": "刷新项目" },
+            "verify": [{ "role": "button", "name": "新建学习路线" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "rail-empty-and-error-states",
+      "viewport": { "width": 1280, "height": 900 },
+      "steps": [
+        { "goto": "/" },
+        { "setApiError": "GET ^/api/v1/projects$" },
+        { "reload": true },
+        { "expectText": "验收模拟的服务端错误" },
+        { "expectVisible": { "role": "button", "name": "重试" } },
+        {
+          "screenshot": {
+            "name": "rail-error-state",
+            "probeOverlays": false,
+            "verify": [{ "role": "button", "name": "重试" }]
+          }
+        },
+        { "setApiError": null },
+        { "setEmptyProjects": true },
+        { "reload": true },
+        { "expectText": "还没有学习项目" },
+        {
+          "screenshot": {
+            "name": "rail-empty-state",
+            "probeOverlays": false,
+            "verify": [{ "role": "button", "name": "新建学习路线" }]
+          }
+        },
+        { "setEmptyProjects": false },
+        { "reload": true },
+        { "expectVisible": { "role": "button", "name": "学习 Rust Rust 1/4 已完成" } }
       ]
     }
   ]

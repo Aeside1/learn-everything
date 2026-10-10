@@ -4,7 +4,7 @@
 
 **Blocked by:** 03 — 完成 HeroUI 路线创建与节点学习；04 — 完成 HeroUI 看板、复习与测验；05 — 完成 HeroUI 资料上传与 RAG 问答；06 — 完成 HeroUI 模型档案配置。01 和 02 已由这些任务的依赖传递覆盖。
 
-**Status:** in-review — 集成、清理、文档与验收条目已完成；Standards 轴评审已完成并修复，Spec 轴评审进行中（最后一个勾选项保持未勾）。
+**Status:** done — 双轴评审已完成并处理；35 个场景 276 张双主题截图全部通过，typecheck/89 测试/静态构建均通过。
 
 依据规格《统一前端 HeroUI 基础控件与浅色/深色主题验收》。这是完成各模块迁移后的集成验收，不将已经确认的业务范围扩大为视觉重设计、白板实现或第二套设计系统。
 
@@ -28,4 +28,7 @@
   - 证据：`frontend/README.md`（控件直用规则、共享组合边界、原生例外、主题令牌、双主题验收步骤、窄屏可达性断言与控制页、白板边界）与 `docs/ARCHITECTURE.md` 第 3.3 节。
 - [x] 类型检查、完整前端测试和 Next.js 静态生产构建通过，确认导出产物包含本地主题样式，部署使用方式保持现有约定。
   - 证据：`npm run typecheck` 通过、`npx vitest run --no-cache` 89/89、`npm run build` 通过；产物 `out/_next/static/chunks/*.css` 中可检索到 `--project-1`、`--brand-soft`、`--accent`、`--forest`。
-- [ ] 按 Standards 和 Spec 两个方向审查最终变更，修复阻断问题并记录仍存在的真实限制；所有前置任务的验收记录一致后才标记本任务完成。
+- [x] 按 Standards 和 Spec 两个方向审查最终变更，修复阻断问题并记录仍存在的真实限制；所有前置任务的验收记录一致后才标记本任务完成。
+  - Standards 轴（独立 subagent `c6f4db72`）：blocking 0；4 项 important（硬编码调色板/`dark:` 覆写、`nodeEntryClassName` 中和 HeroUI 皮肤、弹窗 DOM 换主题证据、`probe` 依赖 `data-slot`）已全部修复并复验。
+  - Spec 轴（独立 subagent `57e21b7c`）：逐条验收表中 12 项里 5 项“已满足”、4 项“部分满足”、3 项“无法验证”；发现的问题已逐条处理（详见 `records/07` 第 8 节）：弹窗焦点返回测试时序（已修，11 次重跑均通过）、Tooltip 深色证据缺失且工具静默放行（已修工具 + 新增悬停双主题场景）、三张截图的浮层证据标注、侧栏空/错误态证据、04/06 的 420×860 覆盖、长代码行滚动断言、`.rag-message details/summary` 死规则、`control-inventory.md` 内部矛盾。
+  - 仍存在的真实限制（未修复，如实保留）：见 `records/07` 第 7 节（含 9 张 dom-swap 截图的证明力边界、5 张 `probeOverlays=false`、未接真实后端/LLM、`system` 主题未做系统级取证、任务 06 的 RAG 分区仅 jsdom、无颜色对比度量化、G: 盘间歇写失败的环境限制）。

@@ -1,15 +1,16 @@
 {
-  "baseUrl": "http://127.0.0.1:8156",
+  "baseUrl": "http://127.0.0.1:8202",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:42:14",
+  "ranAt": "2026-10-10T23:29:13",
   "domSwapScreenshots": [
     "model-configuration-profiles-and-fields/model-config-profile-selector-popover",
     "model-configuration-narrow-and-long-name/model-config-narrow-profile-popover"
   ],
+  "withoutOverlayProbe": [],
   "scenarios": [
     {
       "name": "model-configuration-profiles-and-fields",
-      "baseUrl": "http://127.0.0.1:8156",
+      "baseUrl": "http://127.0.0.1:8202",
       "status": "passed",
       "steps": [
         {
@@ -210,6 +211,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -224,6 +226,7 @@
             "toDark": "dom-swap",
             "toLight": "dom-swap"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [
               {
@@ -260,6 +263,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -272,7 +276,7 @@
     },
     {
       "name": "model-configuration-password-and-save",
-      "baseUrl": "http://127.0.0.1:8156",
+      "baseUrl": "http://127.0.0.1:8202",
       "status": "passed",
       "steps": [
         {
@@ -414,6 +418,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -428,6 +433,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -442,6 +448,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -454,7 +461,7 @@
     },
     {
       "name": "model-configuration-connection-test-feedback",
-      "baseUrl": "http://127.0.0.1:8156",
+      "baseUrl": "http://127.0.0.1:8202",
       "status": "passed",
       "steps": [
         {
@@ -572,6 +579,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -586,6 +594,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -598,7 +607,7 @@
     },
     {
       "name": "model-configuration-busy-create-delete",
-      "baseUrl": "http://127.0.0.1:8156",
+      "baseUrl": "http://127.0.0.1:8202",
       "status": "passed",
       "steps": [
         {
@@ -819,6 +828,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -833,6 +843,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -847,6 +858,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -859,7 +871,7 @@
     },
     {
       "name": "model-configuration-narrow-and-long-name",
-      "baseUrl": "http://127.0.0.1:8156",
+      "baseUrl": "http://127.0.0.1:8202",
       "status": "passed",
       "steps": [
         {
@@ -988,6 +1000,51 @@
               }
             ]
           }
+        },
+        {
+          "index": 13,
+          "step": "viewport",
+          "target": {
+            "width": 420,
+            "height": 860
+          }
+        },
+        {
+          "index": 14,
+          "step": "wheelTo",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectInViewport",
+          "target": {
+            "role": "button",
+            "name": "保存配置"
+          }
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "model-config-420",
+            "verify": [
+              {
+                "role": "button",
+                "name": "保存配置"
+              }
+            ]
+          }
+        },
+        {
+          "index": 17,
+          "step": "viewport",
+          "target": {
+            "width": 1280,
+            "height": 1400
+          }
         }
       ],
       "screenshots": [
@@ -1000,6 +1057,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1014,6 +1072,7 @@
             "toDark": "dom-swap",
             "toLight": "dom-swap"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [
               {
@@ -1050,6 +1109,22 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "model-config-420",
+          "light": "model-config-420-light.png",
+          "dark": "model-config-420-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []

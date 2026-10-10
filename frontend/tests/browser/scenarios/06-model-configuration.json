@@ -232,7 +232,12 @@
               { "role": "button", "name": "保存配置" }
             ]
           }
-        }
+        },
+        { "viewport": { "width": 420, "height": 860 } },
+        { "wheelTo": { "role": "button", "name": "保存配置" } },
+        { "expectInViewport": { "role": "button", "name": "保存配置" } },
+        { "screenshot": { "name": "model-config-420", "verify": [{ "role": "button", "name": "保存配置" }] } },
+        { "viewport": { "width": 1280, "height": 1400 } }
       ]
     }
   ]

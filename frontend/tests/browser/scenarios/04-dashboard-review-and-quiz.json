@@ -39,6 +39,10 @@
             ]
           }
         },
+        { "viewport": { "width": 420, "height": 860 } },
+        { "wheelTo": { "role": "button", "name": "刷新学习看板" } },
+        { "expectInViewport": { "role": "button", "name": "刷新学习看板" } },
+        { "screenshot": { "name": "dashboard-420", "verify": [{ "role": "tab", "name": "学习概览" }] } },
         { "viewport": { "width": 1280, "height": 900 } }
       ]
     },
@@ -99,6 +103,7 @@
         {
           "screenshot": {
             "name": "dashboard-error",
+            "probeOverlays": false,
             "verify": [
               { "role": "tab", "name": "学习概览" },
               { "role": "button", "name": "重试" }

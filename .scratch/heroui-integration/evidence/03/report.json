@@ -1,12 +1,13 @@
 {
-  "baseUrl": "http://127.0.0.1:8153",
+  "baseUrl": "http://127.0.0.1:8212",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T22:38:57",
+  "ranAt": "2026-10-10T23:32:57",
   "domSwapScreenshots": [],
+  "withoutOverlayProbe": [],
   "scenarios": [
     {
       "name": "roadmap-create-preview-refine-save",
-      "baseUrl": "http://127.0.0.1:8153",
+      "baseUrl": "http://127.0.0.1:8212",
       "status": "passed",
       "steps": [
         {
@@ -371,6 +372,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -385,6 +387,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -399,6 +402,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -413,6 +417,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -427,6 +432,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -441,6 +447,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -455,6 +462,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -469,6 +477,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -481,7 +490,7 @@
     },
     {
       "name": "roadmap-node-list-status-and-detail-actions",
-      "baseUrl": "http://127.0.0.1:8153",
+      "baseUrl": "http://127.0.0.1:8212",
       "status": "passed",
       "steps": [
         {
@@ -1012,6 +1021,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1026,6 +1036,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1040,6 +1051,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1054,6 +1066,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1068,6 +1081,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1082,6 +1096,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1096,6 +1111,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1110,6 +1126,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1124,6 +1141,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1138,6 +1156,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1152,6 +1171,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1174,7 +1194,7 @@
     },
     {
       "name": "roadmap-detail-loading-and-error",
-      "baseUrl": "http://127.0.0.1:8153",
+      "baseUrl": "http://127.0.0.1:8212",
       "status": "passed",
       "steps": [
         {
@@ -1331,6 +1351,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1345,6 +1366,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1359,6 +1381,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1373,7 +1396,7 @@
     },
     {
       "name": "roadmap-long-content-and-narrow-viewport",
-      "baseUrl": "http://127.0.0.1:8153",
+      "baseUrl": "http://127.0.0.1:8212",
       "status": "passed",
       "steps": [
         {
@@ -1580,6 +1603,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1594,6 +1618,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1608,6 +1633,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
@@ -1622,6 +1648,7 @@
             "toDark": "real-button",
             "toLight": "real-button"
           },
+          "probeOverlays": true,
           "overlays": {
             "light": [],
             "dark": []
