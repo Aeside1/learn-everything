@@ -1,11 +1,11 @@
 {
-  "baseUrl": "http://127.0.0.1:8123",
+  "baseUrl": "http://127.0.0.1:8126",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T21:35:28",
+  "ranAt": "2026-10-10T21:51:52",
   "scenarios": [
     {
       "name": "projects-workspace-and-dialogs",
-      "baseUrl": "http://127.0.0.1:8123",
+      "baseUrl": "http://127.0.0.1:8126",
       "status": "passed",
       "steps": [
         {
@@ -182,7 +182,7 @@
         },
         {
           "index": 17,
-          "step": "scrollTo",
+          "step": "wheelTo",
           "target": {
             "role": "heading",
             "name": "学习 Rust"
@@ -400,7 +400,7 @@
     },
     {
       "name": "project-edit-save",
-      "baseUrl": "http://127.0.0.1:8123",
+      "baseUrl": "http://127.0.0.1:8126",
       "status": "passed",
       "steps": [
         {
@@ -516,7 +516,7 @@
     },
     {
       "name": "project-delete-confirmation",
-      "baseUrl": "http://127.0.0.1:8123",
+      "baseUrl": "http://127.0.0.1:8126",
       "status": "passed",
       "steps": [
         {
@@ -702,12 +702,12 @@
         "error: Failed to load resource: net::ERR_EMPTY_RESPONSE"
       ],
       "failedRequests": [
-        "GET http://127.0.0.1:8123/api/v1/projects -> net::ERR_EMPTY_RESPONSE"
+        "GET http://127.0.0.1:8126/api/v1/projects -> net::ERR_EMPTY_RESPONSE"
       ]
     },
     {
       "name": "workspace-loading-error-retry",
-      "baseUrl": "http://127.0.0.1:8123",
+      "baseUrl": "http://127.0.0.1:8126",
       "status": "passed",
       "steps": [
         {
@@ -859,12 +859,12 @@
         "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
       ],
       "failedRequests": [
-        "GET http://127.0.0.1:8123/api/v1/projects -> net::ERR_ABORTED"
+        "GET http://127.0.0.1:8126/api/v1/projects -> net::ERR_ABORTED"
       ]
     },
     {
       "name": "theme-preference-roundtrip",
-      "baseUrl": "http://127.0.0.1:8123",
+      "baseUrl": "http://127.0.0.1:8126",
       "status": "passed",
       "steps": [
         {
@@ -1027,6 +1027,177 @@
           "name": "toggle-persisted-light",
           "light": "toggle-persisted-light-light.png",
           "dark": "toggle-persisted-light-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "layout-breakpoint-768-band",
+      "baseUrl": "http://127.0.0.1:8126",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "新建学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 3,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 4,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "编辑 学习 Rust"
+          }
+        },
+        {
+          "index": 5,
+          "step": "expectVisible",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 6,
+          "step": "press",
+          "target": "Escape"
+        },
+        {
+          "index": 7,
+          "step": "expectHidden",
+          "target": {
+            "role": "dialog",
+            "name": "编辑学习项目"
+          }
+        },
+        {
+          "index": 8,
+          "step": "screenshot",
+          "target": {
+            "name": "band-768-row-layout",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "学习 Rust"
+              },
+              {
+                "role": "tab",
+                "name": "学习路线"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "band-768-row-layout",
+          "light": "band-768-row-layout-light.png",
+          "dark": "band-768-row-layout-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [
+              {
+                "selector": "[role=tooltip]",
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
+              }
+            ],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "layout-breakpoint-900-band",
+      "baseUrl": "http://127.0.0.1:8126",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习概览"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 3,
+          "step": "screenshot",
+          "target": {
+            "name": "band-900-row-layout",
+            "verify": [
+              {
+                "role": "heading",
+                "name": "学习 Rust"
+              },
+              {
+                "role": "button",
+                "name": "编辑 学习 Rust"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "band-900-row-layout",
+          "light": "band-900-row-layout-light.png",
+          "dark": "band-900-row-layout-dark.png",
           "switchMode": {
             "normalize": "already",
             "toDark": "real-button",

@@ -5,3 +5,5 @@
 | project-delete-confirmation | 通过 | 3 组双主题截图 |
 | workspace-loading-error-retry | 通过 | 3 组双主题截图 |
 | theme-preference-roundtrip | 通过 | 3 组双主题截图 |
+| layout-breakpoint-768-band | 通过 | 1 组双主题截图 |
+| layout-breakpoint-900-band | 通过 | 1 组双主题截图 |

@@ -57,7 +57,7 @@
             "verify": [{ "role": "button", "name": "新建学习路线" }]
           }
         },
-        { "scrollTo": { "role": "heading", "name": "学习 Rust" } },
+        { "wheelTo": { "role": "heading", "name": "学习 Rust" } },
         { "expectInViewport": { "role": "heading", "name": "学习 Rust" } },
         { "screenshot": { "name": "narrow-workspace-reachable" } },
         { "click": { "role": "button", "name": "编辑 学习 Rust" } },
@@ -200,6 +200,41 @@
           "screenshot": {
             "name": "toggle-persisted-light",
             "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "layout-breakpoint-768-band",
+      "viewport": { "width": 768, "height": 860 },
+      "steps": [
+        { "goto": "/" },
+        { "expectVisible": { "role": "button", "name": "新建学习路线" } },
+        { "click": { "role": "tab", "name": "学习路线" } },
+        { "expectInViewport": { "role": "heading", "name": "学习 Rust" } },
+        { "click": { "role": "button", "name": "编辑 学习 Rust" } },
+        { "expectVisible": { "role": "dialog", "name": "编辑学习项目" } },
+        { "press": "Escape" },
+        { "expectHidden": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshot": {
+            "name": "band-768-row-layout",
+            "verify": [{ "role": "heading", "name": "学习 Rust" }, { "role": "tab", "name": "学习路线" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "layout-breakpoint-900-band",
+      "viewport": { "width": 900, "height": 860 },
+      "steps": [
+        { "goto": "/" },
+        { "click": { "role": "tab", "name": "学习概览" } },
+        { "expectInViewport": { "role": "heading", "name": "学习 Rust" } },
+        {
+          "screenshot": {
+            "name": "band-900-row-layout",
+            "verify": [{ "role": "heading", "name": "学习 Rust" }, { "role": "button", "name": "编辑 学习 Rust" }]
           }
         }
       ]

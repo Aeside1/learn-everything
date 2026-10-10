@@ -260,6 +260,30 @@ class Runner:
                 raise StepFailure(
                     f"{describe(spec)} 超出视口：{box} 视口 {viewport}"
                 )
+        elif "wheelTo" in step:
+            spec = step["wheelTo"]
+            locator = locator_for(page, spec).first
+            locator.wait_for(state="attached", timeout=DEFAULT_TIMEOUT_MS)
+            viewport = page.viewport_size or {"width": 0, "height": 0}
+
+            def in_view() -> bool:
+                box = locator.bounding_box()
+                return bool(box) and box["y"] >= -1 and box["y"] + box["height"] <= viewport["height"] + 1
+
+            reached = in_view()
+            for ratio in (0.6, 0.3, 0.85):
+                if reached:
+                    break
+                page.mouse.move(viewport["width"] / 2, viewport["height"] * ratio)
+                for _ in range(60):
+                    if in_view():
+                        reached = True
+                        break
+                    page.mouse.wheel(0, 120)
+                    page.wait_for_timeout(60)
+            if not reached:
+                raise StepFailure(f"{describe(spec)} 无法用滚轮滚动进入视口，可能被不可滚动区域隐藏")
+            page.wait_for_timeout(120)
         elif "expectChecked" in step:
             spec = step["expectChecked"]
             locator = locator_for(page, spec).first

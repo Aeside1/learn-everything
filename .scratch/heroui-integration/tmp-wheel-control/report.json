@@ -1,0 +1,65 @@
+{
+  "baseUrl": "http://127.0.0.1:8128",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T21:56:16",
+  "scenarios": [
+    {
+      "name": "wheel-positive-control",
+      "baseUrl": "http://127.0.0.1:8128",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/probe-ok.html"
+        },
+        {
+          "index": 1,
+          "step": "wheelTo",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectInViewport",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        }
+      ],
+      "screenshots": [],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "wheel-negative-control",
+      "baseUrl": "http://127.0.0.1:8128",
+      "status": "failed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/probe-bad.html"
+        },
+        {
+          "index": 1,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "学习 Rust"
+          }
+        }
+      ],
+      "screenshots": [],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": [],
+      "error": "StepFailure: heading='学习 Rust' 无法用滚轮滚动进入视口，可能被不可滚动区域隐藏",
+      "failureSnapshot": "- text: 侧栏\n- heading \"学习 Rust\" [level=1]"
+    }
+  ]
+}

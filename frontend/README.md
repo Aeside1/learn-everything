@@ -238,6 +238,22 @@ flowchart LR
 
 > 主题验收以用户可见行为为准，不能以“页面变暗”或“导入了 HeroUI”作为完成依据。
 
+### 窄屏可达性断言与自检控制
+
+窄屏场景不得只用 `expectVisible`（Playwright 会认为被挤出视口但存在于布局中的元素“可见”），也不得只用 `scrollTo` + `expectInViewport`（外层 `overflow:hidden` 时程序化滚动仍能让断言通过）。用户路径的断言用 `wheelTo`：它把鼠标移到视口内多个高度、用真实滚轮步进滚动，直到目标进入视口，否则报失败。
+
+验收脚本自身的判别力用一对控制页面验证（一个可滚动、一个不可滚动），预期结果是“一通过一失败”：
+
+```powershell
+cd frontend
+npm run build
+Copy-Item tests\browser\controls\wheel-reachable.html out\wheel-reachable.html
+Copy-Item tests\browser\controls\wheel-unreachable.html out\wheel-unreachable.html
+python tests\browser\verify_theme.py --scenarios tests\browser\controls\wheel-reachability.json --out ..\.scratch\heroui-integration\tmp-wheel-control
+```
+
+修改 `verify_theme.py` 的任何可达性断言后必须重跑这对控制，否则无法排除“断言本身永远通过”。
+
 ## 错误处理
 
 普通 JSON 请求失败时，`lib/api.ts` 抛出 `ApiError`，其中包含 HTTP 状态、后端消息和可选的 `requestId`。各模块通过 `lib/errors.ts` 将异常转换为用户可读的中文提示，并在自己的状态区域展示。

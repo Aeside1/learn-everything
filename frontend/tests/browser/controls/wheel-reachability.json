@@ -1,0 +1,22 @@
+{
+  "scenarios": [
+    {
+      "name": "wheel-positive-control",
+      "viewport": { "width": 760, "height": 860 },
+      "steps": [
+        { "goto": "/wheel-reachable.html" },
+        { "wheelTo": { "role": "heading", "name": "学习 Rust" } },
+        { "expectInViewport": { "role": "heading", "name": "学习 Rust" } }
+      ]
+    },
+    {
+      "name": "wheel-negative-control",
+      "viewport": { "width": 760, "height": 860 },
+      "steps": [
+        { "goto": "/wheel-unreachable.html" },
+        { "expectVisible": { "role": "heading", "name": "学习 Rust" } },
+        { "wheelTo": { "role": "heading", "name": "学习 Rust" } }
+      ]
+    }
+  ]
+}

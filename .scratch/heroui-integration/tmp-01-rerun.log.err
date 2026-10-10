@@ -1,0 +1,72 @@
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53821)
+Traceback (most recent call last):
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 694, in <lambda>
+    server = ThreadingHTTPServer(("127.0.0.1", port), lambda *args, **kwargs: Handler(*args, directory=directory, **kwargs))
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 597, in __init__
+    super().__init__(*args, directory=directory, **kwargs)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\http\server.py", line 671, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 755, in __init__
+    self.handle()
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 663, in do_GET
+    return self._handle("GET")
+           ^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 655, in _handle
+    result = handler(Ctx(match, parse_qs(parsed.query), self._read_body()))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 311, in list_projects
+    return 200, [_summary(pid) for pid in PROJECTS]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 311, in <listcomp>
+    return 200, [_summary(pid) for pid in PROJECTS]
+                 ^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 114, in _summary
+    project = _project(project_id)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 110, in _project
+    return PROJECTS.get(project_id, PROJECTS[1])
+                                    ~~~~~~~~^^^
+KeyError: 1
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51513)
+Traceback (most recent call last):
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 694, in <lambda>
+    server = ThreadingHTTPServer(("127.0.0.1", port), lambda *args, **kwargs: Handler(*args, directory=directory, **kwargs))
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 597, in __init__
+    super().__init__(*args, directory=directory, **kwargs)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\http\server.py", line 671, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 755, in __init__
+    self.handle()
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 663, in do_GET
+    return self._handle("GET")
+           ^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 659, in _handle
+    return _json(self, status, payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Github\learn-everything\frontend\tests\browser\stub_api.py", line 291, in _json
+    handler.wfile.write(body)
+  File "C:\Users\32494\.pyenv\pyenv-win\versions\3.11.9\Lib\socketserver.py", line 834, in write
+    self._sock.sendall(b)
+ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。
+----------------------------------------

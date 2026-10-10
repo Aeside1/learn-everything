@@ -1,0 +1,230 @@
+{
+  "baseUrl": "http://127.0.0.1:8125",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T21:49:23",
+  "scenarios": [
+    {
+      "name": "probe-roadmap-420-interaction",
+      "baseUrl": "http://127.0.0.1:8125",
+      "status": "passed",
+      "steps": [
+        {
+          "index": 0,
+          "step": "goto",
+          "target": "/"
+        },
+        {
+          "index": 1,
+          "step": "scrollTo",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 2,
+          "step": "expectInViewport",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 3,
+          "step": "click",
+          "target": {
+            "role": "tab",
+            "name": "学习路线"
+          }
+        },
+        {
+          "index": 4,
+          "step": "expectVisible",
+          "target": {
+            "role": "button",
+            "name": "新建学习路线"
+          }
+        },
+        {
+          "index": 5,
+          "step": "scrollTo",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 6,
+          "step": "expectInViewport",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 7,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "查看 所有权与借用 的详细内容"
+          }
+        },
+        {
+          "index": 8,
+          "step": "expectVisible",
+          "target": {
+            "role": "heading",
+            "name": "所有权与借用"
+          }
+        },
+        {
+          "index": 9,
+          "step": "scrollTo",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 10,
+          "step": "expectInViewport",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 11,
+          "step": "scrollTo",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 12,
+          "step": "expectInViewport",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 13,
+          "step": "focus",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 14,
+          "step": "fill",
+          "target": {
+            "role": "textbox",
+            "name": "学习笔记",
+            "value": "420 宽窄屏下的笔记输入探针"
+          }
+        },
+        {
+          "index": 15,
+          "step": "expectFocus",
+          "target": {
+            "name": "学习笔记"
+          }
+        },
+        {
+          "index": 16,
+          "step": "screenshot",
+          "target": {
+            "name": "probe-node-detail-420",
+            "verify": [
+              {
+                "role": "button",
+                "name": "返回学习路线"
+              },
+              {
+                "role": "textbox",
+                "name": "学习笔记"
+              }
+            ]
+          }
+        },
+        {
+          "index": 17,
+          "step": "click",
+          "target": {
+            "role": "button",
+            "name": "返回学习路线"
+          }
+        },
+        {
+          "index": 18,
+          "step": "scrollTo",
+          "target": {
+            "role": "radio",
+            "name": "已掌握"
+          }
+        },
+        {
+          "index": 19,
+          "step": "expectInViewport",
+          "target": {
+            "role": "radio",
+            "name": "已掌握"
+          }
+        },
+        {
+          "index": 20,
+          "step": "screenshot",
+          "target": {
+            "name": "probe-roadmap-list-420",
+            "verify": [
+              {
+                "role": "tab",
+                "name": "学习路线"
+              },
+              {
+                "role": "radio",
+                "name": "已掌握"
+              }
+            ]
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "probe-node-detail-420",
+          "light": "probe-node-detail-420-light.png",
+          "dark": "probe-node-detail-420-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        },
+        {
+          "name": "probe-roadmap-list-420",
+          "light": "probe-roadmap-list-420-light.png",
+          "dark": "probe-roadmap-list-420-dark.png",
+          "switchMode": {
+            "normalize": "already",
+            "toDark": "real-button",
+            "toLight": "real-button"
+          },
+          "overlays": {
+            "light": [],
+            "dark": []
+          }
+        }
+      ],
+      "probes": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}

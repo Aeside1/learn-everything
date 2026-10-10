@@ -1,11 +1,11 @@
 {
-  "baseUrl": "http://127.0.0.1:8134",
-  "static": "G:\\Github\\le-wt\\heroui-06\\frontend\\out",
-  "ranAt": "2026-10-10T21:32:02",
+  "baseUrl": "http://127.0.0.1:8124",
+  "static": "G:\\Github\\learn-everything\\frontend\\out",
+  "ranAt": "2026-10-10T21:49:31",
   "scenarios": [
     {
       "name": "model-configuration-profiles-and-fields",
-      "baseUrl": "http://127.0.0.1:8134",
+      "baseUrl": "http://127.0.0.1:8124",
       "status": "passed",
       "steps": [
         {
@@ -224,25 +224,25 @@
             "light": [
               {
                 "selector": "[role=dialog]",
-                "background": "oklch(1 0 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "background": "lab(100 0 0)",
+                "color": "lab(8.34178 0.607349 -2.12998)"
               },
               {
                 "selector": "[role=listbox]",
                 "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
+                "color": "lab(8.34178 0.607349 -2.12998)"
               }
             ],
             "dark": [
               {
                 "selector": "[role=dialog]",
-                "background": "oklch(0.2103 0.0059 285.89)",
-                "color": "oklch(0.9911 0 0)"
+                "background": "lab(8.34178 0.607349 -2.12998)",
+                "color": "lab(98.9676 -0.0000596046 0)"
               },
               {
                 "selector": "[role=listbox]",
                 "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.9911 0 0)"
+                "color": "lab(98.9676 -0.0000596046 0)"
               }
             ]
           }
@@ -268,7 +268,7 @@
     },
     {
       "name": "model-configuration-password-and-save",
-      "baseUrl": "http://127.0.0.1:8134",
+      "baseUrl": "http://127.0.0.1:8124",
       "status": "passed",
       "steps": [
         {
@@ -450,7 +450,7 @@
     },
     {
       "name": "model-configuration-connection-test-feedback",
-      "baseUrl": "http://127.0.0.1:8134",
+      "baseUrl": "http://127.0.0.1:8124",
       "status": "passed",
       "steps": [
         {
@@ -594,7 +594,7 @@
     },
     {
       "name": "model-configuration-busy-create-delete",
-      "baseUrl": "http://127.0.0.1:8134",
+      "baseUrl": "http://127.0.0.1:8124",
       "status": "passed",
       "steps": [
         {
@@ -855,8 +855,8 @@
     },
     {
       "name": "model-configuration-narrow-and-long-name",
-      "baseUrl": "http://127.0.0.1:8134",
-      "status": "passed",
+      "baseUrl": "http://127.0.0.1:8124",
+      "status": "failed",
       "steps": [
         {
           "index": 0,
@@ -913,77 +913,6 @@
               }
             ]
           }
-        },
-        {
-          "index": 6,
-          "step": "click",
-          "target": {
-            "role": "button",
-            "name": "活动档案"
-          }
-        },
-        {
-          "index": 7,
-          "step": "expectVisible",
-          "target": {
-            "role": "option",
-            "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
-          }
-        },
-        {
-          "index": 8,
-          "step": "screenshot",
-          "target": {
-            "name": "model-config-narrow-profile-popover",
-            "verify": [
-              {
-                "role": "option",
-                "name": "本地默认 LLM"
-              },
-              {
-                "role": "option",
-                "name": "备用档案：一个很长的档案名称用于验证选择器浮层内的换行"
-              }
-            ]
-          }
-        },
-        {
-          "index": 9,
-          "step": "press",
-          "target": "Escape"
-        },
-        {
-          "index": 10,
-          "step": "expectHidden",
-          "target": {
-            "role": "option",
-            "name": "本地默认 LLM"
-          }
-        },
-        {
-          "index": 11,
-          "step": "viewport",
-          "target": {
-            "width": 1280,
-            "height": 1400
-          }
-        },
-        {
-          "index": 12,
-          "step": "screenshot",
-          "target": {
-            "name": "model-config-long-profile-name-wide",
-            "verify": [
-              {
-                "role": "button",
-                "name": "活动档案"
-              },
-              {
-                "role": "button",
-                "name": "保存配置"
-              }
-            ]
-          }
         }
       ],
       "screenshots": [
@@ -1000,61 +929,13 @@
             "light": [],
             "dark": []
           }
-        },
-        {
-          "name": "model-config-narrow-profile-popover",
-          "light": "model-config-narrow-profile-popover-light.png",
-          "dark": "model-config-narrow-profile-popover-dark.png",
-          "switchMode": {
-            "normalize": "already",
-            "toDark": "dom-swap",
-            "toLight": "dom-swap"
-          },
-          "overlays": {
-            "light": [
-              {
-                "selector": "[role=dialog]",
-                "background": "oklch(1 0 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
-              },
-              {
-                "selector": "[role=listbox]",
-                "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.2103 0.0059 285.89)"
-              }
-            ],
-            "dark": [
-              {
-                "selector": "[role=dialog]",
-                "background": "oklch(0.2103 0.0059 285.89)",
-                "color": "oklch(0.9911 0 0)"
-              },
-              {
-                "selector": "[role=listbox]",
-                "background": "rgba(0, 0, 0, 0)",
-                "color": "oklch(0.9911 0 0)"
-              }
-            ]
-          }
-        },
-        {
-          "name": "model-config-long-profile-name-wide",
-          "light": "model-config-long-profile-name-wide-light.png",
-          "dark": "model-config-long-profile-name-wide-dark.png",
-          "switchMode": {
-            "normalize": "already",
-            "toDark": "real-button",
-            "toLight": "real-button"
-          },
-          "overlays": {
-            "light": [],
-            "dark": []
-          }
         }
       ],
       "probes": [],
       "consoleErrors": [],
-      "failedRequests": []
+      "failedRequests": [],
+      "error": "TimeoutError: Locator.click: Timeout 8000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=\"活动档案\").first\n    - locator resolved to <button data-rac=\"\" tabindex=\"0\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"listbox\" data-slot=\"select-trigger\" id=\"react-aria3308969316-_r_1r_\" data-react-aria-pressable=\"true\" class=\"select__trigger select__trigger--full-width w-full min-w-0\" aria-labelledby=\"react-aria3308969316-_r_20_ react-aria3308969316-_r_1s_\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <aside aria-label=\"项目列表\" class=\"flex w-full shrink-0 select-none flex-col overflow-y-auto border-b border-border bg-surface-secondary p-5 text-foreground lg:h-screen lg:w-72 lg:border-b-0 lg:border-r\">…</aside> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <aside aria-label=\"项目列表\" class=\"flex w-full shrink-0 select-none flex-col overflow-y-auto border-b border-border bg-surface-secondary p-5 text-foreground lg:h-screen lg:w-72 lg:border-b-0 lg:border-r\">…</aside> intercepts pointer events\n  2 × retrying click action\n      - waiting 100ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - element is outside of the viewport\n  3 × retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <aside aria-label=\"项目列表\" class=\"flex w-full shrink-0 select-none flex-col overflow-y-auto border-b border-border bg-surface-secondary p-5 text-foreground lg:h-screen lg:w-72 lg:border-b-0 lg:border-r\">…</aside> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <aside aria-label=\"项目列表\" class=\"flex w-full shrink-0 select-none flex-col overflow-y-auto border-b border-border bg-surface-secondary p-5 text-foreground lg:h-screen lg:w-72 lg:border-b-0 lg:border-r\">…</aside> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - element is outside of the viewport\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - element is outside of the viewport\n  2 × retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <aside aria-label=\"项目列表\" class=\"flex w-full shrink-0 select-none flex-col overflow-y-auto border-b border-border bg-surface-secondary p-5 text-foreground lg:h-screen lg:w-72 lg:border-b-0 lg:border-r\">…</aside> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n",
+      "failureSnapshot": "- complementary \"项目列表\":\n  - text: LOCAL STUDY\n  - heading \"学习轨迹\" [level=1]\n  - button \"切换为深色主题\"\n  - button \"刷新项目\"\n  - navigation \"项目\":\n    - article:\n      - button \"学习 Rust Rust 1/4 已完成\"\n      - button \"编辑 学习 Rust\"\n      - button \"删除 学习 Rust\"\n      - progressbar \"学习 Rust 学习进度\"\n    - article:\n      - button \"前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 TypeScript 0/3 已完成\"\n      - button \"编辑 前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果\"\n      - button \"删除 前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果\"\n      - progressbar \"前端工程化与构建工具链：一个用于验证长项目名称在侧栏与弹窗中的显示效果 学习进度\"\n  - button \"新建学习路线\"\n- main:\n  - paragraph: Rust\n  - heading \"学习 Rust\" [level=2]\n  - paragraph: 能独立完成一个小型并发项目\n  - text: 1 / 4\n  - paragraph: 完成节点\n  - region \"学习进度\":\n    - progressbar \"学习进度\": 25%\n    - text: 25% 已完成 1 个学习中 1 个待巩固\n  - tablist \"学习功能\":\n    - tab \"学习概览\"\n    - tab \"学习路线\"\n    - tab \"到期复习\"\n    - tab \"RAG 问答\"\n    - tab \"查漏测验\"\n    - tab \"模型配置\" [selected]\n  - button \"Scroll tabs right\"\n  - tabpanel \"模型配置\":\n    - region \"模型配置\":\n      - paragraph: MODEL CONFIGURATION\n      - heading \"模型配置\" [level=3]\n      - region \"LLM 配置\":\n        - paragraph: LLM CONFIGURATION\n        - heading \"LLM 配置\" [level=4]\n        - paragraph: 用于对话、学习路线、课程和测验。\n        - text: 活动档案\n        - button \"本地默认 LLM 活动档案\": 本地默认 LLM\n        - text: 新档案名称\n        - textbox \"新档案名称\": 新 LLM 档案\n        - button \"新建\"\n        - text: LLM 配置 已就绪 档案名称\n        - textbox \"档案名称\": 本地默认 LLM\n        - text: 对话模型\n        - textbox \"对话模型\":\n          - /placeholder: 模型名称\n          - text: example-chat-model\n        - text: 服务地址\n        - textbox \"服务地址\":\n          - /placeholder: https://api.example.com/v1\n          - text: https://llm.example.test/v2\n        - text: API Key\n        - textbox \"API Key\":\n          - /placeholder: 已配置，填写新值才会替换\n        - text: 密钥只保存在本地配置中，保存后不会再次显示。\n        - button \"测试连接\"\n        - button \"保存配置\"\n        - button \"删除当前档案\"\n      - region \"RAG 向量模型配置\":\n        - paragraph: RAG EMBEDDING CONFIGURATION\n        - heading \"RAG 向量模型配置\" [level=4]\n        - paragraph: 用于资料索引和检索。\n        - text: 活动档案\n        - button \"暂无档案 活动档案\" [disabled]: 暂无档案\n        - paragraph: 还没有 RAG 档案，填写名称后点击「新建」。\n        - text: 新档案名称\n        - textbox \"新档案名称\": 新 RAG 档案\n        - button \"新建\"\n        - text: RAG 向量模型配置 未配置\n- alert"
     }
   ]
 }

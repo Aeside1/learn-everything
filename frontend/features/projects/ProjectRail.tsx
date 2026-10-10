@@ -50,7 +50,7 @@ export function ProjectRail({
 
   return (
     <aside
-      className="flex w-full shrink-0 select-none flex-col overflow-y-auto border-b border-border bg-surface-secondary p-5 text-foreground lg:h-screen lg:w-72 lg:border-b-0 lg:border-r"
+      className="flex h-screen w-72 shrink-0 select-none flex-col overflow-y-auto border-r border-border bg-surface-secondary p-5 text-foreground max-[760px]:h-auto max-[760px]:w-full max-[760px]:border-r-0 max-[760px]:border-b"
       aria-label="项目列表"
     >
       <div className="flex items-start justify-between gap-2 border-b border-border pb-5">
@@ -76,7 +76,7 @@ export function ProjectRail({
         </div>
       </div>
 
-      <div className="flex max-h-[50vh] min-h-0 flex-1 flex-col gap-2.5 py-4 lg:max-h-none">
+      <div className="flex min-h-0 flex-1 flex-col gap-2.5 py-4 max-[760px]:max-h-[50vh]">
         {state === "loading" && (
           <div className="flex items-center gap-2.5 py-4 text-sm text-muted">
             <Spinner size="sm" color="success" aria-label="正在读取项目" />
