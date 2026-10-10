@@ -30,7 +30,6 @@ export function storeTheme(storage: Pick<Storage, "setItem"> | null | undefined,
   try {
     storage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
-    // 存储不可用时仍允许当前会话切换主题
   }
 }
 

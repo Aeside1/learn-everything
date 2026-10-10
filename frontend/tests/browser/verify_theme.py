@@ -160,6 +160,30 @@ class Runner:
             }
         )
 
+    def capture_here(self, name: str, verify: list[dict] | None = None) -> None:
+        """在当前主题下截一张图，不做任何切换。
+
+        主题必须在此步骤之前已由真实控件设定（用户路径）。因此本步骤产出的
+        截图是弹窗等“打开后无法再切换主题”场景的唯一合法用户路径证据。
+        """
+        verify = verify or []
+        theme = self.page.get_attribute("html", "data-theme")
+        expect_theme(self.page, theme)
+        self.verify_assertions(verify)
+        self.page.wait_for_timeout(120)
+        path = self.out_dir / f"{name}-{theme}.png"
+        self.page.screenshot(path=str(path))
+        self.report["screenshots"].append(
+            {
+                "name": name,
+                "theme": theme,
+                "light": str(path.relative_to(self.out_dir)) if theme == "light" else None,
+                "dark": str(path.relative_to(self.out_dir)) if theme == "dark" else None,
+                "switchMode": "user-path（本步不切换，主题由之前的真实控件设定）",
+                "overlays": probe_overlays(self.page),
+            }
+        )
+
     def run_step(self, step: dict) -> None:
         page = self.page
         if "goto" in step:
@@ -203,7 +227,7 @@ class Runner:
                         attr: document.documentElement.getAttribute('data-theme'),
                         dark: document.documentElement.classList.contains('dark'),
                         stored: localStorage.getItem('learn_everything_theme'),
-                        toggles: Array.from(document.querySelectorAll('[data-slot=button]')).map((el) => el.getAttribute('aria-label')).filter((label) => label && label.includes('主题')),
+                        toggles: Array.from(document.querySelectorAll('button[aria-label]')).map((el) => el.getAttribute('aria-label')).filter((label) => label && label.includes('主题')),
                     })"""
                 ),
                 "locators": {
@@ -213,6 +237,9 @@ class Runner:
                     "lightToggleVisible": page.get_by_role("button", name="切换为浅色主题").first.is_visible() if page.get_by_role("button", name="切换为浅色主题").count() else None,
                 },
             })
+        elif "screenshotHere" in step:
+            spec = step["screenshotHere"]
+            self.capture_here(spec["name"], spec.get("verify"))
         elif "viewport" in step:
             page.set_viewport_size({"width": step["viewport"]["width"], "height": step["viewport"]["height"]})
         elif "wait" in step:
@@ -399,16 +426,29 @@ def main() -> int:
     finally:
         server.shutdown()
 
+    dom_swaps: list[str] = []
+    for item in results:
+        for shot in item.get("screenshots", []):
+            mode = shot.get("switchMode")
+            if isinstance(mode, dict) and "dom-swap" in mode.values():
+                dom_swaps.append(f"{item['name']}/{shot['name']}")
     summary = {
         "baseUrl": args.base_url,
         "static": static_dir,
         "ranAt": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "domSwapScreenshots": dom_swaps,
         "scenarios": results,
     }
     (out_dir / "report.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     lines = ["| 场景 | 结果 | 截图 |", "| --- | --- | --- |"]
     for item in results:
-        lines.append(f"| {item['name']} | {'通过' if item['status'] == 'passed' else '失败：' + item.get('error', '')} | {len(item['screenshots'])} 组双主题截图 |")
+        pairs = sum(1 for shot in item["screenshots"] if isinstance(shot.get("switchMode"), dict))
+        singles = len(item["screenshots"]) - pairs
+        shots = f"{pairs} 组双主题截图" if not singles else f"{pairs} 组双主题 + {singles} 张单主题（用户路径）"
+        lines.append(f"| {item['name']} | {'通过' if item['status'] == 'passed' else '失败：' + item.get('error', '')} | {shots} |")
+    if dom_swaps:
+        lines.append("")
+        lines.append(f"> 注意：{len(dom_swaps)} 张截图在弹窗打开时用受控 DOM 切换主题生成（{', '.join(dom_swaps)}），只能证明浮层随主题变色，不能作为“用户可在弹窗内切换主题”的证据。")
     (out_dir / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
     failed = [item for item in results if item["status"] != "passed"]

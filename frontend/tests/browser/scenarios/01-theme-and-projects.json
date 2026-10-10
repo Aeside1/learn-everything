@@ -50,6 +50,31 @@
             "verify": [{ "role": "button", "name": "学习 Rust Rust 1/4 已完成" }]
           }
         },
+        { "expectTheme": "light" },
+        { "click": { "role": "button", "name": "编辑 学习 Rust" } },
+        { "expectVisible": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshotHere": {
+            "name": "dialog-light-user-path",
+            "verify": [{ "role": "dialog", "name": "编辑学习项目" }, { "role": "textbox", "name": "项目名称" }]
+          }
+        },
+        { "press": "Escape" },
+        { "expectHidden": { "role": "dialog", "name": "编辑学习项目" } },
+        { "toggleTheme": "dark" },
+        { "expectTheme": "dark" },
+        { "click": { "role": "button", "name": "编辑 学习 Rust" } },
+        { "expectVisible": { "role": "dialog", "name": "编辑学习项目" } },
+        {
+          "screenshotHere": {
+            "name": "dialog-dark-user-path",
+            "verify": [{ "role": "dialog", "name": "编辑学习项目" }, { "role": "textbox", "name": "项目名称" }]
+          }
+        },
+        { "press": "Escape" },
+        { "expectHidden": { "role": "dialog", "name": "编辑学习项目" } },
+        { "toggleTheme": "light" },
+        { "expectTheme": "light" },
         { "viewport": { "width": 420, "height": 860 } },
         {
           "screenshot": {

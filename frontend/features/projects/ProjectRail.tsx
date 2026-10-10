@@ -18,11 +18,11 @@ import { useTheme } from "../theme/ThemeProvider";
 type LoadState = "idle" | "loading" | "ready" | "error";
 
 const cardAccents = [
-  "from-emerald-400 to-teal-500",
-  "from-sky-400 to-blue-500",
-  "from-violet-400 to-indigo-500",
-  "from-amber-400 to-orange-500",
-  "from-rose-400 to-pink-500",
+  "from-project-1 to-project-1/30",
+  "from-project-2 to-project-2/30",
+  "from-project-3 to-project-3/30",
+  "from-project-4 to-project-4/30",
+  "from-project-5 to-project-5/30",
 ];
 
 export function ProjectRail({
@@ -56,7 +56,7 @@ export function ProjectRail({
       <div className="flex items-start justify-between gap-2 border-b border-border pb-5">
         <div className="flex items-center gap-3">
           <div
-            className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 text-white shadow-md shadow-emerald-500/25"
+            className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-accent via-accent/80 to-accent/40 text-accent-foreground shadow-md shadow-accent/25"
             aria-hidden="true"
           >
             <Compass size={20} className="stroke-[2.2]" />
@@ -116,13 +116,13 @@ export function ProjectRail({
                 aria-current={isSelected ? "true" : undefined}
                 className={`group relative flex flex-col overflow-hidden rounded-xl border bg-surface transition-colors ${
                   isSelected
-                    ? "border-emerald-500/70 ring-1 ring-emerald-500/25"
-                    : "border-border hover:border-emerald-500/40"
+                    ? "border-accent/70 ring-1 ring-accent/25"
+                    : "border-border hover:border-accent/40"
                 }`}
               >
                 <div
                   className={`absolute bottom-3 left-0 top-3 w-1 rounded-r-full ${
-                    isSelected ? "bg-emerald-500" : `bg-gradient-to-b ${accent} opacity-60 group-hover:opacity-100`
+                    isSelected ? "bg-accent" : `bg-gradient-to-b ${accent} opacity-60 group-hover:opacity-100`
                   }`}
                   aria-hidden="true"
                 />
@@ -140,7 +140,7 @@ export function ProjectRail({
                     <span className="mt-1 block max-w-full truncate text-xs text-muted">
                       {project.topic}
                     </span>
-                    <span className="mt-2.5 block text-[11px] font-semibold tracking-wide text-emerald-700 dark:text-emerald-400">
+                    <span className="mt-2.5 block text-[11px] font-semibold tracking-wide text-brand-ink">
                       {project.progress.done}/{project.progress.total} 已完成
                     </span>
                   </Button>

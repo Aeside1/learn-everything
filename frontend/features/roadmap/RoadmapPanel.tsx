@@ -16,7 +16,7 @@ function nodePreview(description: string) {
 }
 
 const nodeEntryClassName =
-  "h-auto w-full items-start justify-start gap-[18px] rounded-none bg-transparent p-[19px] text-left whitespace-normal hover:bg-transparent max-[1100px]:gap-[13px] max-[1100px]:px-[15px] max-[1100px]:pt-[15px] max-[1100px]:pb-[10px]";
+  "h-auto w-full items-start justify-start gap-[18px] rounded-none p-[19px] text-left whitespace-normal hover:bg-transparent max-[1100px]:gap-[13px] max-[1100px]:px-[15px] max-[1100px]:pt-[15px] max-[1100px]:pb-[10px]";
 
 export function RoadmapPanel({ roadmap, nodes, statusPendingId, onUpdateStatus }: { roadmap: ProjectRoadmap | null; nodes: WorkspaceNode[]; statusPendingId: number | null; onUpdateStatus: (node: Pick<WorkspaceNode, "id" | "title" | "status">, status: string) => Promise<boolean> }) {
   const [view, setView] = useState<"list" | "detail">("list");

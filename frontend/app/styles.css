@@ -21,6 +21,11 @@
   --color-panel: var(--panel);
   --color-panel-soft: var(--panel-soft);
   --color-line: var(--line);
+  --color-project-1: var(--project-1);
+  --color-project-2: var(--project-2);
+  --color-project-3: var(--project-3);
+  --color-project-4: var(--project-4);
+  --color-project-5: var(--project-5);
 }
 
 /* 品牌色只在两种主题间保持一致的实心填充场景使用；
@@ -58,6 +63,13 @@
   --code-bg: #172a22;
   --code-ink: #edf5dc;
   --shadow: 0 20px 50px rgba(20, 41, 31, 0.08);
+
+  /* 项目卡片装饰色：只在样式表里定义一次，浅色/深色各自取值，组件里不再出现调色板类与 dark: 覆写。 */
+  --project-1: #2f8f6b;
+  --project-2: #3577c4;
+  --project-3: #6f55cd;
+  --project-4: #b9791f;
+  --project-5: #bd4a70;
 }
 
 .dark {
@@ -72,6 +84,12 @@
   --code-bg: #0f1b17;
   --code-ink: #dcecd0;
   --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+
+  --project-1: #6fd0a7;
+  --project-2: #7cb6e8;
+  --project-3: #aa93ea;
+  --project-4: #dfb062;
+  --project-5: #e886a5;
 }
 
 * { box-sizing: border-box; }

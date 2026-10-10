@@ -60,7 +60,7 @@ export function Workspace({
           className="flex shrink-0 items-baseline justify-between sm:flex-col sm:items-end sm:justify-center"
           aria-label={`项目进度 ${progress.done}/${progress.total}`}
         >
-          <div className="font-serif text-4xl font-bold text-emerald-700 dark:text-emerald-400">
+          <div className="font-serif text-4xl font-bold text-brand-ink">
             {progress.done}
             <small className="font-sans text-lg font-normal text-muted"> / {progress.total}</small>
           </div>

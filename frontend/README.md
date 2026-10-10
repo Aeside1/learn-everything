@@ -232,6 +232,8 @@ flowchart LR
    ```
 
    脚本会为每个 `screenshot` 步骤自动采集浅色与深色截图、在切换后复验该点声明的 `verify` 目标（用于证明“切主题不丢状态”），并比较 `role=dialog/listbox/tooltip` 浮层在两种主题下的计算颜色（颜色完全相同即判定失败，用于抓出“只有库控件变暗、浮层没变”的问题）。
+
+   每个截图在 `report.json` 里都带 `switchMode`，标明主题是怎么切的：`real-button`（点真实主题控件）、`dom-swap`（弹窗打开时的受控 DOM 切换）、`user-path`（本步不切换）。**弹窗打开时主题控件在遮罩后面，`dom-swap` 截图只能证明浮层随主题变色，不能作为“用户可在弹窗内切换主题”的证据**；这类截图会在 `summary.md` 末尾集中列出。弹窗的合法双主题证据要用两步真实路径：先开弹窗 → `screenshotHere`，再关闭 → 用真实控件切主题 → 重开弹窗 → `screenshotHere`（参考 `scenarios/01-theme-and-projects.json` 的 `dialog-light-user-path` / `dialog-dark-user-path`）。
 3. **状态覆盖**：默认/hover/键盘焦点/禁用/加载/错误/选中态，以及窄屏、长文本、滚动。
 4. **记录**：在 `.scratch/heroui-integration/records/` 下更新对应记录（控件来源、原生例外、命令结果、证据路径）；未实际执行的检查不得标记为通过。
 5. **静态检查**：`npm run typecheck`、`npm run test`、`npm run build` 全部通过。

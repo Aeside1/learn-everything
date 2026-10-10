@@ -1,11 +1,12 @@
 {
-  "baseUrl": "http://127.0.0.1:8129",
+  "baseUrl": "http://127.0.0.1:8137",
   "static": "G:\\Github\\learn-everything\\frontend\\out",
-  "ranAt": "2026-10-10T21:57:43",
+  "ranAt": "2026-10-10T22:18:49",
+  "domSwapScreenshots": [],
   "scenarios": [
     {
       "name": "workspace-tabs-progress-detail",
-      "baseUrl": "http://127.0.0.1:8129",
+      "baseUrl": "http://127.0.0.1:8137",
       "status": "passed",
       "steps": [
         {
@@ -345,7 +346,7 @@
     },
     {
       "name": "workspace-keyboard-narrow-long-title",
-      "baseUrl": "http://127.0.0.1:8129",
+      "baseUrl": "http://127.0.0.1:8137",
       "status": "passed",
       "steps": [
         {
@@ -609,7 +610,7 @@
     },
     {
       "name": "workspace-loading-and-error",
-      "baseUrl": "http://127.0.0.1:8129",
+      "baseUrl": "http://127.0.0.1:8137",
       "status": "passed",
       "steps": [
         {
@@ -765,7 +766,7 @@
         "error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
       ],
       "failedRequests": [
-        "GET http://127.0.0.1:8129/api/v1/projects -> net::ERR_ABORTED"
+        "GET http://127.0.0.1:8137/api/v1/projects -> net::ERR_ABORTED"
       ]
     }
   ]

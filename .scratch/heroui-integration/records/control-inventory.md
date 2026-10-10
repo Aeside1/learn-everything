@@ -40,6 +40,8 @@
 | `<form>`/`<main>`/`<aside>`/`<nav>`/`<section>`/`<article>`/`<header>` | 各处 | 语义结构与地标 | 布局语义，不是基础控件 | 01/02 |
 | `<input type="file">` | 资料库 | 选择本地文件 | 浏览器原生文件语义，不具备可替换的 HeroUI 等价控件；要求与周围控件保持布局/焦点/主题一致 | 05（待验证） |
 | 计数与统计文本 | 工作区、看板 | 业务内容排版 | 非交互内容 | 01/02 |
+| HeroUI `Button` 上的布局性覆写 | `features/roadmap/RoadmapPanel.tsx:18`（`nodeEntryClassName`） | 整行卡片作为点击区 | 基础 `.button` 是胶囊形且带内边距（`@heroui/styles/dist/components/button.css:4` 的 `rounded-3xl px-4`），ghost 的悬停底色是 `var(--default)`（同文件 :115），必须用 `rounded-none` 与 `hover:bg-transparent` 中和；悬停反馈由外层 `.node-row` 卡片提供。仅允许这类形状/底色中和 + 布局类，不得手写完整控件皮肤 | 03/集成 |
+| 项目卡片装饰色令牌 | `app/styles.css` `--project-1..5` | 每个项目一条装饰色带 | 装饰色只在样式表里定义一次并区分浅/深取值，组件里不再出现调色板类与 `dark:` 覆写；原 `from-emerald-400 …` 五组调色板类已删除 | 01/01 复验 |
 
 ## 尚未迁移（不得视为完成）
 
