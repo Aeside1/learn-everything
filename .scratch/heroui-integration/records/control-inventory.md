@@ -43,8 +43,33 @@
 
 ## 尚未迁移（不得视为完成）
 
-- 12 个业务面板中原生 `select`/`textarea`/`checkbox`/手写按钮皮肤：见上表 ⏳ 03–06。
+- 12 个业务面板中原生 `select`/`textarea`/`checkbox`/手写按钮皮肤：见上表 ⏳ 04–05（03/06 已完成）。
 - `app/styles.css` 中仍保留尚未迁移调用方的控件皮肤规则；只有确认无调用方后才删除（07）。
+
+## 死样式审计清单（07 执行，输入为 2026 年审计产出，main @ 932141e）
+
+审计方法：抽取全部 `className` token 集合与 CSS 类名求差，再对差集逐个做子串/动态拼接复查（模板字符串如 `` node-${status} `` 必须按片段查）。下表已由主 agent 抽检复核。
+
+**确认无调用方，可直接删除**
+
+| 类名 | 归属任务 | 复核证据 |
+| --- | --- | --- |
+| `sr-only` | 01 | 全前端 0 命中；Tailwind v4 已内置同名工具类（删除后需在真实渲染下确认无可见性回归） |
+| `icon-button` / `.icon-button.danger` | 01 | `components/ui/IconButton.tsx` 已用 HeroUI `Button`；`danger` 只作 `variant` 取值 |
+| `text-action` | 01 | 0 命中 |
+| `environment-note`（含 760px 断点内 3 条） | 01/03 | 0 命中 |
+| `secondary-button`（含 `:disabled` 组合） | 01/03 | 0 命中，已由 `Button variant="secondary"` 取代 |
+| `command-button`（含 `.resource-upload-form`/`.model-config-actions` 后代选择器、`:disabled` 组合） | 01/06 | 0 命中 |
+| `danger-button`（含 `:hover`/`:disabled`） | 01 | 0 命中，已由 `Button variant="danger"` 取代 |
+| `model-config-form` / `model-config-state` / `.model-config-state .ready` / `.missing` / `model-config-actions` / `model-config-message` / `.model-config-message.inline` / `.error` / `model-config-hint` / `model-profile-controls` / `icon-command` | 06 | 0 命中 |
+| `node-open-button`（含 1100px/760px 断点内规则） | 03 | 0 命中，已被 `nodeEntryClassName` 的 Tailwind 类取代 |
+| `detail-note` | 03 | 0 命中（场景 JSON 中仅是截图名，非类名） |
+| `status-button` | 03 | 0 命中，已换成 HeroUI `ToggleButtonGroup` |
+| `roadmap-form` / `refine-row` / `hour-input` | 03 | 0 命中，已被 `roadmap-create-form` / `roadmap-refine` 取代 |
+
+**动态拼接，必须保留**：`node-mastered`/`node-weak`（`RoadmapPanel.tsx:46` `` `node-row node-${node.status}` ``）、`resource-row.completed`/`.failed`（`ResourceLibraryPanel.tsx:67`）、`job-blocked`（`RoadmapCreation.tsx:192`）、`quiz-option.active`（`QuizPanel.tsx:44`）、`rag-message.user`（`RagChatPanel.tsx:66`）、全部 `.status-control` 规则（`NodeStatusControl.tsx:22` 挂在 HeroUI `ToggleButtonGroup` 上）。
+
+**待确认**：`command-layout` 被 `RagChatPanel`/`QuizPanel`/`ResourceLibraryPanel` 使用但 CSS 中无定义（可能是漏定义的空类，交由 04/05 处理）；`lib/api.ts` 中 13 个类型导出（`Progress`、`RoadmapNode`、`QuizQuestion`、`RagStreamEvent`…）仅文件内部使用、外部 0 引用，属 API 契约类型，倾向于保留并在 07 说明理由。
 
 ## 接入与主题验收矩阵（逐模块填写实际结果）
 
